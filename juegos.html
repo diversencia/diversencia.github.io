@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Juegos de mesa – Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon" />
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- Botón hamburguesa -->
+    <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <!-- Menú lateral -->
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav class="menu-lateral">
+        <div class="logo-menu"><img src="logo.png" alt="Logo Diversencia" /></div>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+          <li><a href="espacios.html">Espacios Inclusivos</a></li>
+          <li><a href="juegos.html">Juegos de mesa</a><span class="asterisco1">*</span></li>
+          <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Encabezado -->
+    <header class="hero1">
+      <div class="contenedor-logo">
+        <h1>Juegos de mesa<span class="asterisco">*</span></h1>
+        <p class="subtitulo">Diversión inclusiva para todas las edades</p>
+      </div>
+    </header>
+
+    <main class="contenido">
+      <div class="tabla-container">
+        <h3 id="JuegosDeMesa">Juegos de Mesa</h3>
+        <table class="tabla-estilo" aria-describedby="JuegosDeMesa">
+          <thead>
+            <tr>
+              <th>Juego</th>
+              <th>Edad</th>
+              <th>Descripción</th>
+              <th>Enlace</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dixit</td>
+              <td>+8</td>
+              <td>Juego de imaginación con cartas ilustradas.</td>
+              <td><a href="#">Ver tienda</a></td>
+            </tr>
+            <tr>
+              <td>Spot It!</td>
+              <td>+6</td>
+              <td>Encuentra el símbolo igual antes que los demás.</td>
+              <td><a href="#">Ver tienda</a></td>
+            </tr>
+            <tr>
+              <td>Memory Pictogramas</td>
+              <td>+4</td>
+              <td>Juego de memoria con imágenes accesibles.</td>
+              <td><a href="#">Ver tienda</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+      <div class="footer-contact">
+        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+  </div>
+</footer>
+
+  </div>
+
+  <script>
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+  </script>
+</body>
+</html>

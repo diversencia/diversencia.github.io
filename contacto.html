@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contacto - Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Botón hamburguesa -->
+    <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <!-- Menú lateral -->
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav id="menu-lateral" class="menu-lateral">
+        <div class="logo-menu">
+          <img src="logo.png" alt="Logo Diversencia" />
+        </div>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+          <li><a href="espacios.html">Espacios Inclusivos</a></li>
+          <li><a href="juegos.html">Juegos de mesa</a></li>
+          <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html" class="activo">Contacto</a><span class="asterisco1">*</span></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Encabezado -->
+    <header class="hero1">
+      <div class="contenedor-logo">
+        <h1><span class="nombre">Contacto</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">Queremos escucharte y estar cerca de ti</p>
+      </div>
+    </header>
+
+    <!-- Contenido -->
+    <main class="contenido">
+      <section class="contacto-card">
+        <h2>¿Cómo puedes contactar con nosotros?</h2>
+        <p>📧 Correo electrónico: <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+        <p>📱 Instagram: <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+      </section>
+    </main>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+      <div class="footer-contact">
+        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+  </div>
+</footer>
+
+  </div> <!-- /.page-wrapper -->
+
+  <script>
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+  </script>
+
+</body>
+</html>

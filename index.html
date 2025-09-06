@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Diversencia* - Proyecto inclusivo para descubrir espacios, juegos, causas y recursos que fomentan la diversidad y la accesibilidad.">
+  <title>Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-------------------------- Botón hamburguesa -------------------------->
+    <button id="toggle-menu" class="hamburguesa" aria-label="Abrir menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <!-- Menú lateral -->
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav id="menu-lateral" class="menu-lateral">
+        <div class="logo-menu">
+          <img src="logo.png" alt="Logo Diversencia" />
+        </div>
+        <ul>
+          <li><a href="index.html" class="activo">Inicio</a><span class="asterisco1">*</span></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+          <li><a href="espacios.html">Espacios Inclusivos</a></li>
+          <li><a href="juegos.html">Juegos de mesa</a></li>
+          <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!---------------------------------- Hero ------------------------------------->
+    <header class="hero hero-home">
+      <div class="contenedor-logo">
+        <h1><span class="nombre">Diversencia</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">La inclusión no se enseña, se contagia.</p>
+        <a href="#explora" class="btn-principal">Explorar</a>
+      </div>
+    </header>
+
+    <!--------------------------- Secciones principales -------------------------->
+    <main class="contenido" id="explora" aria-label="Secciones principales">
+ <div class="contenedor">
+<section id="descripcion" class="descripcion-proyecto contenedor">
+  <h2>Un proyecto inclusivo</h2>
+  <p>
+    <strong>Diversencia*</strong> es un proyecto dedicado a visibilizar y poner en valor los espacios inclusivos, donde la diversidad funcional se vive con normalidad, respeto y empatía. Nuestro objetivo es promover la inclusión real, ofreciendo información y recursos útiles, apoyando causas sociales y generando una comunidad que impulse la accesibilidad y la igualdad de oportunidades. <br><br>
+
+A través de nuestra plataforma, podrás descubrir lugares, iniciativas y experiencias que fomentan la diversidad, aprender sobre buenas prácticas en inclusión, y conectar con proyectos y personas que trabajan por un mundo más justo y cercano. 
+
+<br><br>En Diversencia*, creemos que la inclusión no se enseña, se contagia: queremos inspirar y motivar a toda la sociedad para que cada acción y cada espacio sea más accesible y humano.
+  </p>
+</section>
+      <div class="enlaces">
+        <a href="sobre.html">
+          <img src="equipo.png" alt="Conoce al equipo de Diversencia" />
+          <p>Sobre nosotros</p>
+        </a>
+
+        <a href="espacios.html">
+          <img src="espacios_inclusivos.png" alt="Mapa de espacios inclusivos" />
+          <p>Espacios Inclusivos</p>
+        </a>
+
+        <a href="juegos.html">
+          <img src="juegos.png" alt="Juegos de mesa inclusivos" />
+          <p>Juegos de mesa</p>
+        </a>
+
+        <a href="kit.html">
+          <img src="kit.png" alt="Kit de materiales Diversencia" />
+          <p>Kit Diversencia*</p>
+        </a>
+
+        <a href="online.html">
+          <img src="online.png" alt="Recursos online accesibles" />
+          <p>Recursos online</p>
+        </a>
+
+        <a href="causas.html">
+          <img src="causas.png" alt="Proyectos y causas solidarias" />
+          <p>Causas</p>
+        </a>
+
+        <a href="contacto.html">
+          <img src="contacto.png" alt="Formulario y formas de contacto" />
+          <p>Contacto</p>
+        </a>
+      </div>
+</div>
+    </main>
+
+<!-------------------------------- Footer ------------------------------->
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+      <div class="footer-contact">
+        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<!----------------------------- /.page-wrapper -------------------------->
+
+  <script>
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+  </script>
+
+</body>
+</html>

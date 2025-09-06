@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recomendaciones Andalucía - Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Botón hamburguesa -->
+    <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <!-- Menú lateral -->
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav id="menu-lateral" class="menu-lateral">
+        <div class="logo-menu">
+          <img src="logo.png" alt="Logo Diversencia" />
+        </div>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+          <li><a href="espacios.html">Espacios Inclusivos</a></li>
+          <li><a href="juegos.html">Juegos de mesa</a></li>
+          <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Encabezado -->
+    <header class="hero1">
+      <div class="contenedor-logo">
+        <h1>Recomendaciones <span class="nombre">Andalucía</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">Lugares accesibles y amigables para todos</p>
+      </div>
+    </header>
+<main class="contenido">
+
+  <!-- Filtros -->
+  <section class="filtros-wrapper" aria-label="Filtros de búsqueda">
+    <h2>Filtrar lugares</h2>
+    <div class="filtros">
+      <input type="text" id="buscar" class="input-estilo" placeholder="🔍 Buscar por nombre o dirección..." aria-label="Buscar por nombre o dirección" />
+      <select id="filtroProvincia" class="select-estilo" aria-label="Filtrar por provincia">
+        <option value="">Todas las provincias</option>
+        <option value="Sevilla">Sevilla</option>
+        <option value="Almería">Almería</option>
+        <option value="Córdoba">Córdoba</option>
+      </select>
+      <select id="filtroTipo" class="select-estilo" aria-label="Filtrar por tipo de lugar">
+        <option value="">Todos los tipos</option>
+        <option value="Centro">Centro</option>
+        <option value="Restaurante">Restaurante</option>
+        <option value="Parque">Parque</option>
+        <option value="Cine">Cine</option>
+        <option value="Dentista">Dentista</option>
+        <option value="Ocio">Ocio</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Tablas de recomendaciones -->
+  <div class="tabla-container">
+    <h3 id="Sevilla">Sevilla</h3>
+    <table class="tabla-estilo" aria-describedby="Sevilla">
+      <thead>
+        <tr><th>Lugar</th><th>Tipo</th><th>Dirección</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Centro Inclusivo Sevilla</td><td>Centro</td><td>Calle Feria, 20</td></tr>
+        <tr><td>Parque María Luisa</td><td>Parque</td><td>Avenida de María Luisa, s/n</td></tr>
+        <tr><td>Dentista Clínica San Pablo</td><td>Dentista</td><td>Calle San Pablo, 45</td></tr>
+        <tr><td>Restaurante El Rinconcillo</td><td>Restaurante</td><td>Calle Gerona, 40</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="Almería">Almería</h3>
+    <table class="tabla-estilo" aria-describedby="Almería">
+      <thead>
+        <tr><th>Lugar</th><th>Tipo</th><th>Dirección</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Centro de Día Almería</td><td>Centro</td><td>Calle Real, 10</td></tr>
+        <tr><td>Restaurante La Taberna</td><td>Restaurante</td><td>Calle Virgen del Mar, 12</td></tr>
+        <tr><td>Parque Nicolás Salmerón</td><td>Parque</td><td>Avenida Mediterráneo, s/n</td></tr>
+        <tr><td>Cine Multicines Almería</td><td>Cine</td><td>Calle Jovellanos, 50</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="Córdoba">Córdoba</h3>
+    <table class="tabla-estilo" aria-describedby="Córdoba">
+      <thead>
+        <tr><th>Lugar</th><th>Tipo</th><th>Dirección</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Centro Inclusivo Córdoba</td><td>Centro</td><td>Calle San Fernando, 15</td></tr>
+        <tr><td>Restaurante Casa Pepe</td><td>Restaurante</td><td>Calle Feria, 7</td></tr>
+        <tr><td>Parque Cruz Conde</td><td>Parque</td><td>Avenida de la Libertad, s/n</td></tr>
+        <tr><td>Dentista Clínica Córdoba</td><td>Dentista</td><td>Calle Gondomar, 22</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+    <footer>
+      <p>© 2025 Diversencia* - Todos los derechos reservados</p>
+    </footer>
+
+  </div> <!-- /.page-wrapper -->
+
+  <script>
+    // Menú hamburguesa toggle
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+
+      // Cambia dirección flecha según estado
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+
+    // Filtro de tabla
+    const buscarInput = document.getElementById('buscar');
+    const filtroProvincia = document.getElementById('filtroProvincia');
+    const filtroTipo = document.getElementById('filtroTipo');
+    const tablas = document.querySelectorAll('.tabla-container table');
+
+    function filtrar() {
+      const busqueda = buscarInput.value.toLowerCase();
+      const provincia = filtroProvincia.value;
+      const tipo = filtroTipo.value;
+
+      tablas.forEach(tabla => {
+        const tbody = tabla.tBodies[0];
+        let filasVisibles = 0;
+
+        Array.from(tbody.rows).forEach(fila => {
+          const lugar = fila.cells[0].textContent.toLowerCase();
+          const tipoLugar = fila.cells[1].textContent;
+          const direccion = fila.cells[2].textContent.toLowerCase();
+          const provinciaTabla = tabla.previousElementSibling.id;
+
+          const cumpleBusqueda = lugar.includes(busqueda) || direccion.includes(busqueda);
+          const cumpleProvincia = provincia === '' || provincia === provinciaTabla;
+          const cumpleTipo = tipo === '' || tipo === tipoLugar;
+
+          if (cumpleBusqueda && cumpleProvincia && cumpleTipo) {
+            fila.style.display = '';
+            filasVisibles++;
+          } else {
+            fila.style.display = 'none';
+          }
+        });
+
+        if (filasVisibles > 0) {
+          tabla.style.display = '';
+          tabla.previousElementSibling.style.display = '';
+        } else {
+          tabla.style.display = 'none';
+          tabla.previousElementSibling.style.display = 'none';
+        }
+      });
+    }
+
+    buscarInput.addEventListener('input', filtrar);
+    filtroProvincia.addEventListener('change', filtrar);
+    filtroTipo.addEventListener('change', filtrar);
+    filtrar();
+  </script>
+
+</body>
+</html>

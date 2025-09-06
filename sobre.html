@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sobre Nosotros - Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Botón hamburguesa -->
+    <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <!-- Menú lateral -->
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav class="menu-lateral">
+        <div class="logo-menu"><img src="logo.png" alt="Logo Diversencia" /></div>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a><span class="asterisco1">*</span></li>
+          <li><a href="espacios.html">Espacios Inclusivos</a></li>
+          <li><a href="juegos.html">Juegos de mesa</a>
+          <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  <!-- Hero -->
+<section class="hero-home hero-sobre" style="background-image: url('Diversencia1.png');">
+  <div class="hero-overlay hero-sobre-overlay">
+    <h1>Sobre Nosotros</h1>
+    <p class="subtitulo">Un equipo. Una ilusión. Un proyecto.</p>
+  </div>
+</section>
+
+
+  <!-- Contenido principal -->
+  <main class="contenido">
+
+    <!-- Sección de Misión -->
+    <section class="descripcion-proyecto">
+      <h2>Nuestra Misión</h2>
+      <p>
+        <strong>Diversencia*</strong> es un proyecto que busca visibilizar y poner en valor los espacios inclusivos, 
+        donde la diversidad funcional se vive con normalidad, respeto y cercanía.
+      </p>
+      <p>
+        Trabajamos para destacar iniciativas y lugares que promueven la accesibilidad, ofreciendo recursos útiles, 
+        fomentando el apoyo a causas sociales y construyendo una comunidad que celebra la diversidad en todas sus formas.
+      </p>
+      <p>
+        Nuestro compromiso es generar un entorno de información y colaboración que impulse la igualdad de oportunidades, 
+        eliminando barreras y favoreciendo un mundo más justo, empático y humano.
+      </p>
+    </section>
+
+    <!-- Sección Valores -->
+    <section class="valores contenedor">
+      <h2>Nuestros Valores</h2>
+      <div class="valores-grid">
+        <div class="valor">
+          <h3>Respeto</h3>
+          <p>Fomentamos un trato digno y considerado para todas las personas, promoviendo la empatía.</p>
+        </div>
+        <div class="valor">
+          <h3>Inclusión</h3>
+          <p>Todos nuestros recursos y espacios son accesibles y abiertos para cualquier persona.</p>
+        </div>
+        <div class="valor">
+          <h3>Apoyo</h3>
+          <p>Impulsamos iniciativas y causas que generan un impacto positivo en la comunidad.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Equipo -->
+<!-- Sección Equipo -->
+<section class="equipo contenedor">
+  <h2>Conoce al Equipo</h2>
+  <div class="equipo-grid">
+    <div class="miembro">
+      <img src="persona1.jpg" alt="Alba">
+      <h3>Alba</h3>
+      <p>Apasionada por la accesibilidad y la inclusión social, Laura cree que cada persona aporta un valor único a la comunidad. Coordina las iniciativas de visibilidad y recursos educativos.</p>
+    </div>
+    <div class="miembro">
+      <img src="persona2.jpg" alt="Stephany">
+      <h3>Stephany</h3>
+      <p>Con experiencia en diseño y comunicación, Carlos se encarga de la difusión del proyecto y de promover espacios inclusivos, trabajando siempre con cercanía y respeto.</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+        <div class="footer-contact">
+          <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+          <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+        </div>
+      </div>
+      <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+   <script>
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+  </script>
+</body>
+</html>

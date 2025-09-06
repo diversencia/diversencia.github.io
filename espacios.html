@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Espacios Inclusivos - Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Botón hamburguesa -->
+    <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <!-- Menú lateral -->
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav id="menu-lateral" class="menu-lateral">
+        <div class="logo-menu">
+          <img src="logo.png" alt="Logo Diversencia" />
+        </div>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+	  <li><a href="espacios.html">Espacios Inclusivos</a><span class="asterisco1">*</span></li>
+          <li><a href="juegos.html">Juegos de mesa</a></li>
+	  <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Encabezado corregido: usa la misma estructura que el index -->
+    <header class="hero1">
+      <div class="contenedor-logo">
+        <h1><span class="nombre">Espacios Inclusivos</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">Descubre espacios seguros, accesibles y respetuosos con la diversidad en toda España</p>
+      </div>
+    </header>
+
+    <main class="contenido">
+      <h2 class="titulo-comunidades">Comunidades Autónomas</h2>
+      <div class="enlaces">
+        <a href="andalucia.html">
+          <img src="img/andalucia.jpg" alt="Andalucía" />
+          <p>Andalucía</p>
+        </a>
+        <a href="aragon.html">
+          <img src="img/aragon.jpg" alt="Aragón" />
+          <p>Aragón</p>
+        </a>
+        <a href="asturias.html">
+          <img src="img/asturias.jpg" alt="Asturias" />
+          <p>Asturias</p>
+        </a>
+        <a href="baleares.html">
+          <img src="img/baleares.jpg" alt="Baleares" />
+          <p>Baleares</p>
+        </a>
+        <a href="canarias.html">
+          <img src="img/canarias.jpg" alt="Canarias" />
+          <p>Canarias</p>
+        </a>
+        <a href="cantabria.html">
+          <img src="img/cantabria.jpg" alt="Cantabria" />
+          <p>Cantabria</p>
+        </a>
+        <a href="cym.html">
+          <img src="img/clm.jpg" alt="Castilla-La Mancha" />
+          <p>Castilla-La Mancha</p>
+        </a>
+        <a href="cyl.html">
+          <img src="img/cyl.jpg" alt="Castilla y León" />
+          <p>Castilla y León</p>
+        </a>
+        <a href="cataluna.html">
+          <img src="img/cataluna.jpg" alt="Cataluña" />
+          <p>Cataluña</p>
+        </a>
+        <a href="ceuta.html">
+          <img src="img/ceuta.jpg" alt="Ceuta" />
+          <p>Ceuta</p>
+        </a>
+        <a href="valencia.html">
+          <img src="img/comunidad_valenciana.jpg" alt="Comunidad Valenciana" />
+          <p>Comunidad Valenciana</p>
+        </a>
+        <a href="extremadura.html">
+          <img src="img/extremadura.jpg" alt="Extremadura" />
+          <p>Extremadura</p>
+        </a>
+        <a href="galicia.html">
+          <img src="img/galicia.jpg" alt="Galicia" />
+          <p>Galicia</p>
+        </a>
+        <a href="rioja.html">
+          <img src="img/la_rioja.jpg" alt="La Rioja" />
+          <p>La Rioja</p>
+        </a>
+        <a href="madrid.html">
+          <img src="img/madrid.jpg" alt="Madrid" />
+          <p>Madrid</p>
+        </a>
+        <a href="melilla.html">
+          <img src="img/melilla.jpg" alt="Melilla" />
+          <p>Melilla</p>
+        </a>
+        <a href="murcia.html">
+          <img src="img/murcia.jpg" alt="Murcia" />
+          <p>Murcia</p>
+        </a>
+        <a href="navarra.html">
+          <img src="img/navarra.jpg" alt="Navarra" />
+          <p>Navarra</p>
+        </a>
+        <a href="paisvasco.html">
+          <img src="img/pais_vasco.jpg" alt="País Vasco" />
+          <p>País Vasco</p>
+        </a>
+      </div>
+    </main>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+      <div class="footer-contact">
+        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+  </div>
+</footer>
+
+
+  </div> <!-- /.page-wrapper -->
+
+  <script>
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+
+      // Cambia dirección flecha según estado
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+  </script>
+
+</body>
+</html>

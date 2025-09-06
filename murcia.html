@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recomendaciones Murcia – Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
+      <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+           viewBox="0 0 24 24" fill="none" stroke="#4db7c3" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+    <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
+      <nav class="menu-lateral">
+        <div class="logo-menu"><img src="logo.png" alt="Logo Diversencia" /></div>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+          <li><a href="espacios.html">Espacios Inclusivos</a></li>
+          <li><a href="juegos.html">Juegos de mesa</a></li>
+          <li><a href="online.html">Recursos online</a></li>
+          <li><a href="causas.html">Causas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+    <header class="hero1">
+      <div class="contenedor-logo">
+        <h1>Recomendaciones <span class="nombre">Murcia</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">Lugares accesibles y amigables para todos</p>
+      </div>
+    </header>
+    <main class="contenido">
+      <section class="filtros-wrapper" aria-label="Filtros de búsqueda">
+        <h2>Filtrar lugares</h2>
+        <div class="filtros">
+          <input type="text" id="buscar" class="input-estilo" placeholder="🔍 Buscar por nombre o dirección…" aria-label="Buscar por nombre o dirección" />
+          <select id="filtroTipo" class="select-estilo" aria-label="Filtrar por tipo">
+            <option value="">Todos los tipos</option>
+            <option value="Peluquería">Peluquería</option>
+          </select>
+        </div>
+      </section>
+      <div class="tabla-container">
+        <h3 id="Murcia">Murcia</h3>
+        <table class="tabla-estilo" aria-describedby="Murcia">
+          <thead>
+            <tr><th>Lugar</th><th>Tipo</th><th>Dirección</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Heaslip Barber</td><td>Peluquería</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <footer><p>© 2025 Diversencia* – Todos los derechos reservados</p></footer>
+  </div>
+  <script>
+    const menuWrapper = document.getElementById("menu-wrapper");
+    const toggleBtn = document.getElementById("toggle-menu");
+    const iconoMenu = document.getElementById("icono-menu");
+    toggleBtn.addEventListener("click", () => {
+      const abierto = menuWrapper.classList.toggle("visible");
+      toggleBtn.classList.toggle("active");
+      iconoMenu.innerHTML = abierto
+        ? '<polyline points="15 18 9 12 15 6" />'
+        : '<polyline points="9 18 15 12 9 6" />';
+    });
+    const buscarInput = document.getElementById("buscar");
+    const filtroTipo = document.getElementById("filtroTipo");
+    const tabla = document.querySelector(".tabla-container table");
+    function filtrar() {
+      const b = buscarInput.value.toLowerCase();
+      const t = filtroTipo.value;
+      let v = 0;
+      Array.from(tabla.tBodies[0].rows).forEach(f => {
+        const l = f.cells[0].textContent.toLowerCase();
+        const d = f.cells[2].textContent.toLowerCase();
+        const tp = f.cells[1].textContent;
+        const cb = l.includes(b) || d.includes(b);
+        const ct = t === "" || t === tp;
+        f.style.display = cb && ct ? "" : "none";
+        if (cb && ct) v++;
+      });  
+      tabla.style.display = v > 0 ? "" : "none";
+      document.getElementById("Murcia").style.display = v > 0 ? "" : "none";
+    }
+    buscarInput.addEventListener("input", filtrar);
+    filtroTipo.addEventListener("change", filtrar);
+    filtrar();
+  </script>
+</body>
+</html>

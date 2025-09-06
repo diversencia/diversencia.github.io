@@ -1,0 +1,527 @@
+/* ================= RESET Y BASE ================= */
+body {
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* ================= MENÚ LATERAL ================= */
+.hamburguesa {
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1300;
+  transition: left 0.3s ease, background-color 0.3s ease;
+  user-select: none;
+}
+.hamburguesa:hover { background-color: #f0f0f0; }
+.hamburguesa.active { left: 260px; }
+
+.menu-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.2);
+  transform: translateX(-250px);
+  transition: transform 0.3s ease;
+  z-index: 1100;
+}
+.menu-wrapper.visible { transform: translateX(0); }
+
+.menu-lateral {
+  height: 100%;
+  padding: 80px 20px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0 10px;
+  margin-top: -50px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+.logo-menu img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+}
+
+.menu-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+.menu-lateral li { margin-bottom: 20px; }
+
+.menu-lateral a {
+  text-decoration: none;
+  color: #4db7c3;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.menu-lateral a:hover { color: #3aa3af; }
+
+/* ================= HEROES GENERALES ================= */
+.hero {
+  height: 100vh;
+  background-image: url("Diversencia.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.hero1 {
+  height: 40vh;
+  background-image: url("Diversencia1.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.contenedor-logo {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin: 0;
+  user-select: none;
+}
+
+.nombre {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3.5rem;
+  color: #4db7c3;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.subtitulo {
+  font-family: 'Fredoka', sans-serif;
+  color: #444;
+}
+
+/* ============ HERO HOME (IMAGEN + OVERLAY) ============ */
+/* Versión única (la de imagen con overlay). Eliminar duplicados anteriores. */
+.hero-home {
+  position: relative;
+  background: url("Diversencia.png") center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffff;
+}
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4); /* oscurece para leer texto */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+.hero-home h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+.hero-home .subtitulo {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 1.7rem;
+}
+
+
+/* ================= FILTROS ================= */
+.filtros-wrapper {
+  background: #f9f9f9;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.input-estilo, .select-estilo {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1rem;
+  outline: none;
+}
+.input-estilo:focus, .select-estilo:focus {
+  border-color: #4db7c3;
+  box-shadow: 0 0 4px rgba(77,183,195,0.4);
+}
+
+/* ================= CONTACTO CARD ================= */
+.contacto-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.contacto-card h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.contacto-card p {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+.contacto-card a {
+  color: #4db7c3;
+  font-weight: 500;
+  text-decoration: none;
+}
+.contacto-card a:hover { text-decoration: underline; }
+
+/* ================= TABLAS ================= */
+.tabla-estilo {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.tabla-estilo thead {
+  background: #4db7c3;
+  color: white;
+}
+.tabla-estilo th, .tabla-estilo td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+.tabla-estilo tbody tr:nth-child(even) { background: #f4fafa; }
+.tabla-estilo tbody tr:hover { background: #e7f6f8; }
+
+/* ================= ASTERISCOS ================= */
+.asterisco {
+  color: #e37c3a;
+  font-size: 3.5rem;
+  vertical-align: top;
+  margin-left: 5px;
+}
+.asterisco1 {
+  color: #e37c3a;
+  font-size: 1.5rem;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+/* ================= CONTENIDO PRINCIPAL ================= */
+main.contenido {
+  padding: 40px 20px;
+  text-align: center;
+}
+main h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+/* ================= ENLACES (versión única en grid) ================= */
+/* Eliminado el bloque antiguo en flex para evitar conflictos. */
+.enlaces {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.enlaces a {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+  display: block;
+}
+.enlaces a:hover { transform: translateY(-5px); }
+.enlaces img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+}
+.enlaces p {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* ================= DESCRIPCIÓN PROYECTO (única) ================= */
+/* Dejamos una sola definición, la más completa. */
+.descripcion-proyecto {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff, #f7fbfc);
+  border-radius: 20px;
+  margin-top: 4rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.descripcion-proyecto h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.5rem;
+  color: #4db7c3;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+.descripcion-proyecto p {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  max-width: 850px;
+  margin: auto;
+  text-align: justify;
+  color: #444;
+}
+
+/* ================= BOTONES ================= */
+.btn-principal {
+  background: #4db7c3;
+  color: #fff;
+  padding: 0.9rem 1.8rem;
+  border-radius: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.3s;
+  display: inline-block;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.btn-principal:hover { background: #3aa3af; }
+
+/* ================= CONTENEDORES ================= */
+.contenedor {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+.contenido h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ================= FOOTER (único) ================= */
+footer {
+  background: #f5f5f5;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #444;
+  margin-top: 3rem;
+}
+.footer-container {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+}
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem; /* espacio entre logo y contacto/redes */
+}
+.footer-logo { width: 60px; }
+.footer-rrss { display: flex; gap: 0.8rem; }
+.footer-rrss a {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #4db7c3;
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.footer-rrss a:hover { background: #3aa3af; }
+.footer-contact p {
+  margin: 0.1rem 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
+}
+.footer-copy {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+
+/* ================= TÍTULO COMUNIDADES ================= */
+.titulo-comunidades {
+  font-size: 2.2rem;
+  color: #4db7c3;
+  margin-bottom: 30px;
+  font-weight: 600; /* completado */
+}
+
+
+/* ================= SECCIÓN EQUIPO ================= */
+
+/* ================= HERO SOBRE NOSOTROS ================= */
+.hero-sobre {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 60vh; /* Ajustable según necesites */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Contenedor tipo “cuadradito” */
+.hero-sobre-overlay {
+  background-color: rgba(255, 255, 255, 0.8); /* cuadrado semitransparente */
+  padding: 20px 30px; /* define el espacio interno */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: inline-flex; /* se ajusta al contenido */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 30%;
+  max-height: 40%;
+}
+
+.hero-sobre h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3.5rem;
+  color: #4db7c3;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.hero-sobre .subtitulo {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-size: 1.3rem;
+  color: #333; /* más oscuro para contraste con el cuadrado */
+}
+
+.equipo {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f7fbfc, #ffffff);
+  border-radius: 20px;
+  margin: 4rem auto;
+  max-width: 1000px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.equipo h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.5rem;
+  color: #4db7c3;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.equipo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.miembro {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.miembro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.miembro img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.miembro h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.5rem;
+  color: #4db7c3;
+  margin-bottom: 0.5rem;
+}
+
+.miembro p {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  text-align: justify;
+}
+
+

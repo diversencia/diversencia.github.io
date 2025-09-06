@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recomendaciones Navarra – Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- menú -->
+    <header class="hero1">
+      <div class="contenedor-logo">
+        <h1>
+          Recomendaciones
+          <span class="nombre">Navarra</span>
+          <span class="asterisco">*</span>
+        </h1>
+        <p class="subtitulo">Lugares accesibles y amigables para todos</p>
+      </div>
+    </header>
+    <main class="contenido">
+      <section class="filtros-wrapper" aria-label="Filtros de búsqueda">
+        <h2>Filtrar lugares</h2>
+        <div class="filtros">
+          <input type="text" id="buscar" class="input-estilo" placeholder="🔍 Buscar…" />
+          <select id="filtroTipo" class="select-estilo">
+            <option value="">Todos los tipos</option>
+          </select>
+        </div>
+      </section>
+      <div class="tabla-container">
+        <h3 id="Navarra">Navarra</h3>
+        <table class="tabla-estilo" aria-describedby="Navarra">
+          <thead>
+            <tr><th>Lugar</th><th>Tipo</th><th>Dirección</th></tr>
+          </thead>
+          <tbody>
+            <!-- filas -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <footer><p>© 2025 Diversencia* – Todos los derechos reservados</p></footer>
+  </div>
+  <script>
+    // toggle + filtrar
+  </script>
+</body>
+</html>
