@@ -425,17 +425,17 @@ footer {
 /* ================= HERO SOBRE NOSOTROS ================= */
 .hero-sobre {
 background-color: #fff;
-  /* En móvil el padding será pequeño (1.5rem) y en PC crecerá */
-  padding: clamp(1.5rem, 5vw, 4rem); 
+  /* Padding muy pequeño en los lados para ganar espacio */
+  padding: 2.5rem 1rem; 
   text-align: center;
   border-radius: 20px;
-  /* IMPORTANTE: Usamos 95% para que casi toque los bordes en móvil */
-  width: 95%;
-  max-width: 800px; 
-  margin: 2rem auto; 
+  /* El cuadro ocupará el 90% del ancho del móvil */
+  width: 90%; 
+  max-width: 800px;
+  margin: 2rem auto;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  box-sizing: border-box; /* Esto evita que el padding empuje el cuadro fuera */
-}
+  box-sizing: border-box; 
+  overflow: hidden; /* Evita que nada asome por fuera del borde redondeado */}
 /* Contenedor tipo “cuadradito” */
 .hero-sobre-overlay {
   background-color: rgba(255, 255, 255, 0.8); /* cuadrado semitransparente */
@@ -452,23 +452,24 @@ background-color: #fff;
 
 .hero-sobre h1 {
 font-family: 'Fredoka', sans-serif;
-  /* El título ahora bajará de tamaño solo en móviles */
-  font-size: clamp(1.5rem, 7vw, 3rem); 
+  /* Bajamos el tamaño: en móvil será 1.6rem (pequeño pero seguro) */
+  font-size: clamp(1.6rem, 7vw, 3rem); 
   color: #4db7c3;
-  margin: 0 0 1rem 0;
+  margin: 0;
   font-weight: 600;
   line-height: 1.2;
-  /* Esto evita que palabras largas rompan el diseño */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+  
+  /* ESTO ES LO MÁS IMPORTANTE PARA QUE NO SE SALGA */
+  inline-size: 100%;
+  overflow-wrap: break-word; /* Rompe la palabra si es necesario */
+  hyphens: auto; /* Pone un guion si la palabra se corta */
 }
 .hero-sobre .subtitulo {
 font-family: 'Quicksand', sans-serif;
-  /* Subtítulo más pequeño y legible en móvil */
-  font-size: clamp(0.95rem, 3vw, 1.2rem);
+  font-size: 1.1rem;
   color: #555;
-  line-height: 1.5;
-  margin: 0 auto;
+  margin-top: 10px;
+  display: block; /* Asegura que el subtítulo vaya debajo */
 }
 
 .equipo {
@@ -549,6 +550,7 @@ font-family: 'Quicksand', sans-serif;
     margin: 1rem;
   }
 }
+
 
 
 
