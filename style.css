@@ -424,15 +424,15 @@ footer {
 
 /* ================= HERO SOBRE NOSOTROS ================= */
 .hero-sobre {
-font-family: 'Fredoka', sans-serif;
-  /* El título cambiará entre 2rem y 3.5rem según el ancho de pantalla */
-  font-size: clamp(2rem, 8vw, 3.5rem); 
-  color: #4db7c3;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  line-height: 1.2; /* Evita que las líneas se solapen al cortarse */
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 60vh; /* Ajustable según necesites */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-
 /* Contenedor tipo “cuadradito” */
 .hero-sobre-overlay {
   background-color: rgba(255, 255, 255, 0.8); /* cuadrado semitransparente */
@@ -448,13 +448,14 @@ font-family: 'Fredoka', sans-serif;
 }
 
 .hero-sobre h1 {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 3.5rem;
+font-family: 'Fredoka', sans-serif;
+  font-size: clamp(1.8rem, 8vw, 3.5rem); /* Se encoge solo según la pantalla */
   color: #4db7c3;
   margin-bottom: 1rem;
   font-weight: 600;
+  line-height: 1.1;
+  word-wrap: break-word; /* Rompe la palabra si es necesario para no salirse */
 }
-
 .hero-sobre .subtitulo {
   font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
   font-size: 1.3rem;
@@ -539,6 +540,7 @@ font-family: 'Fredoka', sans-serif;
     margin: 1rem;
   }
 }
+
 
 
 
