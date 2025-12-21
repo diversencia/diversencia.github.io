@@ -425,16 +425,16 @@ footer {
 /* ================= HERO SOBRE NOSOTROS ================= */
 .hero-sobre {
 background-color: #fff;
-  /* Eliminamos el padding fijo gigante y usamos uno flexible */
-  padding: clamp(2rem, 10vw, 5rem) 1rem; 
+  /* En móvil el padding será pequeño (1.5rem) y en PC crecerá */
+  padding: clamp(1.5rem, 5vw, 4rem); 
   text-align: center;
-  border-radius: 30px;
-  /* Cambiamos width fijo por max-width para que en móvil sea el 90% */
-  width: 90%;
+  border-radius: 20px;
+  /* IMPORTANTE: Usamos 95% para que casi toque los bordes en móvil */
+  width: 95%;
   max-width: 800px; 
-  margin: 2rem auto; /* Lo centramos siempre */
+  margin: 2rem auto; 
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  box-sizing: border-box; /* Fundamental para que no se salga de la pantalla */
+  box-sizing: border-box; /* Esto evita que el padding empuje el cuadro fuera */
 }
 /* Contenedor tipo “cuadradito” */
 .hero-sobre-overlay {
@@ -453,17 +453,21 @@ background-color: #fff;
 .hero-sobre h1 {
 font-family: 'Fredoka', sans-serif;
   /* El título ahora bajará de tamaño solo en móviles */
-  font-size: clamp(1.8rem, 8vw, 3.5rem); 
+  font-size: clamp(1.5rem, 7vw, 3rem); 
   color: #4db7c3;
   margin: 0 0 1rem 0;
   font-weight: 600;
   line-height: 1.2;
+  /* Esto evita que palabras largas rompan el diseño */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 .hero-sobre .subtitulo {
 font-family: 'Quicksand', sans-serif;
-  font-size: clamp(1rem, 4vw, 1.3rem);
+  /* Subtítulo más pequeño y legible en móvil */
+  font-size: clamp(0.95rem, 3vw, 1.2rem);
   color: #555;
-  max-width: 600px;
+  line-height: 1.5;
   margin: 0 auto;
 }
 
@@ -545,6 +549,7 @@ font-family: 'Quicksand', sans-serif;
     margin: 1rem;
   }
 }
+
 
 
 
