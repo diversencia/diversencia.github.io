@@ -8,6 +8,132 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon">
+
+
+  <style>
+    /* Contenedor Flotante */
+    .acc-wrapper {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999999; /* Para que siempre esté por encima de todo */
+        font-family: Arial, sans-serif;
+    }
+
+    /* Botón Redondo */
+    .acc-trigger {
+        background: #0056b3;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        font-size: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Panel de Opciones */
+    .acc-menu-panel {
+        display: none;
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        width: 220px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        padding: 15px;
+        border: 1px solid #eee;
+    }
+
+    .acc-menu-panel.show { display: block; }
+
+    .acc-menu-panel h4 { margin: 0 0 15px 0; color: #333; text-align: center; border-bottom: 1px solid #eee; pb: 5px; }
+
+    .acc-btn {
+        width: 100%;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        color: #333;
+    }
+
+    .acc-btn:hover { background: #e9ecef; }
+
+    /* ESTILOS DE ACCESIBILIDAD (Los que cambian la web) */
+    /* El modo contraste ahora usa un filtro que invierte colores, es infalible */
+    .contrast-mode {
+        filter: invert(1) hue-rotate(180deg) !important;
+        background-color: #fff !important;
+    }
+    
+    /* Evitar que las imágenes se inviertan también (opcional) */
+    .contrast-mode img, .contrast-mode video {
+        filter: invert(1) hue-rotate(180deg) !important;
+    }
+
+    .underline-mode a {
+        text-decoration: underline !important;
+        text-decoration-thickness: 2px !important;
+        color: #0000EE !important;
+    }
+</style>
+
+<div class="acc-wrapper">
+    <button class="acc-trigger" onclick="toggleAcc()" title="Menú de Accesibilidad">
+        ♿
+    </button>
+    
+    <div id="accPanel" class="acc-menu-panel">
+        <h4>Accesibilidad</h4>
+        <button class="acc-btn" onclick="altFontSize(1.2)">➕ Aumentar Texto</button>
+        <button class="acc-btn" onclick="altFontSize(1)">🏠 Texto Normal</button>
+        <button class="acc-btn" onclick="altContrast()">🌗 Alto Contraste</button>
+        <button class="acc-btn" onclick="altLinks()">🔗 Subrayar Enlaces</button>
+        <button class="acc-btn" onclick="resetAllAcc()" style="background:#ffcccc;">🔄 Restablecer</button>
+    </div>
+</div>
+
+<script>
+    function toggleAcc() {
+        const panel = document.getElementById('accPanel');
+        panel.classList.toggle('show');
+    }
+
+    function altFontSize(scale) {
+        document.documentElement.style.zoom = scale;
+    }
+
+    function altContrast() {
+        document.documentElement.classList.toggle('contrast-mode');
+    }
+
+    function altLinks() {
+        document.body.classList.toggle('underline-mode');
+    }
+
+    function resetAllAcc() {
+        document.documentElement.style.zoom = 1;
+        document.documentElement.className = "";
+        document.body.className = "";
+    }
+
+    // Cerrar si se hace clic fuera
+    window.onclick = function(event) {
+        if (!event.target.matches('.acc-trigger') && !event.target.closest('.acc-menu-panel')) {
+            document.getElementById('accPanel').classList.remove('show');
+        }
+    }
+</script>
 </head>
 <body>
 
@@ -130,43 +256,10 @@ A través de nuestra plataforma, podrás descubrir lugares, iniciativas y experi
         : '<polyline points="9 18 15 12 9 6" />';
     });
 
-  
-function toggleAccMenu() {
-    document.getElementById('acc-panel').classList.toggle('active');
-}
-
-function changeFontSize(size) {
-    document.body.style.zoom = size;
-}
-
-function toggleContrast() {
-    document.body.classList.toggle('high-contrast');
-}
-
-function toggleLinks() {
-    document.body.classList.toggle('underline-links');
-}
-
-function resetAcc() {
-    document.body.style.zoom = 1;
-    document.body.classList.remove('high-contrast', 'underline-links');
-}
-
   </script>
-    <!---------------------------Menu de accesibilidad---------------------------------->
-<div id="accessibility-menu" class="acc-menu">
-    <button class="acc-button" onclick="toggleAccMenu()" aria-label="Abrir menú de accesibilidad">
-        <i class="fas fa-universal-access"></i>
-    </button>
-    <div id="acc-panel" class="acc-panel">
-        <h3>Accesibilidad</h3>
-        <button onclick="changeFontSize(1.2)">Aumentar Texto</button>
-        <button onclick="changeFontSize(1)">Texto Normal</button>
-        <button onclick="toggleContrast()">Alto Contraste</button>
-        <button onclick="toggleLinks()">Subrayar Enlaces</button>
-        <button onclick="resetAcc()">Restablecer</button>
-    </div>
-</div>
+
+
 </body>
 </html>
+
 
