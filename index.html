@@ -132,79 +132,11 @@ A través de nuestra plataforma, podrás descubrir lugares, iniciativas y experi
 
   </script>
 
-<style>
-    /* Forzamos que el botón flote y sea visible */
-    #btn-accesibilidad-fijo {
-        position: fixed !important;
-        bottom: 20px !important;
-        right: 20px !important;
-        z-index: 999999 !important;
-        background: #E37C3A; /* Naranja */
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        font-size: 30px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
-    }
-
-    #panel-accesibilidad-fijo {
-        display: none;
-        position: fixed !important;
-        bottom: 90px !important;
-        right: 20px !important;
-        z-index: 999999 !important;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
-        width: 200px;
-        border: 2px solid #333;
-    }
-
-    /* Clase para el Alto Contraste */
-    .modo-contraste-total {
-        filter: invert(1) hue-rotate(180deg) !important;
-        background-color: white !important;
-    }
-</style>
-
-<button id="btn-accesibilidad-fijo" onclick="window.toggleMenuAcc()">👤</button>
-
-<div id="panel-accesibilidad-fijo">
-    <strong style="display:block;margin-bottom:10px;color:black">Opciones</strong>
-    <button onclick="window.cambiarFont(1.2)" style="width:100%;margin-bottom:5px;cursor:pointer">➕ Aumentar</button>
-    <button onclick="window.cambiarFont(1)" style="width:100%;margin-bottom:5px;cursor:pointer">🏠 Normal</button>
-    <button onclick="window.toggleContraste()" style="width:100%;margin-bottom:5px;cursor:pointer">🌓 Contraste</button>
-    <button onclick="window.resetTodo()" style="width:100%;background:#eee;cursor:pointer">Restablecer</button>
-</div>
-
-<script>
-    window.toggleMenuAcc = function() {
-        var p = document.getElementById('panel-accesibilidad-fijo');
-        p.style.display = (p.style.display === 'block') ? 'none' : 'block';
-    }
-
-    window.cambiarFont = function(n) {
-        document.body.style.zoom = n;
-    }
-
-    window.toggleContraste = function() {
-        document.documentElement.classList.toggle('modo-contraste-total');
-    }
-
-    window.resetTodo = function() {
-        document.body.style.zoom = 1;
-        document.documentElement.classList.remove('modo-contraste-total');
-    }
-</script>
+<script src="accesibilidad.js"></script>
+    
 </body>
 </html>
+
 
 
 
