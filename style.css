@@ -533,6 +533,18 @@ font-family: 'Quicksand', sans-serif;
   color: #444;
   text-align: justify;
 }
+
+/* Botón y Panel */
+.acc-menu { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: sans-serif; }
+.acc-button { background: #0056b3; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; font-size: 24px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+.acc-panel { display: none; background: white; border: 1px solid #ccc; padding: 15px; border-radius: 8px; position: absolute; bottom: 60px; right: 0; width: 200px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.acc-panel.active { display: block; }
+.acc-panel button { width: 100%; margin: 5px 0; padding: 8px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; }
+
+/* Efectos de Accesibilidad */
+.high-contrast { background-color: #000 !important; color: #fff !important; }
+.high-contrast * { background-color: #000 !important; color: #ffff00 !important; border-color: #fff !important; }
+.underline-links a { text-decoration: underline !important; font-weight: bold; }
 /* Ajustes para móviles */
 @media (max-width: 600px) {
   .hero-sobre {
@@ -550,6 +562,7 @@ font-family: 'Quicksand', sans-serif;
     margin: 1rem;
   }
 }
+
 
 
 
