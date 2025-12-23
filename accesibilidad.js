@@ -25,8 +25,14 @@
     function cargarConfiguracion() {
         var zoom = localStorage.getItem('acc-zoom');
         if (zoom) {
-            document.body.style.transform = 'scale(' + zoom + ')';
-            document.body.style.transformOrigin = 'top center';
+            var elementos = document.body.children;
+            for (var i = 0; i < elementos.length; i++) {
+                var elem = elementos[i];
+                if (elem.id !== 'btn-accesibilidad-fijo' && elem.id !== 'panel-accesibilidad-fijo') {
+                    elem.style.transform = 'scale(' + zoom + ')';
+                    elem.style.transformOrigin = 'top center';
+                }
+            }
             marcarActivo('zoom-' + (zoom === '0.9' ? 'menos' : zoom === '1.2' ? 'mas' : 'normal'));
         }
         
@@ -69,8 +75,14 @@
     }
     
     window.cambiarZoom = function(valor) {
-        document.body.style.transform = 'scale(' + valor + ')';
-        document.body.style.transformOrigin = 'top center';
+        var elementos = document.body.children;
+        for (var i = 0; i < elementos.length; i++) {
+            var elem = elementos[i];
+            if (elem.id !== 'btn-accesibilidad-fijo' && elem.id !== 'panel-accesibilidad-fijo') {
+                elem.style.transform = 'scale(' + valor + ')';
+                elem.style.transformOrigin = 'top center';
+            }
+        }
         localStorage.setItem('acc-zoom', valor);
         
         document.querySelectorAll('[data-opcion^="zoom-"]').forEach(function(btn) {
@@ -122,7 +134,13 @@
     }
     
     window.resetTodo = function() {
-        document.body.style.transform = 'scale(1)';
+        var elementos = document.body.children;
+        for (var i = 0; i < elementos.length; i++) {
+            var elem = elementos[i];
+            if (elem.id !== 'btn-accesibilidad-fijo' && elem.id !== 'panel-accesibilidad-fijo') {
+                elem.style.transform = 'scale(1)';
+            }
+        }
         
         var clases = ['modo-contraste-alto', 'modo-oscuro', 'enlaces-resaltados', 
                        'fuente-dislexia', 'espaciado-aumentado', 'animaciones-pausadas'];
