@@ -1,6 +1,6 @@
 
 // Menú de Accesibilidad Mejorado para Diversencia*
-const menuAccesibilidad = `
+const menuAccesibilidad = 
 <style>
     /* Botón flotante principal */
     #btn-accesibilidad-fijo {
