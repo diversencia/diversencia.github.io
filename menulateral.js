@@ -40,7 +40,7 @@ const crearMenu = () => {
       transform: translateY(-50%);
       z-index: 1000;
       cursor: pointer;
-      background-color: #86ae87 !important; /* Color verde */
+      background-color: #e37c3a !important; /* Color verde */
       border: none;
       padding: 12px 8px;
       border-radius: 0 8px 8px 0;
@@ -52,11 +52,11 @@ const crearMenu = () => {
     }
 
     .hamburguesa:focus, .hamburguesa:active {
-      background-color: #86ae87 !important;
+      background-color: #e37c3a !important;
     }
 
     .hamburguesa:hover {
-      background-color: #e37c3a !important; /* Naranja */
+      background-color: ##86ae87 !important; /* Naranja */
     }
 
     .hamburguesa.active {
