@@ -1,6 +1,6 @@
 // Función para cargar el menú
 function cargarMenu() {
-    const menuHTML = '
+    const menuHTML = `
     <button id="toggle-menu" class="hamburguesa" aria-label="Abrir menú" style="background-color: #f39c12; border: none;">
       <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
            viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
@@ -25,7 +25,7 @@ function cargarMenu() {
         </ul>
       </nav>
     </div>
-    ';
+    `;
 
     // Insertar el menú al principio del body o dentro de un contenedor
     document.body.insertAdjacentHTML('afterbegin', menuHTML);
