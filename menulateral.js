@@ -56,7 +56,7 @@ const crearMenu = () => {
     }
 
     .hamburguesa:hover {
-      background-color: #218838 !important; /* Verde un poco más oscuro */
+      background-color: #e37c3a !important; /* Naranja */
     }
 
     .hamburguesa.active {
