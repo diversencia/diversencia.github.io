@@ -1,8 +1,5 @@
-
-// Menú de Accesibilidad Mejorado para Diversencia*
-const menuAccesibilidad = 
+const menuAccesibilidad = `
 <style>
-    /* Botón flotante principal */
     #btn-accesibilidad-fijo {
         position: fixed !important;
         bottom: 20px !important;
@@ -21,6 +18,10 @@ const menuAccesibilidad =
         justify-content: center !important;
         box-shadow: 0px 6px 20px rgba(227, 124, 58, 0.4) !important;
         transition: all 0.3s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
     }
     
     #btn-accesibilidad-fijo:hover {
@@ -32,7 +33,6 @@ const menuAccesibilidad =
         transform: scale(0.95) !important;
     }
     
-    /* Badge contador de opciones activas */
     #contador-activas {
         position: absolute !important;
         top: -5px !important;
@@ -50,7 +50,6 @@ const menuAccesibilidad =
         border: 2px solid white !important;
     }
     
-    /* Panel de opciones */
     #panel-accesibilidad-fijo {
         display: none;
         position: fixed !important;
@@ -80,7 +79,6 @@ const menuAccesibilidad =
         }
     }
     
-    /* Header del panel */
     .acc-header {
         display: flex !important;
         justify-content: space-between !important;
@@ -116,7 +114,6 @@ const menuAccesibilidad =
         color: #333 !important;
     }
     
-    /* Secciones del menú */
     .acc-section {
         margin-bottom: 15px !important;
     }
@@ -130,7 +127,6 @@ const menuAccesibilidad =
         letter-spacing: 0.5px !important;
     }
     
-    /* Botones de opciones */
     .btn-acc-opcion {
         width: 100% !important;
         margin-bottom: 8px !important;
@@ -176,7 +172,6 @@ const menuAccesibilidad =
         display: inline !important;
     }
     
-    /* Botón de restablecer especial */
     .btn-reset {
         background: linear-gradient(135deg, #333 0%, #222 100%) !important;
         color: white !important;
@@ -189,7 +184,6 @@ const menuAccesibilidad =
         border-color: #555 !important;
     }
     
-    /* Controles de zoom */
     .zoom-controls {
         display: flex !important;
         gap: 8px !important;
@@ -199,7 +193,6 @@ const menuAccesibilidad =
         flex: 1 !important;
     }
     
-    /* Clases de accesibilidad */
     .modo-contraste-alto {
         filter: contrast(1.5) !important;
     }
@@ -229,7 +222,6 @@ const menuAccesibilidad =
         transition: none !important;
     }
     
-    /* Responsive */
     @media (max-width: 768px) {
         #btn-accesibilidad-fijo {
             width: 60px !important;
@@ -246,14 +238,6 @@ const menuAccesibilidad =
             left: 20px !important;
             bottom: 85px !important;
         }
-    }
-    
-    /* Fix táctil para móviles */
-    #btn-accesibilidad-fijo {
-        -webkit-tap-highlight-color: transparent !important;
-        touch-action: manipulation !important;
-        user-select: none !important;
-        -webkit-user-select: none !important;
     }
 </style>
 
@@ -327,15 +311,11 @@ const menuAccesibilidad =
 
 document.body.insertAdjacentHTML('beforeend', menuAccesibilidad);
 
-// ========== FUNCIONES DE ACCESIBILIDAD ==========
-
-// Cargar configuraciones guardadas al iniciar
 window.addEventListener('DOMContentLoaded', function() {
     cargarConfiguracion();
 });
 
 function cargarConfiguracion() {
-    // Cargar zoom
     const zoom = localStorage.getItem('acc-zoom');
     if (zoom) {
         document.body.style.transform = `scale(${zoom})`;
@@ -343,7 +323,6 @@ function cargarConfiguracion() {
         marcarActivo('zoom-' + (zoom === '0.9' ? 'menos' : zoom === '1.2' ? 'mas' : 'normal'));
     }
     
-    // Cargar otras opciones
     const opciones = ['contraste', 'oscuro', 'enlaces', 'dislexia', 'espaciado', 'animaciones'];
     opciones.forEach(opcion => {
         if (localStorage.getItem(`acc-${opcion}`) === 'activo') {
@@ -377,19 +356,16 @@ function aplicarOpcion(opcion, estado) {
     }
 }
 
-// Toggle del menú
 window.toggleMenuAcc = function() {
     const panel = document.getElementById('panel-accesibilidad-fijo');
     panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
 }
 
-// Funciones de zoom
 window.cambiarZoom = function(valor) {
     document.body.style.transform = `scale(${valor})`;
     document.body.style.transformOrigin = 'top center';
     localStorage.setItem('acc-zoom', valor);
     
-    // Actualizar botones activos
     document.querySelectorAll('[data-opcion^="zoom-"]').forEach(btn => btn.classList.remove('activo'));
     const sufijo = valor === 0.9 ? 'menos' : valor === 1.2 ? 'mas' : 'normal';
     marcarActivo('zoom-' + sufijo);
@@ -397,7 +373,6 @@ window.cambiarZoom = function(valor) {
     actualizarContador();
 }
 
-// Funciones toggle para cada opción
 window.toggleContrasteAlto = function() {
     toggleOpcion('contraste', 'modo-contraste-alto');
 }
@@ -437,26 +412,20 @@ function toggleOpcion(nombre, clase) {
     actualizarContador();
 }
 
-// Restablecer todo
 window.resetTodo = function() {
-    // Limpiar zoom
     document.body.style.transform = 'scale(1)';
     
-    // Limpiar todas las clases
     const clases = ['modo-contraste-alto', 'modo-oscuro', 'enlaces-resaltados', 
                    'fuente-dislexia', 'espaciado-aumentado', 'animaciones-pausadas'];
     clases.forEach(clase => document.documentElement.classList.remove(clase));
     
-    // Limpiar botones activos
     document.querySelectorAll('.btn-acc-opcion').forEach(btn => btn.classList.remove('activo'));
     
-    // Limpiar localStorage
     localStorage.clear();
     
     actualizarContador();
 }
 
-// Actualizar contador de opciones activas
 function actualizarContador() {
     const activas = document.querySelectorAll('.btn-acc-opcion.activo').length;
     const contador = document.getElementById('contador-activas');
@@ -469,7 +438,6 @@ function actualizarContador() {
     }
 }
 
-// Cerrar al hacer clic fuera
 document.addEventListener('click', function(event) {
     const panel = document.getElementById('panel-accesibilidad-fijo');
     const btn = document.getElementById('btn-accesibilidad-fijo');
@@ -479,7 +447,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Cerrar con tecla ESC
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         const panel = document.getElementById('panel-accesibilidad-fijo');
@@ -488,5 +455,3 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
-
-console.log('✅ Menú de accesibilidad mejorado cargado correctamente');
