@@ -231,11 +231,29 @@ const menuAccesibilidad = `
     
     /* Responsive */
     @media (max-width: 768px) {
+        #btn-accesibilidad-fijo {
+            width: 60px !important;
+            height: 60px !important;
+            bottom: 15px !important;
+            right: 15px !important;
+            font-size: 28px !important;
+            z-index: 9999999 !important;
+        }
+        
         #panel-accesibilidad-fijo {
             width: calc(100vw - 40px) !important;
             right: 20px !important;
             left: 20px !important;
+            bottom: 85px !important;
         }
+    }
+    
+    /* Fix táctil para móviles */
+    #btn-accesibilidad-fijo {
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
     }
 </style>
 
@@ -470,4 +488,5 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
-});
+
+console.log('✅ Menú de accesibilidad mejorado cargado correctamente');
