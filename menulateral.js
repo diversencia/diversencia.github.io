@@ -1,7 +1,7 @@
 const crearMenu = () => {
   const menuHTML = `
   <style>
-    /* Contenedor del menú lateral */
+    /* Estilos del Contenedor del Menú Lateral */
     .menu-wrapper {
       position: fixed;
       left: -250px;
@@ -12,7 +12,6 @@ const crearMenu = () => {
       transition: all 0.3s ease;
       z-index: 999;
       box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-      padding-top: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
@@ -20,37 +19,59 @@ const crearMenu = () => {
       left: 0;
     }
 
-    /* BOTÓN CENTRADO EN EL LATERAL IZQUIERDO */
+    /* BOTÓN SIEMPRE AZULITO Y CENTRADO */
     .hamburguesa {
       position: fixed;
-      top: 50%;           /* Lo baja a la mitad de la altura */
-      left: 0;            /* Pegado al borde izquierdo */
-      transform: translateY(-50%); /* Ajuste exacto para centrado vertical */
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
       z-index: 1000;
       cursor: pointer;
-      background: #4db7c3;
+      background-color: #4db7c3 !important; /* Tu azul característico */
       border: none;
-      padding: 12px 8px;   /* Un poco más alto para que sea fácil de clicar */
-      border-radius: 0 8px 8px 0; /* Redondeado solo en el lado derecho */
+      padding: 12px 8px;
+      border-radius: 0 8px 8px 0;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
+      outline: none;
     }
 
-    /* Si el menú está abierto, el botón se mueve con él */
+    /* Evitar que cambie de color al hacer clic */
+    .hamburguesa:focus, 
+    .hamburguesa:active {
+      background-color: #4db7c3 !important;
+      outline: none;
+    }
+
+    .hamburguesa:hover {
+      background-color: #3fa3af !important; /* Oscurece un poco al pasar el ratón */
+    }
+
+    /* Mover el botón junto con el menú */
     .hamburguesa.active {
       left: 250px;
     }
 
     .hamburguesa svg {
-      stroke: white;
+      stroke: white !important;
     }
 
-    /* Estilos de la lista y asterisco */
+    /* Estilos del Interior del Menú */
+    .menu-lateral {
+      padding-top: 20px;
+    }
+
+    .logo-menu img {
+      width: 140px;
+      margin: 0 auto 20px auto;
+      display: block;
+    }
+
     .menu-lateral ul {
       list-style: none;
-      padding: 20px;
+      padding: 0 20px;
       margin: 0;
     }
 
@@ -63,31 +84,34 @@ const crearMenu = () => {
     .menu-lateral ul li a {
       text-decoration: none;
       color: #333;
-      font-size: 18px;
+      font-size: 17px;
+      font-weight: 500;
+      transition: color 0.2s;
     }
 
+    .menu-lateral ul li a:hover {
+      color: #4db7c3;
+    }
+
+    /* Estilo del Asterisco Naranja */
     .asterisco-activo {
       color: #ff8c00;
       margin-left: 8px;
       font-weight: bold;
-      display: none;
+      font-size: 20px;
+      display: none; /* Oculto por defecto */
     }
 
+    /* Mostrar asterisco solo si el padre tiene la clase .active */
     .active .asterisco-activo {
       display: inline;
-    }
-
-    .logo-menu img {
-      width: 120px;
-      margin: 20px auto;
-      display: block;
     }
   </style>
 
   <div class="page-wrapper">
     <button id="toggle-menu" class="hamburguesa" aria-label="Menú">
       <svg id="icono-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-           viewBox="0 0 24 24" fill="none" stroke-width="2"
+           viewBox="0 0 24 24" fill="none" stroke-width="2.5"
            stroke-linecap="round" stroke-linejoin="round">
         <polyline points="9 18 15 12 9 6" />
       </svg>
@@ -95,7 +119,9 @@ const crearMenu = () => {
 
     <div class="menu-wrapper" id="menu-wrapper">
       <nav class="menu-lateral">
-        <div class="logo-menu"><img src="logo.png" alt="Logo" /></div>
+        <div class="logo-menu">
+          <img src="logo.png" alt="Logo Diversencia" />
+        </div>
         <ul id="lista-menu">
           <li><a href="index.html">Inicio</a><span class="asterisco-activo">*</span></li>
           <li><a href="sobre.html">Sobre Nosotros</a><span class="asterisco-activo">*</span></li>
@@ -112,28 +138,36 @@ const crearMenu = () => {
 
   document.body.insertAdjacentHTML('afterbegin', menuHTML);
 
+  // --- LÓGICA DE FUNCIONAMIENTO ---
   const menuWrapper = document.getElementById("menu-wrapper");
   const toggleBtn = document.getElementById("toggle-menu");
   const iconoMenu = document.getElementById("icono-menu");
 
   toggleBtn.addEventListener("click", () => {
     const abierto = menuWrapper.classList.toggle("visible");
-    toggleBtn.classList.toggle("active"); // Para que el botón se desplace
+    toggleBtn.classList.toggle("active");
+    
+    // Cambia la dirección de la flecha según esté abierto o cerrado
     iconoMenu.innerHTML = abierto
       ? '<polyline points="15 18 9 12 15 6" />'
       : '<polyline points="9 18 15 12 9 6" />';
   });
 
-  // Lógica del asterisco
-  const pathActual = window.location.pathname.split("/").pop() || "index.html";
+  // --- LÓGICA DEL ASTERISCO AUTOMÁTICO ---
+  // Obtenemos el nombre del archivo actual (ej: sobre.html)
+  const pathActual = window.location.pathname.split("/").pop();
   const enlaces = document.querySelectorAll("#lista-menu a");
+
   enlaces.forEach(enlace => {
-    if (enlace.getAttribute("href") === pathActual) {
+    const href = enlace.getAttribute("href");
+    // Si la URL coincide o si estamos en la raíz y el enlace es index.html
+    if (href === pathActual || (pathActual === "" && href === "index.html")) {
       enlace.parentElement.classList.add("active");
     }
   });
 };
 
+// Asegurar que el script se ejecute siempre
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', crearMenu);
 } else {
