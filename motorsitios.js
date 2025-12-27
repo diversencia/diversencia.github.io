@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const caActual = contenedor.getAttribute('data-ca');
     // ⚠️ GOOGLE SHEETS (CSV)
-    const URL_SHEETS = "https://docs.google.com/spreadsheets/d/1r9zcos93gDjpxCgp3aXfbFc2PgziJWZ5oS94ci7SJnE/edit?gid=0#gid=0:~:text=https%3A//docs.google.com/spreadsheets/d/e/2PACX%2D1vQzS05I_9ZX0A_M_%2DbjZxi7sPkN0cMC0reC1LMaI_krVIK8E7Rda1RV%2DTm1DAG5cwfV2%2DLvSTYECFbO/pub%3Foutput%3Dcsv"; 
+    const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzS05I_9ZX0A_M_-bjZxi7sPkN0cMC0reC1LMaI_krVIK8E7Rda1RV-Tm1DAG5cwfV2-LvSTYECFbO/pub?output=csv"; 
 
     let todosLosSitios = [];
 
