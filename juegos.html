@@ -18,41 +18,16 @@
       </div>
     </header>
 
-    <main class="contenido">
-      <div class="tabla-container">
-        <h3 id="JuegosDeMesa">Juegos de Mesa</h3>
-        <table class="tabla-estilo" aria-describedby="JuegosDeMesa">
-          <thead>
-            <tr>
-              <th>Juego</th>
-              <th>Edad</th>
-              <th>Descripción</th>
-              <th>Enlace</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Dixit</td>
-              <td>+8</td>
-              <td>Juego de imaginación con cartas ilustradas.</td>
-              <td><a href="#">Ver tienda</a></td>
-            </tr>
-            <tr>
-              <td>Spot It!</td>
-              <td>+6</td>
-              <td>Encuentra el símbolo igual antes que los demás.</td>
-              <td><a href="#">Ver tienda</a></td>
-            </tr>
-            <tr>
-              <td>Memory Pictogramas</td>
-              <td>+4</td>
-              <td>Juego de memoria con imágenes accesibles.</td>
-              <td><a href="#">Ver tienda</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </main>
+<main class="contenido">
+  <section class="cards-wrapper">
+    <h3 id="JuegosDeMesa">Juegos de Mesa</h3>
+    <p class="cards-intro">
+      Descubre juegos inclusivos para distintas edades y necesidades.
+    </p>
+    <div id="juegos-mesa" class="cards-container" aria-label="Juegos de mesa"></div>
+  </section>
+</main>
+
 
 <footer>
   <div class="footer-container">
@@ -71,7 +46,8 @@
 
  <script src="menulateral.js"></script>
   <script src="accesibilidad.js"></script>
-  
+  <script src="juegos.js"></script> <!-- NUEVO --> 
 </body>
 </html>
+
 
