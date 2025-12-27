@@ -584,8 +584,9 @@ font-family: 'Quicksand', sans-serif;
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem 2.5rem;          /* fila 2rem, columna 2.5rem */
+  align-items: flex-start;
 }
 
 .juego-card {
@@ -600,9 +601,9 @@ font-family: 'Quicksand', sans-serif;
 
 .juego-img {
   width: 100%;
-  max-width: 230px;          /* más estrecha */
+  max-width: 320px;          /* más estrecha */
   max-height: 150px;         /* más baja */
-  margin: 0 auto 0.75rem;    /* centrada en la card */
+  margin: 0 auto;    /* centrada en la card */
   display: block;
   border-radius: 12px;
   object-fit: contain;       /* se ve toda la caja */
@@ -698,6 +699,7 @@ font-family: 'Quicksand', sans-serif;
 .juego-tag--motora    { background: #e6f2ea; color: #86AE87; }
 .juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; }
 .juego-tag--tea       { background: #fff6d9; color: #d4a017; }
+
 
 
 
