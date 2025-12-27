@@ -17,6 +17,7 @@
         <polyline points="9 18 15 12 9 6" />
       </svg>
     </button>
+
     <div class="menu-wrapper" id="menu-wrapper" aria-label="Menú principal">
       <nav id="menu-lateral" class="menu-lateral">
         <div class="logo-menu"><img src="logo.png" alt="Logo Diversencia" /></div>
@@ -31,49 +32,23 @@
         </ul>
       </nav>
     </div>
+
     <header class="hero1">
       <div class="contenedor-logo">
         <h1>Recomendaciones <span class="nombre">Cantabria</span><span class="asterisco">*</span></h1>
         <p class="subtitulo">Lugares accesibles y amigables para todos</p>
       </div>
     </header>
+
     <main class="contenido">
-      <section class="filtros-wrapper" aria-label="Filtros de búsqueda">
-        <h2>Filtrar lugares</h2>
-        <div class="filtros">
-          <input type="text" id="buscar" class="input-estilo" placeholder="🔍 Buscar por nombre o dirección…" aria-label="Buscar por nombre o dirección" />
-          <select id="filtroTipo" class="select-estilo" aria-label="Filtrar por tipo de lugar">
-            <option value="">Todos los tipos</option>
-            <option value="Ocio/Deporte">Ocio/Deporte</option>
-            <option value="Cafetería/Bar">Cafetería/Bar</option>
-            <option value="Deporte">Deporte</option>
-            <option value="Centro Educativo">Centro Educativo</option>
-            <option value="Centro Educativo TEA">Centro Educativo TEA</option>
-            <option value="Restaurante">Restaurante</option>
-            <option value="Ocio, LSE">Ocio, LSE</option>
-          </select>
-        </div>
-      </section>
-      <div class="tabla-container">
-        <h3 id="Cantabria">Cantabria</h3>
-        <table class="tabla-estilo" aria-describedby="Cantabria">
-          <thead>
-            <tr><th>Lugar</th><th>Tipo</th><th>Dirección</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Inclusea</td><td>Ocio/Deporte</td><td>—</td></tr>
-            <tr><td>La Estela</td><td>Cafetería/Bar</td><td>—</td></tr>
-            <tr><td>Alday Aqua Center</td><td>Deporte</td><td>—</td></tr>
-            <tr><td>Colegio Julio Blanco</td><td>Centro Educativo</td><td>—</td></tr>
-            <tr><td>Colegio el Molino</td><td>Centro Educativo TEA</td><td>—</td></tr>
-            <tr><td>Domino’s Pizza (Lorena)</td><td>Restaurante</td><td>—</td></tr>
-            <tr><td>Ludi Quest</td><td>Ocio, LSE</td><td>—</td></tr>
-          </tbody>
-        </table>
+      <div id="lista-sitios" data-ca="Cantabria">
+        <p style="text-align:center; color:#888;">Cargando espacios seguros en Cantabria...</p>
       </div>
     </main>
+
     <footer><p>© 2025 Diversencia* – Todos los derechos reservados</p></footer>
   </div>
+
   <script>
     const menuWrapper = document.getElementById("menu-wrapper");
     const toggleBtn = document.getElementById("toggle-menu");
@@ -85,28 +60,8 @@
         ? '<polyline points="15 18 9 12 15 6" />'
         : '<polyline points="9 18 15 12 9 6" />';
     });
-    const buscarInput = document.getElementById("buscar");
-    const filtroTipo = document.getElementById("filtroTipo");
-    const tabla = document.querySelector(".tabla-container table");
-    function filtrar() {
-      const busqueda = buscarInput.value.toLowerCase();
-      const tipo = filtroTipo.value;
-      let visibles = 0;
-      Array.from(tabla.tBodies[0].rows).forEach(fila => {
-        const lugar = fila.cells[0].textContent.toLowerCase();
-        const direccion = fila.cells[2].textContent.toLowerCase();
-        const tipoLugar = fila.cells[1].textContent;
-        const cb = lugar.includes(busqueda) || direccion.includes(busqueda);
-        const ct = tipo === "" || tipo === tipoLugar;
-        fila.style.display = cb && ct ? "" : "none";
-        if (cb && ct) visibles++;
-      });
-      tabla.style.display = visibles > 0 ? "" : "none";
-      document.getElementById("Cantabria").style.display = visibles > 0 ? "" : "none";
-    }
-    buscarInput.addEventListener("input", filtrar);
-    filtroTipo.addEventListener("change", filtrar);
-    filtrar();
   </script>
+
+  <script src="motorsitios.js"></script>
 </body>
 </html>
