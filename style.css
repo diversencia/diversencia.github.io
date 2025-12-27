@@ -692,6 +692,14 @@ font-family: 'Quicksand', sans-serif;
   font-weight: 500;
 }
 
+/* variantes por tipo */
+.juego-tag--visual    { background: #ffe9e0; color: #e37c3a; }
+.juego-tag--auditiva  { background: #e8f4ff; color: #4db7c3; }
+.juego-tag--motora    { background: #e6f2ea; color: #86AE87; }
+.juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; }
+.juego-tag--tea       { background: #fff6d9; color: #d4a017; }
+
+
 
 
 
