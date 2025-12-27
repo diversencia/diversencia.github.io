@@ -8,61 +8,70 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon">
   <style>
-    :root {
-      --color-primario: #4db7c3;
-      --color-suave: #e0f7f9;
-    }
-
-    /* Estilos del Mapa SVG */
-    .seccion-mapa {
-      max-width: 1000px;
+    /* Estilos del Contenedor del Mapa */
+    .map-section {
+      max-width: 900px;
       margin: 40px auto;
       padding: 30px;
-      background: white;
+      background: #ffffff;
       border-radius: 30px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.05);
       text-align: center;
     }
 
-    .mapa-espana-svg {
+    #spain-map {
       width: 100%;
       height: auto;
-      max-height: 600px;
     }
 
-    /* Estilos de las regiones */
     .region {
-      fill: var(--color-suave);
-      stroke: var(--color-primario);
-      stroke-width: 1;
+      fill: #4db7c3;
+      stroke: #ffffff;
+      stroke-width: 1.5;
       transition: all 0.3s ease;
       cursor: pointer;
     }
 
     .region:hover {
-      fill: var(--color-primario);
-    }
-
-    /* Etiquetas de texto dentro del mapa */
-    .label-mapa {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 12px;
-      fill: #333;
-      pointer-events: none;
-      text-transform: uppercase;
-      font-weight: bold;
+      fill: #2e8d99;
+      filter: brightness(1.1);
     }
 
     .instrucciones {
       color: #777;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       font-size: 1.1em;
     }
 
-    /* Responsive: En móviles el mapa se ve más grande */
-    @media (max-width: 600px) {
-      .seccion-mapa { padding: 15px; margin: 20px; }
-      .label-mapa { font-size: 16px; }
+    /* Estilos para la rejilla de tarjetas inferior */
+    .enlaces {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .enlaces a {
+      text-decoration: none;
+      color: #333;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .enlaces a:hover {
+      transform: translateY(-5px);
+    }
+
+    .enlaces img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .enlaces p {
+      margin-top: 10px;
+      font-weight: bold;
+      font-family: 'Fredoka', sans-serif;
     }
   </style>
 </head>
@@ -78,37 +87,55 @@
 
     <main class="contenido">
       
-      <section class="seccion-mapa">
-        <h2 class="titulo-comunidades">Explora el mapa interactivo</h2>
-        <p class="instrucciones">Haz clic en tu comunidad para descubrir los espacios recomendados</p>
+      <section class="map-section">
+        <h2 class="titulo-comunidades">Explora el mapa</h2>
+        <p class="instrucciones">Haz clic en una comunidad para filtrar los espacios</p>
         
-        <svg class="mapa-espana-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-          <a href="galicia.html"><path class="region" d="M110 50 L180 40 L210 110 L150 170 L80 140 Z" /><text x="120" y="110" class="label-mapa">Galicia</text></a>
-          <a href="asturias.html"><path class="region" d="M185 40 L280 40 L280 90 L210 110 Z" /><text x="210" y="70" class="label-mapa">Asturias</text></a>
-          <a href="cantabria.html"><path class="region" d="M285 45 L350 45 L350 90 L285 90 Z" /><text x="290" y="75" class="label-mapa">Cant.</text></a>
-          <a href="paisvasco.html"><path class="region" d="M355 50 L410 55 L400 100 L355 100 Z" /><text x="360" y="80" class="label-mapa">PV</text></a>
-          <a href="aragon.html"><path class="region" d="M480 100 L580 130 L550 250 L450 220 Z" /><text x="500" y="180" class="label-mapa">Aragón</text></a>
-          <a href="cataluna.html"><path class="region" d="M590 130 L720 160 L680 280 L560 260 Z" /><text x="610" y="210" class="label-mapa">Cataluña</text></a>
-          <a href="madrid.html"><path class="region" d="M390 260 L450 260 L450 320 L390 320 Z" /><text x="400" y="295" class="label-mapa">Madrid</text></a>
-          <a href="cyl.html"><path class="region" d="M210 120 L400 110 L440 250 L250 270 Z" /><text x="280" y="190" class="label-mapa">Castilla y León</text></a>
-          <a href="valencia.html"><path class="region" d="M530 270 L600 280 L620 420 L540 400 Z" /><text x="550" y="350" class="label-mapa">Valencia</text></a>
-          <a href="andalucia.html"><path class="region" d="M220 450 L500 450 L530 560 L180 560 Z" /><text x="320" y="515" class="label-mapa">Andalucía</text></a>
-          <a href="cym.html"><path class="region" d="M350 330 L520 330 L530 440 L300 440 Z" /><text x="370" y="400" class="label-mapa">Castilla LM</text></a>
-          <a href="extremadura.html"><path class="region" d="M210 280 L290 280 L290 440 L210 440 Z" /><text x="220" y="365" class="label-mapa">Extremadura</text></a>
-          <a href="murcia.html"><path class="region" d="M500 450 L560 440 L580 500 L510 520 Z" /><text x="525" y="485" class="label-mapa">Murcia</text></a>
-          <a href="baleares.html"><path class="region" d="M680 320 L750 320 L750 380 L680 380 Z" /><text x="690" y="355" class="label-mapa">Baleares</text></a>
-          <a href="canarias.html"><path class="region" d="M50 500 L150 500 L150 580 L50 580 Z" /><text x="65" y="545" class="label-mapa">Canarias</text></a>
+        <svg id="spain-map" viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
+          <a href="galicia.html"><path class="region" d="M142,65 L218,52 L275,124 L196,211 L108,181 Z" /></a>
+          <a href="asturias.html"><path class="region" d="M221,49 L351,49 L351,114 L278,124 Z" /></a>
+          <a href="cantabria.html"><path class="region" d="M356,53 L443,53 L443,123 L356,117 Z" /></a>
+          <a href="paisvasco.html"><path class="region" d="M448,64 L533,74 L507,144 L448,128 Z" /></a>
+          <a href="navarra.html"><path class="region" d="M500,80 L560,90 L540,150 L490,140 Z" /></a>
+          <a href="rioja.html"><path class="region" d="M450,135 L510,145 L500,180 L440,170 Z" /></a>
+          <a href="aragon.html"><path class="region" d="M540,147 L700,165 L660,370 L530,360 Z" /></a>
+          <a href="cataluna.html"><path class="region" d="M708,171 L880,200 L840,360 L665,376 Z" /></a>
+          <a href="cyl.html"><path class="region" d="M280,132 L500,154 L524,357 L239,376 Z" /></a>
+          <a href="madrid.html"><path class="region" d="M439,313 L516,313 L516,396 L439,396 Z" /></a>
+          <a href="extremadura.html"><path class="region" d="M230,385 L370,385 L370,580 L230,580 Z" /></a>
+          <a href="cym.html"><path class="region" d="M380,405 L630,405 L630,580 L350,580 Z" /></a>
+          <a href="valencia.html"><path class="region" d="M640,380 L730,380 L750,560 L640,540 Z" /></a>
+          <a href="murcia.html"><path class="region" d="M610,585 L700,565 L720,650 L630,670 Z" /></a>
+          <a href="andalucia.html"><path class="region" d="M250,590 L620,590 L650,730 L200,730 Z" /></a>
+          <a href="baleares.html"><path class="region" d="M820,400 L950,400 L950,480 L820,480 Z" /></a>
+          <a href="canarias.html">
+            <rect x="50" y="600" width="180" height="120" fill="none" stroke="#ccc" stroke-dasharray="5,5" />
+            <path class="region" d="M70,650 L120,650 L120,680 L70,680 Z" /><path class="region" d="M140,660 L200,660 L200,700 L140,700 Z" />
+          </a>
         </svg>
       </section>
 
-      <h2 class="titulo-comunidades">Todas las Comunidades</h2>
+      <h2 class="titulo-comunidades" style="margin-top: 60px;">Todas las Comunidades</h2>
       <div class="enlaces">
         <a href="andalucia.html"><img src="img/andalucia.jpg" alt="Andalucía" /><p>Andalucía</p></a>
+        <a href="aragon.html"><img src="img/aragon.jpg" alt="Aragón" /><p>Aragón</p></a>
         <a href="asturias.html"><img src="img/asturias.jpg" alt="Asturias" /><p>Asturias</p></a>
+        <a href="baleares.html"><img src="img/baleares.jpg" alt="Baleares" /><p>Baleares</p></a>
+        <a href="canarias.html"><img src="img/canarias.jpg" alt="Canarias" /><p>Canarias</p></a>
         <a href="cantabria.html"><img src="img/cantabria.jpg" alt="Cantabria" /><p>Cantabria</p></a>
-        <a href="madrid.html"><img src="img/madrid.jpg" alt="Madrid" /><p>Madrid</p></a>
-        <a href="galicia.html"><img src="img/galicia.jpg" alt="Galicia" /><p>Galicia</p></a>
+        <a href="cym.html"><img src="img/clm.jpg" alt="Castilla-La Mancha" /><p>Castilla-La Mancha</p></a>
+        <a href="cyl.html"><img src="img/cyl.jpg" alt="Castilla y León" /><p>Castilla y León</p></a>
+        <a href="cataluna.html"><img src="img/cataluna.jpg" alt="Cataluña" /><p>Cataluña</p></a>
+        <a href="ceuta.html"><img src="img/ceuta.jpg" alt="Ceuta" /><p>Ceuta</p></a>
         <a href="valencia.html"><img src="img/comunidad_valenciana.jpg" alt="Valencia" /><p>C. Valenciana</p></a>
+        <a href="extremadura.html"><img src="img/extremadura.jpg" alt="Extremadura" /><p>Extremadura</p></a>
+        <a href="galicia.html"><img src="img/galicia.jpg" alt="Galicia" /><p>Galicia</p></a>
+        <a href="rioja.html"><img src="img/la_rioja.jpg" alt="La Rioja" /><p>La Rioja</p></a>
+        <a href="madrid.html"><img src="img/madrid.jpg" alt="Madrid" /><p>Madrid</p></a>
+        <a href="melilla.html"><img src="img/melilla.jpg" alt="Melilla" /><p>Melilla</p></a>
+        <a href="murcia.html"><img src="img/murcia.jpg" alt="Murcia" /><p>Murcia</p></a>
+        <a href="navarra.html"><img src="img/navarra.jpg" alt="Navarra" /><p>Navarra</p></a>
+        <a href="paisvasco.html"><img src="img/pais_vasco.jpg" alt="País Vasco" /><p>País Vasco</p></a>
       </div>
     </main>
 
