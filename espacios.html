@@ -8,31 +8,40 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon">
   <style>
-    /* Contenedor del Mapa */
+    /* Estilos específicos para la sección del Mapa */
     .map-section {
-      max-width: 950px;
+      max-width: 900px;
       margin: 40px auto;
-      padding: 20px;
-      background: #fff;
+      padding: 30px;
+      background: #ffffff;
       border-radius: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
       text-align: center;
     }
 
-    /* Estilo para el SVG externo */
-    #mapa-espana-svg {
+    #contenedor-mapa {
+      width: 100%;
+      height: auto;
+      min-height: 400px; /* Evita saltos mientras carga */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #contenedor-mapa svg {
       width: 100%;
       height: auto;
       display: block;
-      /* Aplicamos tu color turquesa mediante filtros CSS */
-      filter: sepia(100%) saturate(200%) brightness(100%) hue-rotate(140deg);
     }
 
-    /* Tarjetas Cuadradas Perfectas */
+    /* Estilos para las Tarjetas Cuadradas */
     .enlaces {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 25px;
       padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .enlaces a {
@@ -45,7 +54,7 @@
 
     .img-cuadrada {
       width: 100%;
-      aspect-ratio: 1 / 1; /* Cuadrado exacto */
+      aspect-ratio: 1 / 1; /* Cuadrado Perfecto */
       overflow: hidden;
       border-radius: 25px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -56,14 +65,24 @@
     .img-cuadrada img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Centra la imagen sin deformarla */
+      object-fit: cover; /* Centra y recorta la imagen sin deformarla */
     }
 
-    .enlaces a:hover .img-cuadrada { transform: translateY(-5px); }
-    .enlaces p { font-family: 'Fredoka', sans-serif; font-weight: bold; }
+    .enlaces a:hover .img-cuadrada {
+      transform: translateY(-8px);
+    }
 
-    /* Créditos del mapa */
-    .attribution { font-size: 0.75em; color: #999; margin-top: 10px; }
+    .enlaces p {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .attribution {
+      font-size: 0.75em;
+      color: #bbb;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
@@ -72,77 +91,51 @@
     <header class="hero1">
       <div class="contenedor-logo">
         <h1><span class="nombre">Espacios Inclusivos</span><span class="asterisco">*</span></h1>
-        <p class="subtitulo">Selecciona tu comunidad en el mapa oficial interactivo</p>
+        <p class="subtitulo">Selecciona una comunidad en el mapa interactivo</p>
       </div>
     </header>
 
     <main class="contenido">
+      
       <section class="map-section">
-        <h2 class="titulo-comunidades">Mapa de España</h2>
-        
-        <object id="mapa-espana-svg" type="image/svg+xml" data="Blank_Spain_Map_(Autonomous_Communities).svg"></object>
-        
+        <h2 class="titulo-comunidades">Mapa Interactivo de España</h2>
+        <div id="contenedor-mapa">
+          </div>
         <p class="attribution">
-          Mapa de <a href="https://commons.wikimedia.org/wiki/File:Blank_Spain_Map_(Autonomous_Communities).svg" target="_blank">Wikimedia Commons</a> / Licencia CC BY-SA 3.0.
+          Mapa original de Wikimedia Commons / Licencia CC BY-SA 3.0 / Autor: M.Peinado
         </p>
       </section>
 
+      <h2 class="titulo-comunidades">Todas las Comunidades</h2>
       <div class="enlaces">
-        <a href="andalucia.html"><div class="img-cuadrada"><img src="img/andalucia.jpg"></div><p>Andalucía</p></a>
-        <a href="aragon.html"><div class="img-cuadrada"><img src="img/aragon.jpg"></div><p>Aragón</p></a>
-        <a href="asturias.html"><div class="img-cuadrada"><img src="img/asturias.jpg"></div><p>Asturias</p></a>
-        <a href="baleares.html"><div class="img-cuadrada"><img src="img/baleares.jpg"></div><p>Baleares</p></a>
-        <a href="canarias.html"><div class="img-cuadrada"><img src="img/canarias.jpg"></div><p>Canarias</p></a>
-        <a href="cantabria.html"><div class="img-cuadrada"><img src="img/cantabria.jpg"></div><p>Cantabria</p></a>
-        <a href="cym.html"><div class="img-cuadrada"><img src="img/clm.jpg"></div><p>C. La Mancha</p></a>
-        <a href="cyl.html"><div class="img-cuadrada"><img src="img/cyl.jpg"></div><p>Castilla y León</p></a>
-        <a href="cataluna.html"><div class="img-cuadrada"><img src="img/cataluna.jpg"></div><p>Cataluña</p></a>
-        <a href="ceuta.html"><div class="img-cuadrada"><img src="img/ceuta.jpg"></div><p>Ceuta</p></a>
-        <a href="valencia.html"><div class="img-cuadrada"><img src="img/comunidad_valenciana.jpg"></div><p>C. Valenciana</p></a>
-        <a href="extremadura.html"><div class="img-cuadrada"><img src="img/extremadura.jpg"></div><p>Extremadura</p></a>
-        <a href="galicia.html"><div class="img-cuadrada"><img src="img/galicia.jpg"></div><p>Galicia</p></a>
-        <a href="rioja.html"><div class="img-cuadrada"><img src="img/la_rioja.jpg"></div><p>La Rioja</p></a>
-        <a href="madrid.html"><div class="img-cuadrada"><img src="img/madrid.jpg"></div><p>Madrid</p></a>
-        <a href="melilla.html"><div class="img-cuadrada"><img src="img/melilla.jpg"></div><p>Melilla</p></a>
-        <a href="murcia.html"><div class="img-cuadrada"><img src="img/murcia.jpg"></div><p>Murcia</p></a>
-        <a href="navarra.html"><div class="img-cuadrada"><img src="img/navarra.jpg"></div><p>Navarra</p></a>
-        <a href="paisvasco.html"><div class="img-cuadrada"><img src="img/pais_vasco.jpg"></div><p>País Vasco</p></a>
+        <a href="andalucia.html"><div class="img-cuadrada"><img src="img/andalucia.jpg" alt="Andalucía"></div><p>Andalucía</p></a>
+        <a href="aragon.html"><div class="img-cuadrada"><img src="img/aragon.jpg" alt="Aragón"></div><p>Aragón</p></a>
+        <a href="asturias.html"><div class="img-cuadrada"><img src="img/asturias.jpg" alt="Asturias"></div><p>Asturias</p></a>
+        <a href="baleares.html"><div class="img-cuadrada"><img src="img/baleares.jpg" alt="Baleares"></div><p>Baleares</p></a>
+        <a href="canarias.html"><div class="img-cuadrada"><img src="img/canarias.jpg" alt="Canarias"></div><p>Canarias</p></a>
+        <a href="cantabria.html"><div class="img-cuadrada"><img src="img/cantabria.jpg" alt="Cantabria"></div><p>Cantabria</p></a>
+        <a href="cym.html"><div class="img-cuadrada"><img src="img/clm.jpg" alt="Castilla-La Mancha"></div><p>C. La Mancha</p></a>
+        <a href="cyl.html"><div class="img-cuadrada"><img src="img/cyl.jpg" alt="Castilla y León"></div><p>Castilla y León</p></a>
+        <a href="cataluna.html"><div class="img-cuadrada"><img src="img/cataluna.jpg" alt="Cataluña"></div><p>Cataluña</p></a>
+        <a href="ceuta.html"><div class="img-cuadrada"><img src="img/ceuta.jpg" alt="Ceuta"></div><p>Ceuta</p></a>
+        <a href="valencia.html"><div class="img-cuadrada"><img src="img/comunidad_valenciana.jpg" alt="Valencia"></div><p>C. Valenciana</p></a>
+        <a href="extremadura.html"><div class="img-cuadrada"><img src="img/extremadura.jpg" alt="Extremadura"></div><p>Extremadura</p></a>
+        <a href="galicia.html"><div class="img-cuadrada"><img src="img/galicia.jpg" alt="Galicia"></div><p>Galicia</p></a>
+        <a href="rioja.html"><div class="img-cuadrada"><img src="img/la_rioja.jpg" alt="La Rioja"></div><p>La Rioja</p></a>
+        <a href="madrid.html"><div class="img-cuadrada"><img src="img/madrid.jpg" alt="Madrid"></div><p>Madrid</p></a>
+        <a href="melilla.html"><div class="img-cuadrada"><img src="img/melilla.jpg" alt="Melilla"></div><p>Melilla</p></a>
+        <a href="murcia.html"><div class="img-cuadrada"><img src="img/murcia.jpg" alt="Murcia"></div><p>Murcia</p></a>
+        <a href="navarra.html"><div class="img-cuadrada"><img src="img/navarra.jpg" alt="Navarra"></div><p>Navarra</p></a>
+        <a href="paisvasco.html"><div class="img-cuadrada"><img src="img/pais_vasco.jpg" alt="País Vasco"></div><p>País Vasco</p></a>
       </div>
     </main>
 
     <footer>
-      <p>© 2025 Diversencia* | Créditos Mapa: M.Peinado (CC BY-SA 3.0)</p>
+      <p>© 2025 Diversencia*</p>
     </footer>
   </div>
 
   <script src="menulateral.js"></script>
-
-  <script>
-    const mapaObj = document.getElementById('mapa-espana-svg');
-
-    mapaObj.addEventListener('load', function() {
-      const svgDoc = mapaObj.contentDocument;
-      
-      const comunidades = {
-        "ES-AN": "andalucia.html", "ES-AR": "aragon.html", "ES-AS": "asturias.html",
-        "ES-IB": "baleares.html", "ES-CN": "canarias.html", "ES-S":  "cantabria.html",
-        "ES-CM": "cym.html", "ES-CL": "cyl.html", "ES-CT": "cataluna.html",
-        "ES-EX": "extremadura.html", "ES-GA": "galicia.html", "ES-RI": "rioja.html",
-        "ES-MD": "madrid.html", "ES-MU": "murcia.html", "ES-NC": "navarra.html",
-        "ES-PV": "paisvasco.html", "ES-VC": "valencia.html", "ES-CE": "ceuta.html",
-        "ES-ML": "melilla.html"
-      };
-
-      Object.entries(comunidades).forEach(([id, url]) => {
-        const region = svgDoc.getElementById(id);
-        if (region) {
-          region.style.cursor = "pointer";
-          region.onmouseover = () => { region.style.opacity = "0.7"; };
-          region.onmouseout = () => { region.style.opacity = "1"; };
-          region.onclick = () => { window.parent.location.href = url; };
-        }
-      });
-    });
-  </script>
+  <script src="mapa.js"></script>
 </body>
 </html>
