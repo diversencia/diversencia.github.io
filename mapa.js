@@ -2493,32 +2493,64 @@ const mapaEspana = `
 document.addEventListener("DOMContentLoaded", function() {
     const contenedor = document.getElementById('contenedor-mapa');
     if (contenedor) {
-        // Inyectamos el SVG en el HTML
         contenedor.innerHTML = mapaEspana;
 
-        // Diccionario de enlaces
+        // Configuración: URL -> Lista de IDs de provincias que contiene el SVG
         const comunidades = {
-            "ES-AN": "andalucia.html", "ES-AR": "aragon.html", "ES-AS": "asturias.html",
-            "ES-IB": "baleares.html", "ES-CN": "canarias.html", "ES-S":  "cantabria.html",
-            "ES-CM": "cym.html", "ES-CL": "cyl.html", "ES-CT": "cataluna.html",
-            "ES-EX": "extremadura.html", "ES-GA": "galicia.html", "ES-RI": "rioja.html",
-            "ES-MD": "madrid.html", "ES-MU": "murcia.html", "ES-NC": "navarra.html",
-            "ES-PV": "paisvasco.html", "ES-VC": "valencia.html", "ES-CE": "ceuta.html",
-            "ES-ML": "melilla.html"
+            "andalucia.html": ["Almeria", "Cadiz", "Cordoba", "Granada", "Huelva", "Jaen", "Malaga", "Sevilla"],
+            "aragon.html": ["Huesca", "Teruel", "Zaragoza"],
+            "asturias.html": ["Asturias"],
+            "baleares.html": ["Baleares"],
+            "canarias.html": ["Las_Palmas", "Santa_Cruz_de_Tenerife"],
+            "cantabria.html": ["Cantabria"],
+            "cym.html": ["Albacete", "Ciudad_Real", "Cuenca", "Guadalajara", "Toledo"],
+            "cyl.html": ["Avila", "Burgos", "Leon", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
+            "cataluna.html": ["Barcelona", "Gerona", "Lerida", "Tarragona"],
+            "ceuta.html": ["Ceuta"],
+            "valencia.html": ["Alicante", "Castellon", "Valencia"],
+            "extremadura.html": ["Badajoz", "Caceres"],
+            "galicia.html": ["Coruna", "Lugo", "Orense", "Pontevedra"],
+            "rioja.html": ["La_Rioja"],
+            "madrid.html": ["Madrid"],
+            "melilla.html": ["Melilla"],
+            "murcia.html": ["Murcia"],
+            "navarra.html": ["Navarra"],
+            "paisvasco.html": ["Alava", "Guipuzcoa", "Vizcaya"]
         };
 
-        // Hacerlo interactivo
-        Object.entries(comunidades).forEach(([id, url]) => {
-            const region = document.getElementById(id);
-            if (region) {
-                region.style.cursor = "pointer";
-                region.style.fill = "#4db7c3"; // Tu turquesa
-                region.style.transition = "fill 0.3s";
+        // Colores
+        const colorBase = "#4db7c3";
+        const colorHover = "#3a8e99";
 
-                region.onclick = () => window.location.href = url;
-                region.onmouseover = () => region.style.fill = "#3a8e99";
-                region.onmouseout = () => region.style.fill = "#4db7c3";
-            }
+        // Aplicar interactividad
+        Object.entries(comunidades).forEach(([url, provincias]) => {
+            provincias.forEach(idProv => {
+                const el = document.getElementById(idProv);
+                if (el) {
+                    el.style.cursor = "pointer";
+                    el.style.fill = colorBase;
+                    el.style.transition = "fill 0.3s";
+
+                    // Al hacer clic
+                    el.onclick = () => window.location.href = url;
+
+                    // Al pasar el ratón: iluminamos TODA la comunidad
+                    el.onmouseover = () => {
+                        provincias.forEach(p => {
+                            const prov = document.getElementById(p);
+                            if(prov) prov.style.fill = colorHover;
+                        });
+                    };
+
+                    // Al salir: restauramos el color de TODA la comunidad
+                    el.onmouseout = () => {
+                        provincias.forEach(p => {
+                            const prov = document.getElementById(p);
+                            if(prov) prov.style.fill = colorBase;
+                        });
+                    };
+                }
+            });
         });
     }
 });
