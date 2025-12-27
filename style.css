@@ -600,11 +600,12 @@ font-family: 'Quicksand', sans-serif;
 
 .juego-img {
   width: 100%;
-  border-radius: 12px;
+  max-width: 230px;          /* más estrecha */
+  max-height: 150px;         /* más baja */
+  margin: 0 auto 0.75rem;    /* centrada en la card */
   display: block;
-  margin-bottom: 0.75rem;
-  object-fit: cover;
-  max-height: 180px;
+  border-radius: 12px;
+  object-fit: contain;       /* se ve toda la caja */
 }
 
 .juego-titulo {
@@ -689,6 +690,7 @@ font-family: 'Quicksand', sans-serif;
   color: #4db7c3;
   font-weight: 500;
 }
+
 
 
 
