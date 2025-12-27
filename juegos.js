@@ -54,10 +54,33 @@ document.addEventListener('DOMContentLoaded', function () {
             ${duracion ? `<p><strong>Duración:</strong> ${duracion}</p>` : ''}
             ${habilidades ? `<p><strong>Habilidades:</strong> ${habilidades}</p>` : ''}
             <div class="juego-tags">
-              ${accesibilidad.split(';').map(t => t.trim()).filter(Boolean).map(t => `
-                <span class="juego-tag">${t}</span>
-              `).join('')}
-            </div>
+            ${accesibilidad
+            .split(';')
+            .map(t => t.trim())
+            .filter(Boolean)
+            .map(t => {
+              const txt = t.toLowerCase();
+              let extraClass = '';
+        
+              if (txt.includes('visión') || txt.includes('visual')) {
+                extraClass = ' juego-tag--visual';
+              } else if (txt.includes('sordera') || txt.includes('auditiva')) {
+                extraClass = ' juego-tag--auditiva';
+              } else if (txt.includes('motora')) {
+                extraClass = ' juego-tag--motora';
+              } else if (txt.includes('cognitiva') || txt.includes('aprendizaje')) {
+                extraClass = ' juego-tag--cognitiva';
+              } else if (txt.includes('tea') || txt.includes('autismo')) {
+                extraClass = ' juego-tag--tea';
+              }
+        
+              return `<span class="juego-tag${extraClass}">${t}</span>`;
+            })
+            .join('')}
+          </div>
+
+
+          
             ${descLarga ? `<p style="margin-top:0.5rem;">${descLarga}</p>` : ''}
             <a href="${enlace}" class="juego-link" target="_blank" rel="noopener">
               Ver tienda
