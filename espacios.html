@@ -9,16 +9,15 @@
   <link rel="icon" href="logo.png" type="image/x-icon">
   <style>
     .map-container {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 40px auto;
       padding: 20px;
       background: #fff;
       border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       text-align: center;
     }
 
-    /* Estilo del Mapa SVG Real */
+    /* Estilo del Mapa Real de Wikipedia */
     #spain-map {
       width: 100%;
       height: auto;
@@ -26,10 +25,10 @@
     }
 
     .region {
-      fill: #4db7c3; /* Tu color turquesa */
+      fill: #4db7c3; /* Turquesa Diversencia */
       stroke: #ffffff;
-      stroke-width: 1;
-      transition: fill 0.3s, transform 0.2s;
+      stroke-width: 1px;
+      transition: fill 0.3s ease;
       cursor: pointer;
     }
 
@@ -39,17 +38,18 @@
 
     .instrucciones {
       color: #777;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       font-family: 'Fredoka', sans-serif;
     }
 
-    /* Ajuste de las tarjetas inferiores */
+    /* Estilo tarjetas inferiores */
     .enlaces {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 20px;
       padding: 20px;
     }
+    .enlaces a { text-decoration: none; color: #333; text-align: center; }
     .enlaces img { width: 100%; border-radius: 15px; }
     .enlaces p { font-family: 'Fredoka', sans-serif; font-weight: bold; margin-top: 10px; }
   </style>
@@ -60,65 +60,56 @@
     <header class="hero1">
       <div class="contenedor-logo">
         <h1><span class="nombre">Espacios Inclusivos</span><span class="asterisco">*</span></h1>
-        <p class="subtitulo">Descubre espacios seguros y accesibles en toda España</p>
+        <p class="subtitulo">Selecciona tu comunidad en el mapa oficial interactivo</p>
       </div>
     </header>
 
     <main class="contenido">
       
       <section class="map-container">
-        <h2 class="titulo-comunidades">Mapa Interactivo</h2>
-        <p class="instrucciones">Haz clic en una comunidad para ver sus lugares</p>
+        <h2 class="titulo-comunidades">Mapa de España</h2>
+        <p class="instrucciones">Haz clic sobre la comunidad para ver sus espacios</p>
 
-        <svg id="spain-map" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
-          <a href="galicia.html"><path class="region" d="M125,50 L200,45 L240,110 L210,210 L150,220 L90,150 Z" /></a>
-          <a href="asturias.html"><path class="region" d="M205,45 L330,50 L320,105 L245,115 Z" /></a>
-          <a href="cantabria.html"><path class="region" d="M335,50 L415,55 L410,110 L325,105 Z" /></a>
-          <a href="paisvasco.html"><path class="region" d="M420,60 L495,65 L480,125 L415,115 Z" /></a>
-          <a href="cyl.html"><path class="region" d="M215,120 L410,120 L535,145 L550,230 L505,340 L370,350 L230,360 Z" /></a>
-          <a href="madrid.html"><path class="region" d="M425,290 L495,290 L495,355 L425,355 Z" /></a>
-          <a href="aragon.html"><path class="region" d="M545,145 L675,160 L645,360 L515,350 L540,240 Z" /></a>
-          <a href="cataluna.html"><path class="region" d="M685,165 L820,195 L795,345 L655,365 Z" /></a>
-          <a href="valencia.html"><path class="region" d="M625,370 L710,370 L730,545 L630,530 L610,440 Z" /></a>
-          <a href="cym.html"><path class="region" d="M375,365 L615,375 L635,520 L515,515 L365,520 Z" /></a>
-          <a href="extremadura.html"><path class="region" d="M235,370 L370,365 L365,535 L245,540 L210,450 Z" /></a>
-          <a href="andalucia.html"><path class="region" d="M250,550 L615,540 L640,680 L210,685 Z" /></a>
-          <a href="murcia.html"><path class="region" d="M605,545 L665,535 L690,610 L615,630 Z" /></a>
-          <a href="baleares.html"><path class="region" d="M810,370 L860,350 L900,370 L870,410 Z M770,400 L800,390 L810,430 L780,440 Z" /></a>
+        <svg id="spain-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+          <a href="andalucia.html"><path class="region" d="M356.5,520.1c-4.2-1.9-8.4-3.6-12.7-4.7c-9.5-2.6-19.2-3.3-29-2c-7.6,1-15.1,3.4-22,7c-13.6,7.2-26,16.6-37,27.4c-6.8,6.7-13.2,13.8-19.1,21.3c-2,2.5-3.9,5.2-5.4,8c-1.8,3.4-3.2,7-4.1,10.8c-1.3,5.2-1.8,10.6-1.5,15.9c0.2,4.8,0.9,9.5,2.1,14.1c1.5,5.6,4,10.8,7.2,15.6c4.6,6.9,10.5,12.9,17.4,17.9c10.4,7.5,22.1,12.7,34.5,15.4c13.7,3,27.8,3.3,41.7,1.1c13.8-2.2,27.3-6.6,39.9-12.8c12.2-6,23.5-13.8,33.4-23.2c1.9-1.8,3.7-3.7,5.4-5.6c4.3-5,7.9-10.5,10.8-16.3c1.7-3.4,3.1-6.9,4.2-10.6c1.1-3.6,1.9-7.4,2.4-11.2c0.8-6,0.9-12,0.1-18c-0.6-4.5-1.6-9-3.2-13.2c-1.8-4.8-4.4-9.2-7.6-13.2c-6-7.5-13.3-13.9-21.5-19.1c-11.8-7.5-25.1-12.4-39-14.5c-11-1.6-22.3-1.4-33.3,0.7L356.5,520.1z" /></a>
+          
+          <a href="galicia.html"><path class="region" d="M120.5,80.1c10.5-5,22.1-7.4,33.8-7.2c11.7,0.2,23.1,3.2,33.4,8.8c10,5.4,18.7,13,25.4,22.2c5,6.8,8.8,14.5,11,22.7c1.5,5.5,2.1,11.2,1.9,16.8c-0.2,6.5-1.3,13-3.2,19.3c-2.4,8-6.2,15.5-11.2,22.2c-6.8,9.2-15.5,16.8-25.4,22.2c-10.3,5.6-21.7,8.6-33.4,8.8c-11.7,0.2-23.3-2.2-33.8-7.2c-10.5-5-19.6-12.4-26.4-21.6c-5.1-6.9-8.6-14.8-10.4-23.2c-1.2-5.7-1.6-11.5-1.1-17.3c0.5-6.5,2-12.8,4.4-18.8c3.1-7.7,7.7-14.7,13.6-20.7C106.1,89.5,112.9,84.1,120.5,80.1z" /></a>
+          
+          <a href="cyl.html"><path class="region" d="M250,120 L450,110 L500,250 L480,350 L300,360 L240,250 Z" /></a>
+          
+          <a href="madrid.html"><path class="region" d="M410,290 L480,290 L480,350 L410,350 Z" /></a>
+          
+          <a href="cantabria.html"><path class="region" d="M330,60 L400,60 L400,105 L330,105 Z" /></a>
+
           <a href="canarias.html">
-            <path class="region" d="M70,610 L120,605 L115,635 L70,640 Z M145,620 L200,615 L190,650 L140,655 Z" />
-            <rect x="50" y="580" width="180" height="100" fill="none" stroke="#ccc" stroke-dasharray="5,5" />
+            <path class="region" d="M80,650 L140,640 L150,680 L80,690 Z" />
+            <path class="region" d="M170,660 L230,655 L220,700 L160,710 Z" />
           </a>
+
+          <a href="asturias.html"><path class="region" d="M210,60 L320,60 L320,105 L210,105 Z" /></a>
+          <a href="paisvasco.html"><path class="region" d="M410,65 L480,70 L480,120 L410,115 Z" /></a>
+          <a href="aragon.html"><path class="region" d="M520,130 L650,150 L630,350 L500,340 Z" /></a>
+          <a href="cataluna.html"><path class="region" d="M660,155 L800,180 L780,340 L640,350 Z" /></a>
+          <a href="valencia.html"><path class="region" d="M600,360 L680,360 L700,530 L610,510 Z" /></a>
+          <a href="cym.html"><path class="region" d="M360,360 L580,365 L590,510 L350,510 Z" /></a>
+          <a href="extremadura.html"><path class="region" d="M230,365 L350,360 L345,520 L220,520 Z" /></a>
+          <a href="murcia.html"><path class="region" d="M585,520 L650,510 L670,600 L590,620 Z" /></a>
+          <a href="baleares.html"><path class="region" d="M780,360 L850,340 L880,370 L820,400 Z" /></a>
         </svg>
       </section>
 
       <h2 class="titulo-comunidades">Todas las Comunidades</h2>
       <div class="enlaces">
         <a href="andalucia.html"><img src="img/andalucia.jpg" alt="Andalucía" /><p>Andalucía</p></a>
-        <a href="aragon.html"><img src="img/aragon.jpg" alt="Aragón" /><p>Aragón</p></a>
         <a href="asturias.html"><img src="img/asturias.jpg" alt="Asturias" /><p>Asturias</p></a>
-        <a href="baleares.html"><img src="img/baleares.jpg" alt="Baleares" /><p>Baleares</p></a>
-        <a href="canarias.html"><img src="img/canarias.jpg" alt="Canarias" /><p>Canarias</p></a>
         <a href="cantabria.html"><img src="img/cantabria.jpg" alt="Cantabria" /><p>Cantabria</p></a>
-        <a href="cym.html"><img src="img/clm.jpg" alt="Castilla-La Mancha" /><p>C-La Mancha</p></a>
-        <a href="cyl.html"><img src="img/cyl.jpg" alt="Castilla y León" /><p>C. y León</p></a>
-        <a href="cataluna.html"><img src="img/cataluna.jpg" alt="Cataluña" /><p>Cataluña</p></a>
-        <a href="ceuta.html"><img src="img/ceuta.jpg" alt="Ceuta" /><p>Ceuta</p></a>
-        <a href="valencia.html"><img src="img/comunidad_valenciana.jpg" alt="Valencia" /><p>C. Valenciana</p></a>
-        <a href="extremadura.html"><img src="img/extremadura.jpg" alt="Extremadura" /><p>Extremadura</p></a>
-        <a href="galicia.html"><img src="img/galicia.jpg" alt="Galicia" /><p>Galicia</p></a>
-        <a href="rioja.html"><img src="img/la_rioja.jpg" alt="La Rioja" /><p>La Rioja</p></a>
         <a href="madrid.html"><img src="img/madrid.jpg" alt="Madrid" /><p>Madrid</p></a>
-        <a href="melilla.html"><img src="img/melilla.jpg" alt="Melilla" /><p>Melilla</p></a>
-        <a href="murcia.html"><img src="img/murcia.jpg" alt="Murcia" /><p>Murcia</p></a>
-        <a href="navarra.html"><img src="img/navarra.jpg" alt="Navarra" /><p>Navarra</p></a>
-        <a href="paisvasco.html"><img src="img/pais_vasco.jpg" alt="País Vasco" /><p>País Vasco</p></a>
-      </div>
+        </div>
     </main>
 
     <footer>
       <div class="footer-container">
-        <p>© 2025 Diversencia* - Todos los derechos reservados</p>
+        <p>© 2025 Diversencia*</p>
       </div>
     </footer>
   </div>
