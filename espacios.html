@@ -7,11 +7,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon">
+  <style>
+    /* Estilos rápidos para el Mapa */
+    .mapa-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .mapa-espana {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+    }
+    .instrucciones-mapa {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
 
- 
-    <!-- Encabezado corregido: usa la misma estructura que el index -->
+  <div class="page-wrapper">
     <header class="hero1">
       <div class="contenedor-logo">
         <h1><span class="nombre">Espacios Inclusivos</span><span class="asterisco">*</span></h1>
@@ -20,106 +41,58 @@
     </header>
 
     <main class="contenido">
-      <h2 class="titulo-comunidades">Comunidades Autónomas</h2>
+      
+      <section class="mapa-container">
+        <h2 class="titulo-comunidades">Explora por el mapa</h2>
+        <p class="instrucciones-mapa">Haz clic en tu comunidad para ver los lugares recomendados</p>
+        
+        <div id="mapa-interactivo">
+          <iframe src="https://createaclickablemap.com/google_map/?id=125553&online=true" width="100%" height="500" style="border:none;"></iframe>
+        </div>
+      </section>
+
+      <hr style="border: 0; height: 1px; background: #eee; margin: 50px 0;">
+
+      <h2 class="titulo-comunidades">Todas las Comunidades</h2>
       <div class="enlaces">
-        <a href="andalucia.html">
-          <img src="img/andalucia.jpg" alt="Andalucía" />
-          <p>Andalucía</p>
-        </a>
-        <a href="aragon.html">
-          <img src="img/aragon.jpg" alt="Aragón" />
-          <p>Aragón</p>
-        </a>
-        <a href="asturias.html">
-          <img src="img/asturias.jpg" alt="Asturias" />
-          <p>Asturias</p>
-        </a>
-        <a href="baleares.html">
-          <img src="img/baleares.jpg" alt="Baleares" />
-          <p>Baleares</p>
-        </a>
-        <a href="canarias.html">
-          <img src="img/canarias.jpg" alt="Canarias" />
-          <p>Canarias</p>
-        </a>
-        <a href="cantabria.html">
-          <img src="img/cantabria.jpg" alt="Cantabria" />
-          <p>Cantabria</p>
-        </a>
-        <a href="cym.html">
-          <img src="img/clm.jpg" alt="Castilla-La Mancha" />
-          <p>Castilla-La Mancha</p>
-        </a>
-        <a href="cyl.html">
-          <img src="img/cyl.jpg" alt="Castilla y León" />
-          <p>Castilla y León</p>
-        </a>
-        <a href="cataluna.html">
-          <img src="img/cataluna.jpg" alt="Cataluña" />
-          <p>Cataluña</p>
-        </a>
-        <a href="ceuta.html">
-          <img src="img/ceuta.jpg" alt="Ceuta" />
-          <p>Ceuta</p>
-        </a>
-        <a href="valencia.html">
-          <img src="img/comunidad_valenciana.jpg" alt="Comunidad Valenciana" />
-          <p>Comunidad Valenciana</p>
-        </a>
-        <a href="extremadura.html">
-          <img src="img/extremadura.jpg" alt="Extremadura" />
-          <p>Extremadura</p>
-        </a>
-        <a href="galicia.html">
-          <img src="img/galicia.jpg" alt="Galicia" />
-          <p>Galicia</p>
-        </a>
-        <a href="rioja.html">
-          <img src="img/la_rioja.jpg" alt="La Rioja" />
-          <p>La Rioja</p>
-        </a>
-        <a href="madrid.html">
-          <img src="img/madrid.jpg" alt="Madrid" />
-          <p>Madrid</p>
-        </a>
-        <a href="melilla.html">
-          <img src="img/melilla.jpg" alt="Melilla" />
-          <p>Melilla</p>
-        </a>
-        <a href="murcia.html">
-          <img src="img/murcia.jpg" alt="Murcia" />
-          <p>Murcia</p>
-        </a>
-        <a href="navarra.html">
-          <img src="img/navarra.jpg" alt="Navarra" />
-          <p>Navarra</p>
-        </a>
-        <a href="paisvasco.html">
-          <img src="img/pais_vasco.jpg" alt="País Vasco" />
-          <p>País Vasco</p>
-        </a>
+        <a href="andalucia.html"><img src="img/andalucia.jpg" alt="Andalucía" /><p>Andalucía</p></a>
+        <a href="aragon.html"><img src="img/aragon.jpg" alt="Aragón" /><p>Aragón</p></a>
+        <a href="asturias.html"><img src="img/asturias.jpg" alt="Asturias" /><p>Asturias</p></a>
+        <a href="baleares.html"><img src="img/baleares.jpg" alt="Baleares" /><p>Baleares</p></a>
+        <a href="canarias.html"><img src="img/canarias.jpg" alt="Canarias" /><p>Canarias</p></a>
+        <a href="cantabria.html"><img src="img/cantabria.jpg" alt="Cantabria" /><p>Cantabria</p></a>
+        <a href="cym.html"><img src="img/clm.jpg" alt="Castilla-La Mancha" /><p>Castilla-La Mancha</p></a>
+        <a href="cyl.html"><img src="img/cyl.jpg" alt="Castilla y León" /><p>Castilla y León</p></a>
+        <a href="cataluna.html"><img src="img/cataluna.jpg" alt="Cataluña" /><p>Cataluña</p></a>
+        <a href="ceuta.html"><img src="img/ceuta.jpg" alt="Ceuta" /><p>Ceuta</p></a>
+        <a href="valencia.html"><img src="img/comunidad_valenciana.jpg" alt="Valencia" /><p>Comunidad Valenciana</p></a>
+        <a href="extremadura.html"><img src="img/extremadura.jpg" alt="Extremadura" /><p>Extremadura</p></a>
+        <a href="galicia.html"><img src="img/galicia.jpg" alt="Galicia" /><p>Galicia</p></a>
+        <a href="rioja.html"><img src="img/la_rioja.jpg" alt="La Rioja" /><p>La Rioja</p></a>
+        <a href="madrid.html"><img src="img/madrid.jpg" alt="Madrid" /><p>Madrid</p></a>
+        <a href="melilla.html"><img src="img/melilla.jpg" alt="Melilla" /><p>Melilla</p></a>
+        <a href="murcia.html"><img src="img/murcia.jpg" alt="Murcia" /><p>Murcia</p></a>
+        <a href="navarra.html"><img src="img/navarra.jpg" alt="Navarra" /><p>Navarra</p></a>
+        <a href="paisvasco.html"><img src="img/pais_vasco.jpg" alt="País Vasco" /><p>País Vasco</p></a>
       </div>
     </main>
 
-<footer>
-  <div class="footer-container">
-    <div class="footer-top">
-      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
-      <div class="footer-contact">
-        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
-        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-top">
+          <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+          <div class="footer-contact">
+            <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+            <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+          </div>
+        </div>
+        <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
       </div>
-    </div>
-    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+    </footer>
+
   </div>
-</footer>
-
-
-  </div> <!-- /.page-wrapper -->
 
   <script src="menulateral.js"></script>
   <script src="accesibilidad.js"></script>
-	
 </body>
 </html>
-
