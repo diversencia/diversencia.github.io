@@ -611,13 +611,13 @@ font-family: 'Quicksand', sans-serif;
 .juego-titulo {
   font-size: 1.15rem;
   margin: 0 0 0.25rem;
-  color: #333;
+  color: #4db7c3;             /* azul */
 }
 
 .juego-edad {
   font-weight: 500;
   margin: 0 0 0.4rem;
-  color: #4db7c3;
+  color: #86AE87;             /* verde */
 }
 
 .juego-desc-corta {
@@ -630,7 +630,7 @@ font-family: 'Quicksand', sans-serif;
 .juego-toggle {
   margin-top: 0.4rem;
   align-self: flex-start;
-  background: #4db7c3;
+  background: #4db7c3; 
   color: #fff;
   border: none;
   border-radius: 999px;
@@ -642,7 +642,7 @@ font-family: 'Quicksand', sans-serif;
 }
 
 .juego-toggle:hover {
-  background: #3aa3af;
+  background: #e37c3a;
 }
 
 .juego-toggle:focus-visible,
@@ -665,13 +665,14 @@ font-family: 'Quicksand', sans-serif;
 .juego-link {
   display: inline-block;
   margin-top: 0.4rem;
-  color: #4db7c3;
+  color: #e37c3a;
   font-weight: 600;
   text-decoration: none;
 }
 
 .juego-link:hover {
   text-decoration: underline;
+  color: #4db7c3;
 }
 
 /* Etiquetas de accesibilidad */
@@ -690,6 +691,7 @@ font-family: 'Quicksand', sans-serif;
   color: #4db7c3;
   font-weight: 500;
 }
+
 
 
 
