@@ -1,113 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espacios Inclusivos - Diversencia*</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        .map-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Espacios Inclusivos - Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon">
+  <style>
+    /* Estilos del contenedor del mapa oficial */
+    .map-section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      text-align: center;
+    }
 
-        /* Estilos para el mapa de Wikipedia cuando cargue */
-        #spain-map-svg {
-            width: 100%;
-            height: auto;
-        }
+    /* Estilos para las siluetas del SVG de Wikipedia */
+    #canvas-mapa svg {
+      width: 100%;
+      height: auto;
+      max-height: 600px;
+      display: block;
+    }
 
-        /* Estos estilos se aplicarán a las piezas del mapa de Wikipedia */
-        path {
-            fill: #4db7c3 !important; /* Tu color turquesa */
-            stroke: #ffffff !important;
-            stroke-width: 1px !important;
-            transition: fill 0.3s ease;
-            cursor: pointer;
-        }
+    #canvas-mapa path {
+      fill: #4db7c3 !important; /* Tu turquesa corporativo */
+      stroke: #ffffff !important;
+      stroke-width: 1.5px !important;
+      transition: fill 0.3s ease, transform 0.2s;
+      cursor: pointer;
+    }
 
-        path:hover {
-            fill: #3a8e99 !important; /* Color más oscuro al pasar el ratón */
-        }
+    #canvas-mapa path:hover {
+      fill: #3a8e99 !important; /* Turquesa más oscuro */
+    }
 
-        .instrucciones {
-            font-family: 'Fredoka', sans-serif;
-            color: #777;
-            margin-bottom: 20px;
-        }
-    </style>
+    .instrucciones {
+      color: #777;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+    }
+
+    /* Mantenemos tu diseño de tarjetas inferior */
+    .enlaces {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .enlaces a { text-decoration: none; color: #333; text-align: center; }
+    .enlaces img { width: 100%; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .enlaces p { font-family: 'Fredoka', sans-serif; font-weight: bold; margin-top: 10px; }
+  </style>
 </head>
 <body>
 
+  <div class="page-wrapper">
     <header class="hero1">
-        <h1>Espacios Inclusivos*</h1>
-        <p class="subtitulo">Selecciona tu comunidad en el mapa oficial</p>
+      <div class="contenedor-logo">
+        <h1><span class="nombre">Espacios Inclusivos</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">Selecciona una comunidad en el mapa o en la lista inferior</p>
+      </div>
     </header>
 
     <main class="contenido">
-        <section class="map-container">
-            <p class="instrucciones">Cargando mapa oficial...</p>
-            <div id="canvas-mapa"></div>
-        </section>
+      
+      <section class="map-section">
+        <h2 class="titulo-comunidades">Explora el Mapa Oficial</h2>
+        <p class="instrucciones" id="status-mapa">Cargando mapa interactivo...</p>
+        <div id="canvas-mapa"></div>
+      </section>
 
-        <div class="enlaces">
-            </div>
+      <h2 class="titulo-comunidades">Todas las Comunidades</h2>
+      <div class="enlaces">
+        <a href="andalucia.html"><img src="img/andalucia.jpg" alt="Andalucía" /><p>Andalucía</p></a>
+        <a href="aragon.html"><img src="img/aragon.jpg" alt="Aragón" /><p>Aragón</p></a>
+        <a href="asturias.html"><img src="img/asturias.jpg" alt="Asturias" /><p>Asturias</p></a>
+        <a href="baleares.html"><img src="img/baleares.jpg" alt="Baleares" /><p>Baleares</p></a>
+        <a href="canarias.html"><img src="img/canarias.jpg" alt="Canarias" /><p>Canarias</p></a>
+        <a href="cantabria.html"><img src="img/cantabria.jpg" alt="Cantabria" /><p>Cantabria</p></a>
+        <a href="cym.html"><img src="img/clm.jpg" alt="Castilla-La Mancha" /><p>C. La Mancha</p></a>
+        <a href="cyl.html"><img src="img/cyl.jpg" alt="Castilla y León" /><p>C. y León</p></a>
+        <a href="cataluna.html"><img src="img/cataluna.jpg" alt="Cataluña" /><p>Cataluña</p></a>
+        <a href="ceuta.html"><img src="img/ceuta.jpg" alt="Ceuta" /><p>Ceuta</p></a>
+        <a href="valencia.html"><img src="img/comunidad_valenciana.jpg" alt="Valencia" /><p>C. Valenciana</p></a>
+        <a href="extremadura.html"><img src="img/extremadura.jpg" alt="Extremadura" /><p>Extremadura</p></a>
+        <a href="galicia.html"><img src="img/galicia.jpg" alt="Galicia" /><p>Galicia</p></a>
+        <a href="rioja.html"><img src="img/la_rioja.jpg" alt="La Rioja" /><p>La Rioja</p></a>
+        <a href="madrid.html"><img src="img/madrid.jpg" alt="Madrid" /><p>Madrid</p></a>
+        <a href="melilla.html"><img src="img/melilla.jpg" alt="Melilla" /><p>Melilla</p></a>
+        <a href="murcia.html"><img src="img/murcia.jpg" alt="Murcia" /><p>Murcia</p></a>
+        <a href="navarra.html"><img src="img/navarra.jpg" alt="Navarra" /><p>Navarra</p></a>
+        <a href="paisvasco.html"><img src="img/pais_vasco.jpg" alt="País Vasco" /><p>País Vasco</p></a>
+      </div>
     </main>
 
-    <script>
-        // Este script descarga el mapa de Wikipedia y lo hace interactivo
-        fetch('https://upload.wikimedia.org/wikipedia/commons/8/8b/Blank_Spain_Map_%28Autonomous_Communities%29.svg')
-            .then(response => response.text())
-            .then(svgData => {
-                const container = document.getElementById('canvas-mapa');
-                container.innerHTML = svgData;
-                const svg = container.querySelector('svg');
-                svg.id = "spain-map-svg";
-                
-                // Mapeamos los IDs del SVG de Wikipedia a tus archivos .html
-                const comunidades = {
-                    "ES-AN": "andalucia.html",
-                    "ES-AR": "aragon.html",
-                    "ES-AS": "asturias.html",
-                    "ES-IB": "baleares.html",
-                    "ES-CN": "canarias.html",
-                    "ES-S":  "cantabria.html",
-                    "ES-CM": "cym.html",
-                    "ES-CL": "cyl.html",
-                    "ES-CT": "cataluna.html",
-                    "ES-EX": "extremadura.html",
-                    "ES-GA": "galicia.html",
-                    "ES-RI": "rioja.html",
-                    "ES-MD": "madrid.html",
-                    "ES-MU": "murcia.html",
-                    "ES-NC": "navarra.html",
-                    "ES-PV": "paisvasco.html",
-                    "ES-VC": "valencia.html",
-                    "ES-CE": "ceuta.html",
-                    "ES-ML": "melilla.html"
-                };
+    <footer>
+      <div class="footer-container">
+        <div class="footer-top">
+          <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+          <div class="footer-contact">
+            <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+          </div>
+        </div>
+        <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+      </div>
+    </footer>
+  </div>
 
-                // Asignamos los enlaces a cada trozo del mapa
-                Object.keys(comunidades).forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.onclick = () => window.location.href = comunidades[id];
-                        el.style.cursor = "pointer";
-                        // Añadimos un título para que al poner el ratón salga el nombre
-                        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
-                        title.textContent = "Ir a " + comunidades[id].replace('.html', '');
-                        el.appendChild(title);
-                    }
-                });
-                
-                document.querySelector('.instrucciones').innerText = "Haz clic en una comunidad";
-            });
-    </script>
+  <script src="menulateral.js"></script>
+  <script>
+    // Script para cargar el SVG de Wikipedia y hacerlo funcional
+    fetch('https://upload.wikimedia.org/wikipedia/commons/8/8b/Blank_Spain_Map_%28Autonomous_Communities%29.svg')
+      .then(res => res.text())
+      .then(svgText => {
+        const container = document.getElementById('canvas-mapa');
+        container.innerHTML = svgText;
+        
+        // Mapeo de IDs del SVG oficial a tus rutas .html
+        const linkMap = {
+          "ES-AN": "andalucia.html", "ES-AR": "aragon.html", "ES-AS": "asturias.html",
+          "ES-IB": "baleares.html", "ES-CN": "canarias.html", "ES-S":  "cantabria.html",
+          "ES-CM": "cym.html", "ES-CL": "cyl.html", "ES-CT": "cataluna.html",
+          "ES-EX": "extremadura.html", "ES-GA": "galicia.html", "ES-RI": "rioja.html",
+          "ES-MD": "madrid.html", "ES-MU": "murcia.html", "ES-NC": "navarra.html",
+          "ES-PV": "paisvasco.html", "ES-VC": "valencia.html", "ES-CE": "ceuta.html",
+          "ES-ML": "melilla.html"
+        };
+
+        // Aplicamos la interactividad a cada comunidad detectada en el SVG
+        Object.entries(linkMap).forEach(([id, url]) => {
+          const regionPath = document.getElementById(id);
+          if (regionPath) {
+            regionPath.onclick = () => window.location.href = url;
+            regionPath.setAttribute('title', 'Haz clic para ver ' + id.split('-')[1]);
+          }
+        });
+        document.getElementById('status-mapa').innerText = "Haz clic en una comunidad para ver sus espacios";
+      });
+  </script>
 </body>
 </html>
