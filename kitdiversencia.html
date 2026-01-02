@@ -3,162 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kit Diversencia* - Recursos Inclusivos</title>
+    <title>Kit Diversencia* - Recursos</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Variables y Reset para coherencia */
-        :root {
-            --color-primario: #4db7c3;
-            --color-secundario: #e37c3a;
-            --bg-gris: #f4f7f8;
-        }
-
-        body {
-            background-color: var(--bg-gris);
-            margin: 0;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        /* Hero similar a Cultura Inclusiva */
-        .hero-kit {
-            background: linear-gradient(135deg, #4db7c3 0%, #2f8e99 100%);
-            padding: 60px 20px;
-            text-align: center;
-            color: white;
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .hero-kit h1 { font-size: 3rem; margin: 0; }
-        .hero-kit .asterisco { color: #ffd166; }
-        .hero-kit .subtitulo { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
-
-        /* Contenedor Principal */
+        /* Estilos específicos para la rejilla de descargas */
         .contenedor-kit {
             max-width: 1200px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 5%;
         }
 
-        /* Grid de materiales dinámico */
         .grid-recursos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 20px 0;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
         }
 
-        /* Estilo de Tarjetas (Basado en tu estética de Cultura) */
-        .tarjeta-descarga {
+        .card-descarga {
             background: white;
-            border-radius: 25px;
+            border-radius: 18px;
             overflow: hidden;
             border: 1px solid #eee;
-            transition: all 0.3s ease;
+            transition: 0.3s ease;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .tarjeta-descarga:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            border-color: var(--color-primario);
+        .card-descarga:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .previsualizacion {
+        .img-container {
             width: 100%;
-            height: 200px;
-            background: #e0e0e0;
+            aspect-ratio: 16/9;
+            background: #f0f0f0;
             position: relative;
-            overflow: hidden;
         }
 
-        .previsualizacion img {
+        .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .tipo-tag {
+        .tag-formato {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--color-secundario);
+            top: 10px;
+            right: 10px;
+            background: #e37c3a;
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
             font-weight: 600;
-            text-transform: uppercase;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .contenido-tarjeta {
-            padding: 20px;
+        .card-body-kit {
+            padding: 15px;
             text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
-        .contenido-tarjeta h3 {
-            font-size: 1.2rem;
-            color: #333;
-            margin: 0 0 15px 0;
-        }
-
-        .boton-descargar {
-            background: var(--color-primario);
+        .btn-descarga {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background: #4db7c3;
             color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
             text-decoration: none;
+            border-radius: 50px;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: 0.3s;
-            display: inline-block;
         }
 
-        .boton-descargar:hover {
-            background: #3a8d96;
-            transform: scale(1.05);
-        }
-
-        /* Mensaje de carga */
-        #loading-msg {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px;
-            color: #999;
-            font-size: 1.2rem;
-        }
-
-        @media (max-width: 600px) {
-            .hero-kit h1 { font-size: 2rem; }
-            .grid-recursos { grid-template-columns: 1fr; }
-        }
+        .btn-descarga:hover { background: #e37c3a; }
     </style>
 </head>
 <body>
 
-    <header class="hero-kit">
+    <header class="hero1">
         <div class="contenedor-logo">
-            <h1>Kit <span class="nombre">Diversencia</span><span class="asterisco">*</span></h1>
-            <p class="subtitulo">Materiales, fondos y recursos gratuitos para descargar</p>
+            <h1><span class="nombre">Kit Diversencia</span><span class="asterisco">*</span></h1>
+            <p class="subtitulo">Materiales educativos y recursos para descargar</p>
         </div>
     </header>
 
     <main class="contenedor-kit">
         <div id="recursos-container" class="grid-recursos">
-            <div id="loading-msg">Cargando la estantería de recursos...</div>
+            <p>Cargando materiales...</p>
         </div>
     </main>
 
     <script src="motorkit.js"></script>
     <script src="menulateral.js"></script>
     <script src="accesibilidad.js"></script>
-
 </body>
 </html>
