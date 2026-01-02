@@ -4,84 +4,98 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Espacios Inclusivos - Diversencia*</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon">
+  
   <style>
-    /* Estilos específicos para la sección del Mapa */
-    .map-section {
-      max-width: 900px;
+    /* SECCIÓN DE BÚSQUEDA */
+    .search-section {
+      max-width: 600px;
       margin: 40px auto;
-      padding: 30px;
-      background: #ffffff;
-      border-radius: 30px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      padding: 0 20px;
       text-align: center;
     }
 
-    #contenedor-mapa {
-      width: 100%;
-      height: auto;
-      min-height: 400px; /* Evita saltos mientras carga */
+    .search-container {
+      position: relative;
       display: flex;
-      justify-content: center;
       align-items: center;
     }
 
-    #contenedor-mapa svg {
+    .search-input {
       width: 100%;
-      height: auto;
-      display: block;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border: 2px solid #4db7c3;
+      border-radius: 50px;
+      font-family: 'Fredoka', sans-serif;
+      outline: none;
+      transition: box-shadow 0.3s ease;
     }
 
-    /* Estilos para las Tarjetas Cuadradas */
+    .search-input:focus {
+      box-shadow: 0 0 15px rgba(77, 183, 195, 0.3);
+    }
+
+    /* GRID DE TARJETAS OPTIMIZADO */
     .enlaces {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 25px;
-      padding: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .enlaces a {
+    .tarjeta-comunidad {
       text-decoration: none;
       color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: transform 0.3s ease;
     }
 
     .img-cuadrada {
       width: 100%;
-      aspect-ratio: 1 / 1; /* Cuadrado Perfecto */
+      aspect-ratio: 1 / 1;
       overflow: hidden;
-      border-radius: 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin-bottom: 12px;
-      transition: transform 0.3s ease;
+      border-radius: 30px; /* Bordes más suaves estilo Diversencia */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin-bottom: 15px;
+      background: #eee;
     }
 
     .img-cuadrada img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Centra y recorta la imagen sin deformarla */
+      object-fit: cover;
+      transition: transform 0.5s ease;
     }
 
-    .enlaces a:hover .img-cuadrada {
-      transform: translateY(-8px);
+    .tarjeta-comunidad:hover {
+      transform: translateY(-10px);
     }
 
-    .enlaces p {
+    .tarjeta-comunidad:hover img {
+      transform: scale(1.1);
+    }
+
+    .tarjeta-comunidad p {
       font-family: 'Fredoka', sans-serif;
-      font-weight: bold;
-      font-size: 1.1em;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #444;
+      margin: 0;
     }
 
-    .attribution {
-      font-size: 0.75em;
-      color: #bbb;
-      margin-top: 15px;
+    /* Feedback cuando no hay resultados */
+    #no-results {
+      display: none;
+      padding: 50px;
+      color: #777;
+      font-family: 'Fredoka', sans-serif;
     }
   </style>
 </head>
@@ -91,57 +105,68 @@
     <header class="hero1">
       <div class="contenedor-logo">
         <h1><span class="nombre">Espacios Inclusivos</span><span class="asterisco">*</span></h1>
-        <p class="subtitulo">Selecciona una comunidad en el mapa interactivo</p>
+        <p class="subtitulo">Encuentra recursos accesibles en tu comunidad</p>
       </div>
     </header>
 
     <main class="contenido">
-      
-<section class="map-section">
-  <h2 class="titulo-comunidades">Selecciona tu Comunidad</h2>
-  <div class="map-container-new">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Spain_location_map.svg/1024px-Spain_location_map.svg.png" alt="Mapa de España" class="map-bg">
-    
-    <a href="galicia.html" class="map-link galicia" title="Galicia"></a>
-    <a href="asturias.html" class="map-link asturias" title="Asturias"></a>
-    <a href="andalucia.html" class="map-link andalucia" title="Andalucía"></a>
-    <a href="madrid.html" class="map-link madrid" title="Madrid"></a>
-    <a href="cataluna.html" class="map-link cataluna" title="Cataluña"></a>
-    <a href="valencia.html" class="map-link valencia" title="C. Valenciana"></a>
-    </div>
-</section>
+      <section class="search-section">
+        <div class="search-container">
+          <input type="text" id="comunidad-search" class="search-input" placeholder="Escribe tu comunidad (ej. Madrid, Andalucía...)">
+        </div>
+      </section>
 
-      <h2 class="titulo-comunidades">Todas las Comunidades</h2>
-      <div class="enlaces">
-        <a href="andalucia.html"><div class="img-cuadrada"><img src="img/andalucia.jpg" alt="Andalucía"></div><p>Andalucía</p></a>
-        <a href="aragon.html"><div class="img-cuadrada"><img src="img/aragon.jpg" alt="Aragón"></div><p>Aragón</p></a>
-        <a href="asturias.html"><div class="img-cuadrada"><img src="img/asturias.jpg" alt="Asturias"></div><p>Asturias</p></a>
-        <a href="baleares.html"><div class="img-cuadrada"><img src="img/baleares.jpg" alt="Baleares"></div><p>Baleares</p></a>
-        <a href="canarias.html"><div class="img-cuadrada"><img src="img/canarias.jpg" alt="Canarias"></div><p>Canarias</p></a>
-        <a href="cantabria.html"><div class="img-cuadrada"><img src="img/cantabria.jpg" alt="Cantabria"></div><p>Cantabria</p></a>
-        <a href="cym.html"><div class="img-cuadrada"><img src="img/clm.jpg" alt="Castilla-La Mancha"></div><p>C. La Mancha</p></a>
-        <a href="cyl.html"><div class="img-cuadrada"><img src="img/cyl.jpg" alt="Castilla y León"></div><p>Castilla y León</p></a>
-        <a href="cataluna.html"><div class="img-cuadrada"><img src="img/cataluna.jpg" alt="Cataluña"></div><p>Cataluña</p></a>
-        <a href="ceuta.html"><div class="img-cuadrada"><img src="img/ceuta.jpg" alt="Ceuta"></div><p>Ceuta</p></a>
-        <a href="valencia.html"><div class="img-cuadrada"><img src="img/comunidad_valenciana.jpg" alt="Valencia"></div><p>C. Valenciana</p></a>
-        <a href="extremadura.html"><div class="img-cuadrada"><img src="img/extremadura.jpg" alt="Extremadura"></div><p>Extremadura</p></a>
-        <a href="galicia.html"><div class="img-cuadrada"><img src="img/galicia.jpg" alt="Galicia"></div><p>Galicia</p></a>
-        <a href="rioja.html"><div class="img-cuadrada"><img src="img/la_rioja.jpg" alt="La Rioja"></div><p>La Rioja</p></a>
-        <a href="madrid.html"><div class="img-cuadrada"><img src="img/madrid.jpg" alt="Madrid"></div><p>Madrid</p></a>
-        <a href="melilla.html"><div class="img-cuadrada"><img src="img/melilla.jpg" alt="Melilla"></div><p>Melilla</p></a>
-        <a href="murcia.html"><div class="img-cuadrada"><img src="img/murcia.jpg" alt="Murcia"></div><p>Murcia</p></a>
-        <a href="navarra.html"><div class="img-cuadrada"><img src="img/navarra.jpg" alt="Navarra"></div><p>Navarra</p></a>
-        <a href="paisvasco.html"><div class="img-cuadrada"><img src="img/pais_vasco.jpg" alt="País Vasco"></div><p>País Vasco</p></a>
+      <h2 class="titulo-comunidades">Comunidades Autónomas</h2>
+      
+      <div id="no-results">No hemos encontrado comunidades que coincidan con tu búsqueda.</div>
+
+      <div class="enlaces" id="lista-comunidades">
+        <a href="andalucia.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/andalucia.jpg" alt="Andalucía"></div><p>Andalucía</p></a>
+        <a href="aragon.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/aragon.jpg" alt="Aragón"></div><p>Aragón</p></a>
+        <a href="asturias.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/asturias.jpg" alt="Asturias"></div><p>Asturias</p></a>
+        <a href="baleares.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/baleares.jpg" alt="Baleares"></div><p>Baleares</p></a>
+        <a href="canarias.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/canarias.jpg" alt="Canarias"></div><p>Canarias</p></a>
+        <a href="cantabria.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/cantabria.jpg" alt="Cantabria"></div><p>Cantabria</p></a>
+        <a href="cym.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/clm.jpg" alt="Castilla-La Mancha"></div><p>Castilla-La Mancha</p></a>
+        <a href="cyl.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/cyl.jpg" alt="Castilla y León"></div><p>Castilla y León</p></a>
+        <a href="cataluna.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/cataluna.jpg" alt="Cataluña"></div><p>Cataluña</p></a>
+        <a href="ceuta.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/ceuta.jpg" alt="Ceuta"></div><p>Ceuta</p></a>
+        <a href="valencia.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/comunidad_valenciana.jpg" alt="Valencia"></div><p>C. Valenciana</p></a>
+        <a href="extremadura.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/extremadura.jpg" alt="Extremadura"></div><p>Extremadura</p></a>
+        <a href="galicia.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/galicia.jpg" alt="Galicia"></div><p>Galicia</p></a>
+        <a href="rioja.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/la_rioja.jpg" alt="La Rioja"></div><p>La Rioja</p></a>
+        <a href="madrid.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/madrid.jpg" alt="Madrid"></div><p>Madrid</p></a>
+        <a href="melilla.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/melilla.jpg" alt="Melilla"></div><p>Melilla</p></a>
+        <a href="murcia.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/murcia.jpg" alt="Murcia"></div><p>Murcia</p></a>
+        <a href="navarra.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/navarra.jpg" alt="Navarra"></div><p>Navarra</p></a>
+        <a href="paisvasco.html" class="tarjeta-comunidad"><div class="img-cuadrada"><img src="img/pais_vasco.jpg" alt="País Vasco"></div><p>País Vasco</p></a>
       </div>
     </main>
 
-    <footer>
-      <p>© 2025 Diversencia*</p>
+    <footer class="footer-copy">
+      <p>© 2025 Diversencia* - Espacios para todos</p>
     </footer>
   </div>
 
-  <script src="menulateral.js"></script>
-  <script src="mapa.js"></script>
+  <script>
+    document.getElementById('comunidad-search').addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+      const tarjetas = document.querySelectorAll('.tarjeta-comunidad');
+      const noResults = document.getElementById('no-results');
+      let found = false;
+
+      tarjetas.forEach(tarjeta => {
+        const nombre = tarjeta.querySelector('p').textContent.toLowerCase();
+        if (nombre.includes(term)) {
+          tarjeta.style.display = 'flex';
+          found = true;
+        } else {
+          tarjeta.style.display = 'none';
+        }
+      });
+
+      noResults.style.display = found ? 'none' : 'block';
+    });
+  </script>
 </body>
 </html>
-
