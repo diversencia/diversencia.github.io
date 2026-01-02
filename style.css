@@ -563,10 +563,13 @@ font-family: 'Quicksand', sans-serif;
   }
 }
 
+Aquí tienes todo el CSS completo de las tarjetas con el espaciado solucionado para que las filas no se peguen:
+
+css
 /* ===== TARJETAS JUEGOS DE MESA ===== */
 .cards-wrapper {
   max-width: 1100px;
-  margin: 0 auto 4rem; /* margen grande bajo toda la sección */
+  margin: 0 auto 5rem; /* MUCHO espacio bajo toda la sección */
   text-align: left;
 }
 
@@ -585,27 +588,27 @@ font-family: 'Quicksand', sans-serif;
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  row-gap: 3.5rem;       /* espacio grande entre filas */
-  column-gap: 2.5rem;    /* espacio entre columnas */
+  row-gap: 4rem;        /* ESPACIO GRANDE entre filas */
+  column-gap: 2.5rem;   /* espacio entre columnas */
   align-items: flex-start;
 }
 
 .juego-card {
   background: #ffffff;
   border-radius: 16px;
-  padding: 1.5rem 1.5rem 2.5rem; /* más aire abajo */
+  padding: 1.5rem 1.5rem 2.5rem; /* más padding abajo */
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-bottom: 1rem;   /* seguridad extra */
+  margin-bottom: 1.5rem; /* margen fijo de seguridad */
 }
 
 .juego-img {
   width: 100%;
   max-width: 230px;
   max-height: 150px;
-  margin: 0 auto 1rem;   /* más margen abajo de la imagen */
+  margin: 0 auto 1rem;
   display: block;
   border-radius: 12px;
   object-fit: contain;
@@ -627,7 +630,7 @@ font-family: 'Quicksand', sans-serif;
   font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
   font-size: 0.95rem;
   color: #555;
-  margin: 0 0 0.8rem;    /* más espacio antes del botón */
+  margin: 0 0 0.8rem;
 }
 
 .juego-toggle {
@@ -655,14 +658,14 @@ font-family: 'Quicksand', sans-serif;
 }
 
 .juego-detalles {
-  margin-top: 1rem;      /* más espacio antes de detalles */
+  margin-top: 1rem;
   font-size: 0.9rem;
   font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
   color: #444;
 }
 
 .juego-detalles p {
-  margin: 0 0 0.4rem;    /* más espacio entre párrafos */
+  margin: 0 0 0.4rem;
 }
 
 .juego-link {
@@ -701,6 +704,15 @@ font-family: 'Quicksand', sans-serif;
 .juego-tag--motora    { background: #e6f2ea; color: #86AE87; }
 .juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; }
 .juego-tag--tea       { background: #fff6d9; color: #d4a017; }
+
+/* MÓVIL */
+@media (max-width: 900px) {
+  .cards-container {
+    row-gap: 3rem;
+    column-gap: 1.5rem;
+  }
+}
+
 
 
 
