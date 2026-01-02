@@ -72,7 +72,9 @@
         .fuente-dislexia * { font-family: "OpenDyslexic", "Comic Sans MS", cursive !important; }
         
         /* Cursor Grande */
-        .cursor-grande * { cursor: url('https://cur.cursors-4u.net/games/gam-4/gam372.cur'), auto !important; }
+        .cursor-grande * { 
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23E37C3A' stroke='white' stroke-width='1'><path d='M7 2l12 11.2l-5.8 0.5l3.3 7.3l-2.2 1l-3.2-7.4L7 19V2z'/></svg>"), auto !important; 
+}
         
         /* Detener Animaciones */
         .sin-animaciones * { 
