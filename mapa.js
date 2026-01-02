@@ -2495,9 +2495,25 @@ document.addEventListener("DOMContentLoaded", function() {
     if (contenedor) {
         contenedor.innerHTML = mapaEspana;
 
-        // Esperamos un momento a que el SVG se renderice
         setTimeout(() => {
-            const comunidades = {
+            // Seleccionamos todos los caminos del mapa (los "paths")
+            const paths = document.querySelectorAll('#contenedor-mapa path');
+            
+            // Esta lista debe seguir el orden exacto de aparición en tu SVG
+            // Si el mapa se ilumina en lugares equivocados, habrá que ajustar este orden
+            const nombresProvincias = [
+                "Almeria", "Cadiz", "Cordoba", "Granada", "Huelva", "Jaen", "Malaga", "Sevilla",
+                "Huesca", "Teruel", "Zaragoza", "Asturias", "Baleares", "Las_Palmas", 
+                "Santa_Cruz_de_Tenerife", "Cantabria", "Albacete", "Ciudad_Real", "Cuenca", 
+                "Guadalajara", "Toledo", "Avila", "Burgos", "Leon", "Palencia", "Salamanca", 
+                "Segovia", "Soria", "Valladolid", "Zamora", "Barcelona", "Gerona", "Lerida", 
+                "Tarragona", "Alicante", "Castellon", "Valencia", "Badajoz", "Caceres", 
+                "Coruna", "Lugo", "Orense", "Pontevedra", "La_Rioja", "Madrid", "Murcia", 
+                "Navarra", "Alava", "Guipuzcoa", "Vizcaya", "Ceuta", "Melilla"
+            ];
+
+            // Diccionario de URLs (igual al que ya tenías)
+            const comunidadesUrls = {
                 "andalucia.html": ["Almeria", "Cadiz", "Cordoba", "Granada", "Huelva", "Jaen", "Malaga", "Sevilla"],
                 "aragon.html": ["Huesca", "Teruel", "Zaragoza"],
                 "asturias.html": ["Asturias"],
@@ -2507,57 +2523,52 @@ document.addEventListener("DOMContentLoaded", function() {
                 "cym.html": ["Albacete", "Ciudad_Real", "Cuenca", "Guadalajara", "Toledo"],
                 "cyl.html": ["Avila", "Burgos", "Leon", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
                 "cataluna.html": ["Barcelona", "Gerona", "Lerida", "Tarragona"],
-                "ceuta.html": ["Ceuta"],
                 "valencia.html": ["Alicante", "Castellon", "Valencia"],
                 "extremadura.html": ["Badajoz", "Caceres"],
                 "galicia.html": ["Coruna", "Lugo", "Orense", "Pontevedra"],
                 "rioja.html": ["La_Rioja"],
                 "madrid.html": ["Madrid"],
-                "melilla.html": ["Melilla"],
                 "murcia.html": ["Murcia"],
                 "navarra.html": ["Navarra"],
-                "paisvasco.html": ["Alava", "Guipuzcoa", "Vizcaya"]
+                "paisvasco.html": ["Alava", "Guipuzcoa", "Vizcaya"],
+                "ceuta.html": ["Ceuta"],
+                "melilla.html": ["Melilla"]
             };
 
-            const colorBase = "#4db7c3";
-            const colorHover = "#e37c3a";
+            // 1. Asignamos los nombres correctos a los paths genéricos
+            paths.forEach((path, index) => {
+                if (nombresProvincias[index]) {
+                    path.id = nombresProvincias[index];
+                }
+            });
 
-            // Recorremos el diccionario de comunidades
-            Object.entries(comunidades).forEach(([url, provincias]) => {
+            // 2. Aplicamos la interactividad (ahora que ya tienen ID)
+            Object.entries(comunidadesUrls).forEach(([url, provincias]) => {
                 provincias.forEach(idProv => {
-                    // Buscamos el elemento por ID
                     const el = document.getElementById(idProv);
-                    
                     if (el) {
-                        // Forzamos que el elemento sea interactivo
-                        el.style.pointerEvents = "auto"; 
                         el.style.cursor = "pointer";
-                        el.style.fill = colorBase;
+                        el.style.fill = "#4db7c3"; // Color base de style.css
+                        el.style.transition = "fill 0.3s";
 
-                        // CLIC: Redirección
-                        el.onclick = function(e) {
-                            e.stopPropagation(); // Evita que otros elementos interfieran
-                            window.location.href = url;
-                        };
+                        el.onclick = () => window.location.href = url;
 
-                        // HOVER: Iluminar comunidad
-                        el.onmouseenter = () => {
+                        el.onmouseover = () => {
                             provincias.forEach(p => {
                                 const prov = document.getElementById(p);
-                                if(prov) prov.style.fill = colorHover;
+                                if(prov) prov.style.fill = "#e37c3a"; // Color naranja asteriscos
                             });
                         };
 
-                        // OUT: Restaurar color
-                        el.onmouseleave = () => {
+                        el.onmouseout = () => {
                             provincias.forEach(p => {
                                 const prov = document.getElementById(p);
-                                if(prov) prov.style.fill = colorBase;
+                                if(prov) prov.style.fill = "#4db7c3";
                             });
                         };
                     }
                 });
             });
-        }, 200); // Aumentamos a 200ms para mayor seguridad
+        }, 300);
     }
 });
