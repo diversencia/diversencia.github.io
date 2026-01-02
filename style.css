@@ -712,6 +712,29 @@ font-family: 'Quicksand', sans-serif;
   }
 }
 
+/* FORZAR ESPACIO VERTICAL - AÑADIR AL FINAL */
+.cards-container {
+  grid-template-rows: repeat(auto-fill, minmax(400px, auto)) !important;
+  row-gap: 4rem !important;
+}
+
+.juego-card {
+  height: auto !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* MÓVIL */
+@media (max-width: 1200px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 
 
