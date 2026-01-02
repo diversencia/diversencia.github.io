@@ -33,14 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function crearInterfaz() {
         const zona = document.getElementById('zona-controles');
         if(!zona) return;
-        zona.innerHTML = ""; // Evitar duplicados si el script se carga dos veces
+        zona.innerHTML = ""; 
         zona.className = "controles-superiores";
 
         const buscador = document.createElement('input');
         buscador.className = "search-input";
         buscador.placeholder = "🔍 Escribe título, autor o temática...";
         
-        // El truco para evitar el tembleque al escribir:
         buscador.addEventListener('input', (e) => {
             filtrarTodo(e.target.value);
         });
@@ -75,8 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function filtrarTodo(texto) {
         const t = texto.toLowerCase();
-        
-        // En lugar de renderizar de nuevo, vamos a jugar con la visibilidad
         const cards = document.querySelectorAll('.card');
         
         cards.forEach(card => {
@@ -89,14 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (cumpleFiltro && cumpleTexto) {
                 card.style.display = "block";
-                card.style.opacity = "1";
+                setTimeout(() => card.style.opacity = "1", 10);
             } else {
-                card.style.display = "none";
                 card.style.opacity = "0";
+                setTimeout(() => card.style.display = "none", 300);
             }
         });
 
-        // Ocultar secciones vacías para que no haya saltos
         document.querySelectorAll('.seccion-horizontal').forEach(seccion => {
             const tieneVisibles = Array.from(seccion.querySelectorAll('.card')).some(c => c.style.display !== "none");
             seccion.style.display = tieneVisibles ? "block" : "none";
@@ -118,26 +114,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         lista.forEach(item => {
-            const [titulo, formato, diversidad, edad, autor, sinopsis, imagen, plataforma] = item;
+            const [titulo, formato, diversidad, edad, autor, sinopsis, imagenRaw, plataforma] = item;
+            
+            // --- LIMPIEZA DE URL DE IMAGEN ---
+            const imagen = imagenRaw ? imagenRaw.trim().replace(/^"|"$/g, '') : '';
+            
             const contenedor = conts[formato];
 
-            if (contenedor) {
+            if (contenedor && imagen) {
                 const card = document.createElement('div');
                 card.className = 'card';
-                // Guardamos datos para el buscador
                 card.setAttribute('data-titulo', titulo.toLowerCase());
                 card.setAttribute('data-autor', autor.toLowerCase());
                 card.setAttribute('data-div', diversidad);
-                
-                card.style.transition = "opacity 0.3s ease"; // Evita el tembleque visual
+                card.style.transition = "opacity 0.3s ease";
                 
                 card.innerHTML = `
-                    <img src="${imagen}" alt="${titulo}" loading="lazy">
+                    <img src="${imagen}" alt="${titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/220x330?text=Cargando...'">
                     <div class="card-body">
                         <span class="card-tag">${diversidad}</span>
                         <h3>${titulo}</h3>
                     </div>
                 `;
+
                 card.onclick = () => {
                     document.getElementById('m-img').src = imagen;
                     document.getElementById('m-tit').innerText = titulo;
@@ -152,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Modal logic
     const closeBtn = document.getElementById('close-modal');
     if(closeBtn) closeBtn.onclick = () => document.getElementById('miModal').style.display = 'none';
     
