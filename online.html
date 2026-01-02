@@ -3,148 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Recursos Online – Diversencia*</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <title>Espacios Online – Diversencia*</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon" />
-</head>
-<body>
-  <div class="page-wrapper">
 
-  
-
-    <!-- Encabezado -->
-    <header class="hero1">
-      <div class="contenedor-logo">
-        <h1>Recursos <span class="nombre">Online</span><span class="asterisco">*</span></h1>
-        <p class="subtitulo">Herramientas y tiendas inclusivas en la red</p>
-      </div>
-    </header>
-
-    <main class="contenido">
-
-      <!-- Filtros -->
-      <section class="filtros-wrapper" aria-label="Filtros de búsqueda">
-        <h2>Filtrar recursos</h2>
-        <div class="filtros">
-          <input
-            type="text"
-            id="buscar"
-            class="input-estilo"
-            placeholder="🔍 Buscar por nombre o plataforma…"
-            aria-label="Buscar por nombre o plataforma"
-          />
-          <select id="filtroTipo" class="select-estilo" aria-label="Filtrar por categoría">
-            <option value="">Todas las categorías</option>
-            <option value="Libros inclusivos">Libros inclusivos</option>
-            <option value="Tienda de ropa adaptada">Tienda de ropa adaptada</option>
-            <option value="Página">Página</option>
-            <option value="Grupo inclusivo">Grupo inclusivo</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Calzado">Calzado</option>
-          </select>
-        </div>
-      </section>
-
-      <!-- Tabla recursos online -->
-      <div class="tabla-container">
-        <h3 id="Online">Online</h3>
-        <table class="tabla-estilo" aria-describedby="Online">
-          <thead>
-            <tr>
-              <th>Recurso</th>
-              <th>Categoría</th>
-              <th>Enlace/Plataforma</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Cuentos Para Peques Especiales</td>
-              <td>Libros inclusivos</td>
-              <td>Online</td>
-            </tr>
-            <tr>
-              <td>Tienda HAZ</td>
-              <td>Tienda de ropa adaptada</td>
-              <td>Instagram y Tiktok</td>
-            </tr>
-            <tr>
-              <td>Rural Tea</td>
-              <td>Página</td>
-              <td>@rural.tea</td>
-            </tr>
-            <tr>
-              <td>Grupo de Whatsapp Nacional</td>
-              <td>Grupo inclusivo</td>
-              <td>Whatsapp</td>
-            </tr>
-            <tr>
-              <td>Ana Martín Moda y Complementos</td>
-              <td>Ropa</td>
-              <td>Online (?)</td>
-            </tr>
-            <tr>
-              <td>Baby Lobitos</td>
-              <td>Calzado</td>
-              <td>Online</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </main>
-
-<footer>
-  <div class="footer-container">
-    <div class="footer-top">
-      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
-      <div class="footer-contact">
-        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
-        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
-      </div>
-    </div>
-    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
-  </div>
-</footer>
-
-
-  </div> <!-- /.page-wrapper -->
-
-  <script>
-
-    // Filtrado de recursos online
-    const buscarInput = document.getElementById("buscar");
-    const filtroTipo = document.getElementById("filtroTipo");
-    const tabla = document.querySelector(".tabla-container table");
-
-    function filtrar() {
-      const busqueda = buscarInput.value.toLowerCase();
-      const categoria = filtroTipo.value;
-      let visibles = 0;
-
-      Array.from(tabla.tBodies[0].rows).forEach(fila => {
-        const recurso = fila.cells[0].textContent.toLowerCase();
-        const enlace = fila.cells[2].textContent.toLowerCase();
-        const tipo = fila.cells[1].textContent;
-        const cumpleBusqueda = recurso.includes(busqueda) || enlace.includes(busqueda);
-        const cumpleCategoria = categoria === "" || categoria === tipo;
-
-        fila.style.display = cumpleBusqueda && cumpleCategoria ? "" : "none";
-        if (cumpleBusqueda && cumpleCategoria) visibles++;
-      });
-
-      tabla.style.display = visibles > 0 ? "" : "none";
-      document.getElementById("Online").style.display = visibles > 0 ? "" : "none";
+  <style>
+    /* ESTILOS ESPECÍFICOS PARA ESTA PÁGINA */
+    
+    /* Encabezado estilo Limpio/Andalucía */
+    .hero1 {
+      background: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 1px solid #f0f0f0;
     }
 
-    buscarInput.addEventListener("input", filtrar);
-    filtroTipo.addEventListener("change", filtrar);
-    filtrar();
-  </script>
-  
-  </div> <script src="menulateral.js"></script>
+    .contenedor-logo h1 {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 3rem;
+      margin: 0;
+      color: #333;
+    }
+
+    .hero1 .nombre, .hero1 .asterisco {
+      color: #E37C3A; /* Tu naranja corporativo */
+    }
+
+    .subtitulo {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    /* Grid para las tarjetas que inyectará el JS */
+    #lista-sitios {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Diseño de las tarjetas inyectadas */
+    .tarjeta-online {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #eee;
+    }
+
+    .tarjeta-online:hover {
+      transform: translateY(-10px);
+    }
+
+    .card-img-container {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+
+    .card-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .card-info h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .card-info p {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      color: #777;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    /* Botón redondeado naranja */
+    .btn-visitar {
+      background: #E37C3A;
+      color: white !important;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-family: 'Fredoka', sans-serif;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-visitar:hover {
+      background: #d96b2a;
+      box-shadow: 0 5px 15px rgba(227, 124, 58, 0.4);
+    }
+
+    /* Mensaje de carga */
+    .loading-msg {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 50px;
+      font-family: 'Fredoka', sans-serif;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero1">
+    <div class="contenedor-logo">
+      <h1>Recursos <span class="nombre">Online</span><span class="asterisco">*</span></h1>
+      <p class="subtitulo">Servicios inclusivos online</p>
+    </div>
+  </header>
+
+  <main class="contenido">
+    <div id="lista-sitios" data-ca="Online">
+      <div class="loading-msg">
+        <p>Cargando espacios accesibles...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="menulateral.js"></script>
   <script src="accesibilidad.js"></script>
-  
+  <script src="motoronline.js"></script>
+
 </body>
 </html>
-
