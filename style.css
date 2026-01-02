@@ -566,7 +566,8 @@ font-family: 'Quicksand', sans-serif;
 /* ===== TARJETAS JUEGOS DE MESA ===== */
 .cards-wrapper {
   max-width: 1100px;
-  margin: 0 auto 3rem; /* 3rem de margen bajo la sección */
+  margin: 0 auto 4rem; /* margen grande bajo toda la sección */
+  text-align: left;
 }
 
 .cards-wrapper h3 {
@@ -584,54 +585,55 @@ font-family: 'Quicksand', sans-serif;
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  row-gap: 3rem;      /* espacio grande entre filas */
-  column-gap: 2.5rem; /* espacio entre columnas */
+  row-gap: 3.5rem;       /* espacio grande entre filas */
+  column-gap: 2.5rem;    /* espacio entre columnas */
   align-items: flex-start;
 }
 
 .juego-card {
   background: #ffffff;
   border-radius: 16px;
-  padding: 1.5rem 1.5rem 2rem; /* más aire dentro */
+  padding: 1.5rem 1.5rem 2.5rem; /* más aire abajo */
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   height: 100%;
+  margin-bottom: 1rem;   /* seguridad extra */
 }
 
 .juego-img {
   width: 100%;
-  max-width: 320px;          /* más estrecha */
-  max-height: 150px;         /* más baja */
-  margin: 0 auto;    /* centrada en la card */
+  max-width: 230px;
+  max-height: 150px;
+  margin: 0 auto 1rem;   /* más margen abajo de la imagen */
   display: block;
   border-radius: 12px;
-  object-fit: contain;       /* se ve toda la caja */
+  object-fit: contain;
 }
 
 .juego-titulo {
   font-size: 1.15rem;
   margin: 0 0 0.25rem;
-  color: #4db7c3;             /* azul */
+  color: #4db7c3;
 }
 
 .juego-edad {
   font-weight: 500;
   margin: 0 0 0.4rem;
-  color: #86AE87;             /* verde */
+  color: #86AE87;
 }
 
 .juego-desc-corta {
   font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
   font-size: 0.95rem;
   color: #555;
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.8rem;    /* más espacio antes del botón */
 }
 
 .juego-toggle {
   margin-top: 0.4rem;
   align-self: flex-start;
-  background: #4db7c3; 
+  background: #4db7c3;
   color: #fff;
   border: none;
   border-radius: 999px;
@@ -653,19 +655,19 @@ font-family: 'Quicksand', sans-serif;
 }
 
 .juego-detalles {
-  margin-top: 0.6rem;
+  margin-top: 1rem;      /* más espacio antes de detalles */
   font-size: 0.9rem;
   font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
   color: #444;
 }
 
 .juego-detalles p {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.4rem;    /* más espacio entre párrafos */
 }
 
 .juego-link {
   display: inline-block;
-  margin-top: 0.4rem;
+  margin-top: 0.6rem;
   color: #e37c3a;
   font-weight: 600;
   text-decoration: none;
@@ -678,10 +680,10 @@ font-family: 'Quicksand', sans-serif;
 
 /* Etiquetas de accesibilidad */
 .juego-tags {
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 
 .juego-tag {
@@ -699,12 +701,6 @@ font-family: 'Quicksand', sans-serif;
 .juego-tag--motora    { background: #e6f2ea; color: #86AE87; }
 .juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; }
 .juego-tag--tea       { background: #fff6d9; color: #d4a017; }
-
-
-
-
-
-
 
 
 
