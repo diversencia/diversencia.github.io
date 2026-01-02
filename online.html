@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Espacios Online – Diversencia*</title>
+  <title>Recursos Online – Diversencia*</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   
@@ -11,12 +11,7 @@
   <link rel="icon" href="logo.png" type="image/x-icon" />
 
   <style>
-    /* 1. CURSOR PERSONALIZADO (Grande + Asterisco Naranja) */
-    .cursor-grande * { 
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23E37C3A' stroke='white' stroke-width='1'><path d='M7 2l12 11.2l-5.8 0.5l3.3 7.3l-2.2 1l-3.2-7.4L7 19V2z'/><text x='15' y='14' font-size='12' fill='%23E37C3A' font-weight='bold'>*</text></svg>"), auto !important; 
-    }
-
-    /* 2. ENCABEZADO ESTILO LIMPIO */
+/* 2. ENCABEZADO ESTILO LIMPIO */
     .hero1 {
       background: #ffffff;
       padding: 60px 20px;
@@ -33,7 +28,7 @@
     }
 
     .hero1 .nombre, .hero1 .asterisco {
-      color: #E37C3A;
+      color: #E37C3A; /* Naranja Diversencia */
     }
 
     .subtitulo {
@@ -69,7 +64,8 @@
 
     .tarjeta-online:hover {
       transform: translateY(-10px);
-      box-shadow: 0 15px 35px rgba(227, 124, 58, 0.15);
+      box-shadow: 0 15px 35px rgba(227, 124, 58, 0.2);
+      border-color: #E37C3A;
     }
 
     .card-img-container {
@@ -77,28 +73,30 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
+      background: #f9f9f9;
     }
 
     .card-img-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
-    /* Etiquetas (Badges) según plataforma */
+    /* Etiquetas (Badges) flotantes */
     .badge-tipo {
       position: absolute;
-      top: 15px;
-      left: 15px;
+      left: 12px;
       color: white;
-      padding: 5px 15px;
+      padding: 4px 12px;
       border-radius: 50px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       z-index: 10;
       font-family: 'Fredoka', sans-serif;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
     }
 
     .card-info {
@@ -136,6 +134,7 @@
       font-family: 'Fredoka', sans-serif;
       transition: background 0.3s ease;
       display: inline-block;
+      margin-top: auto;
     }
 
     .btn-visitar:hover {
@@ -146,7 +145,8 @@
       text-align: center;
       grid-column: 1 / -1;
       padding: 50px;
-      color: #aaa;
+      color: #bbb;
+      font-family: 'Fredoka', sans-serif;
     }
   </style>
 </head>
@@ -155,14 +155,14 @@
   <header class="hero1">
     <div class="contenedor-logo">
       <h1>Recursos <span class="nombre">Online</span><span class="asterisco">*</span></h1>
-      <p class="subtitulo">Tiendas, Instagram y TikToks que nos encantan</p>
+      <p class="subtitulo">Servicios inclusivos online.</p>
     </div>
   </header>
 
   <main class="contenido">
     <div id="lista-sitios" data-ca="Online">
       <div class="loading-msg">
-        <p>Cargando recursos seleccionados para ti...</p>
+        <p>Buscando espacios inclusivos para ti...</p>
       </div>
     </div>
   </main>
