@@ -701,42 +701,6 @@ font-family: 'Quicksand', sans-serif;
 .juego-tag--tea       { background: #fff6d9; color: #d4a017; }
 
 
-/* Contenedor relativo para posicionar los links */
-.map-container-new {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 800px;
-}
-
-.map-bg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Estilo común para los botones del mapa */
-.map-link {
-  position: absolute;
-  background: rgba(77, 183, 195, 0); /* Invisible por defecto */
-  border-radius: 50%;
-  transition: background 0.3s ease;
-  cursor: pointer;
-}
-
-/* Color al pasar el ratón (Tu azul corporativo) */
-.map-link:hover {
-  background: rgba(77, 183, 195, 0.4); /* Azul Diversencia con transparencia */
-  border: 2px solid #e37c3a; /* Naranja Diversencia para el borde */
-}
-
-/* POSICIONAMIENTO MANUAL (Ajusta los % según necesites) */
-.galicia    { top: 10%; left: 5%;  width: 15%; height: 15%; }
-.asturias   { top: 8%;  left: 22%; width: 10%; height: 8%;  }
-.madrid     { top: 42%; left: 45%; width: 8%;  height: 8%;  }
-.andalucia  { top: 75%; left: 25%; width: 25%; height: 15%; }
-.cataluna   { top: 20%; left: 78%; width: 15%; height: 15%; }
-.valencia   { top: 45%; left: 68%; width: 10%; height: 20%; }
 
 
 
