@@ -1,248 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recomendaciones - Diversencia*</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    :root { --azul: #4db7c3; --naranja: #e37c3a; --gris: #f9f9f9; }
-    
-    body { background-color: #fff; margin: 0; font-family: 'Fredoka', sans-serif; }
-
-    /* CABECERA DE FILTROS Y BUSCADOR */
-    .controles-superiores {
-      position: sticky; top: 0; background: white; z-index: 100;
-      padding: 20px; border-bottom: 1px solid #eee; 
-      display: flex; flex-direction: column; align-items: center; gap: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    }
-
-    .search-wrapper { width: 100%; max-width: 500px; }
-    
-    .search-input {
-      width: 100%; padding: 12px 25px; border: 2px solid var(--azul);
-      border-radius: 50px; font-family: 'Fredoka'; font-size: 1rem;
-      outline: none; box-sizing: border-box;
-    }
-
-    .filter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-
-    .filter-btn {
-      padding: 8px 18px; border: 2px solid var(--azul);
-      background: white; color: var(--azul); border-radius: 25px;
-      cursor: pointer; font-weight: 600; transition: 0.3s;
-    }
-
-    .filter-btn.active { background: var(--azul); color: white; }
-
-    /* SECCIONES Y TARJETAS */
-    .seccion-horizontal { padding: 20px 0; transition: opacity 0.3s; }
-    .titulo-cat { margin-left: 5%; color: #333; font-size: 1.8rem; margin-bottom: 10px; }
-
-    .scroll-container {
-      display: flex; overflow-x: auto; gap: 20px; padding: 10px 5%;
-      scroll-behavior: smooth; scrollbar-width: none;
-    }
-    .scroll-container::-webkit-scrollbar { display: none; }
-
-    .card {
-      min-width: 220px; max-width: 220px; background: white;
-      border-radius: 18px; overflow: hidden; border: 1px solid #eee;
-      cursor: pointer; transition: 0.3s ease; flex-shrink: 0;
-    }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-    
-    .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #eee; }
-    .card-body { padding: 12px; }
-    .card-body h3 { margin: 0; font-size: 1rem; color: #222; min-height: 2.4em; }
-    .card-tag { font-size: 0.75rem; color: var(--azul); font-weight: 600; text-transform: uppercase; }
-
-    /* MODAL */
-    .modal {
-      display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-      width: 100%; height: 100%; background: rgba(0,0,0,0.7);
-      align-items: center; justify-content: center; backdrop-filter: blur(5px);
-    }
-    .modal-content {
-      background: white; width: 90%; max-width: 700px; border-radius: 30px;
-      padding: 30px; position: relative; display: flex; gap: 25px;
-    }
-    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #999; }
-    .modal-img { width: 40%; border-radius: 15px; object-fit: cover; }
-    .modal-info { width: 60%; }
-    .btn-plataforma {
-      display: inline-block; margin-top: 15px; padding: 10px 20px;
-      background: var(--naranja); color: white; text-decoration: none;
-      border-radius: 50px; font-weight: 600; font-size: 0.9rem;
-    }
-
-    @media (max-width: 650px) {
-      .modal-content { flex-direction: column; align-items: center; text-align: center; padding: 20px; max-height: 90vh; overflow-y: auto; }
-      .modal-img { width: 50%; }
-      .modal-info { width: 100%; }
-      .titulo-cat { font-size: 1.4rem; }
-    }
-  </style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura Inclusiva - Diversencia*</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    </head>
 <body>
 
 <header class="hero1">
-  <div class="contenedor-logo">
-    <h1><span class="nombre">Recomendar</span><span class="asterisco">*</span></h1>
-    <p class="subtitulo">Historias que rompen barreras</p>
-  </div>
+    <div class="contenedor-logo">
+        <h1><span class="nombre">Cultura Inclusiva</span><span class="asterisco">*</span></h1>
+        <p class="subtitulo">Libros, cine y series que rompen barreras</p>
+    </div>
 </header>
 
-<div class="controles-superiores">
-  <div class="search-wrapper">
-    <input type="text" id="buscador-txt" class="search-input" placeholder="Buscar por título, autor o palabra clave...">
-  </div>
-  <div class="filter-group">
-    <button class="filter-btn active" data-tipo="todos">Todos</button>
-    <button class="filter-btn" data-tipo="Neurodiversidad">Neurodiversidad</button>
-    <button class="filter-btn" data-tipo="Física">Física</button>
-    <button class="filter-btn" data-tipo="Sensorial">Sensorial</button>
-    <button class="filter-btn" data-tipo="Intelectual">Intelectual</button>
-  </div>
-</div>
+<div id="zona-controles"></div>
 
-<main id="app">
-  <section class="seccion-horizontal" data-format="Pelicula">
-    <h2 class="titulo-cat">Películas</h2>
-    <div class="scroll-container" id="container-Pelicula"></div>
-  </section>
+<main id="biblioteca">
+    <section class="seccion-horizontal" id="sec-Pelicula">
+        <h2 class="titulo-cat">Películas</h2>
+        <div class="scroll-container" id="container-Pelicula"></div>
+    </section>
 
-  <section class="seccion-horizontal" data-format="Serie">
-    <h2 class="titulo-cat">Series</h2>
-    <div class="scroll-container" id="container-Serie"></div>
-  </section>
+    <section class="seccion-horizontal" id="sec-Serie">
+        <h2 class="titulo-cat">Series</h2>
+        <div class="scroll-container" id="container-Serie"></div>
+    </section>
 
-  <section class="seccion-horizontal" data-format="Libro">
-    <h2 class="titulo-cat">Libros</h2>
-    <div class="scroll-container" id="container-Libro"></div>
-  </section>
+    <section class="seccion-horizontal" id="sec-Libro">
+        <h2 class="titulo-cat">Libros</h2>
+        <div class="scroll-container" id="container-Libro"></div>
+    </section>
 </main>
 
 <div id="miModal" class="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="cerrarModal()">&times;</span>
-    <img id="m-img" class="modal-img" src="" alt="">
-    <div class="modal-info">
-      <span id="m-div" class="card-tag"></span>
-      <h2 id="m-tit" style="margin: 10px 0;"></h2>
-      <p id="m-aut" style="color: #888; font-style: italic; margin-bottom: 10px;"></p>
-      <p id="m-sin" style="line-height: 1.5; color: #444;"></p>
-      <div id="m-plat" class="btn-plataforma"></div>
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <img id="m-img" class="modal-img" src="" alt="">
+        <div class="modal-info">
+            <span id="m-div" class="card-tag"></span>
+            <h2 id="m-tit" style="margin: 10px 0;"></h2>
+            <p id="m-aut" style="color: #888; font-style: italic; margin-bottom: 10px;"></p>
+            <p id="m-sin" style="line-height: 1.5; color: #444;"></p>
+            <div id="m-plat" class="btn-plataforma"></div>
+        </div>
     </div>
-  </div>
 </div>
 
-<script>
-  const URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRI0jqC8RUmQwifG87iizwfsvq7UMMCw_Qbnv6oNmVuBoVOOxkr1C_S_P2rlPagnS-78ghJc5d-bk-L/pub?output=csv';
-  let todasLasCards = [];
-  let filtroActual = 'todos';
-
-  async function cargarCSV() {
-    const res = await fetch(URL);
-    const csv = await res.text();
-    const filas = csv.split('\n').slice(1);
-    
-    const items = filas.map(f => {
-      const c = f.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-      if(c.length < 5) return null;
-      return {
-        titulo: c[0].replace(/"/g, '').trim(), 
-        formato: c[1].trim(), 
-        diversidad: c[2].trim(),
-        edad: c[3].trim(), 
-        autor: c[4].replace(/"/g, '').trim(), 
-        sinopsis: c[5].replace(/"/g, '').trim(),
-        imagen: c[6].trim(), 
-        plataforma: c[7].trim()
-      };
-    }).filter(i => i);
-
-    render(items);
-  }
-
-  function render(data) {
-    const containers = {
-      'Pelicula': document.getElementById('container-Pelicula'),
-      'Serie': document.getElementById('container-Serie'),
-      'Libro': document.getElementById('container-Libro')
-    };
-
-    data.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'card';
-      div.setAttribute('data-div', item.diversidad);
-      div.setAttribute('data-titulo', item.titulo.toLowerCase());
-      div.setAttribute('data-autor', item.autor.toLowerCase());
-      
-      div.onclick = () => abrirModal(item);
-      div.innerHTML = `
-        <img src="${item.imagen}" loading="lazy">
-        <div class="card-body">
-          <span class="card-tag">${item.diversidad}</span>
-          <h3>${item.titulo}</h3>
-        </div>
-      `;
-      if(containers[item.formato]) {
-        containers[item.formato].appendChild(div);
-        todasLasCards.push(div);
-      }
-    });
-  }
-
-  // LÓGICA DE FILTRADO COMBINADO
-  function aplicarFiltros() {
-    const textoBusqueda = document.getElementById('buscador-txt').value.toLowerCase();
-    
-    todasLasCards.forEach(card => {
-      const cumpleFiltro = filtroActual === 'todos' || card.getAttribute('data-div') === filtroActual;
-      const cumpleBusqueda = card.getAttribute('data-titulo').includes(textoBusqueda) || 
-                             card.getAttribute('data-autor').includes(textoBusqueda);
-      
-      card.style.display = (cumpleFiltro && cumpleBusqueda) ? 'block' : 'none';
-    });
-
-    // Ocultar sección completa si no hay resultados en ella
-    document.querySelectorAll('.seccion-horizontal').forEach(seccion => {
-      const tieneCardsVisibles = Array.from(seccion.querySelectorAll('.card')).some(c => c.style.display !== 'none');
-      seccion.style.display = tieneCardsVisibles ? 'block' : 'none';
-    });
-  }
-
-  // Eventos de control
-  document.getElementById('buscador-txt').addEventListener('input', aplicarFiltros);
-
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      filtroActual = e.target.getAttribute('data-tipo');
-      aplicarFiltros();
-    });
-  });
-
-  function abrirModal(i) {
-    document.getElementById('m-img').src = i.imagen;
-    document.getElementById('m-tit').innerText = i.titulo;
-    document.getElementById('m-div').innerText = i.diversidad;
-    document.getElementById('m-aut').innerText = i.autor;
-    document.getElementById('m-sin').innerText = i.sinopsis;
-    document.getElementById('m-plat').innerText = "Disponible en: " + i.plataforma;
-    document.getElementById('miModal').style.display = 'flex';
-  }
-
-  function cerrarModal() { document.getElementById('miModal').style.display = 'none'; }
-  window.onclick = (e) => { if(e.target == document.getElementById('miModal')) cerrarModal(); }
-  
-  cargarCSV();
-</script>
+<script src="motorrecomendar.js"></script>
 <script src="menulateral.js"></script>
-<script src="accesibilidad.js"></script>
+  <script src="accesibilidad.js"></script>
 </body>
 </html>
