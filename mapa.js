@@ -2520,7 +2520,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Colores
         const colorBase = "#4db7c3";
-        const colorHover = "#3a8e99";
+        const colorHover = "#e37c3a";
 
         // Aplicar interactividad
         Object.entries(comunidades).forEach(([url, provincias]) => {
@@ -2529,26 +2529,36 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (el) {
                     el.style.cursor = "pointer";
                     el.style.fill = colorBase;
-                    el.style.transition = "fill 0.3s";
+                    el.style.transition = "fill 0.3s, transform 0.2s";
+                    el.style.pointerEvents = "all";
 
                     // Al hacer clic
-                    el.onclick = () => window.location.href = url;
+                   el.addEventListener('click', () => {
+                        window.location.href = url;
+                    });
 
-                    // Al pasar el ratón: iluminamos TODA la comunidad
-                    el.onmouseover = () => {
+                   // Efecto Hover: Iluminamos todas las provincias de la misma comunidad
+                    el.addEventListener('mouseover', () => {
                         provincias.forEach(p => {
                             const prov = document.getElementById(p);
-                            if(prov) prov.style.fill = colorHover;
+                            if(prov) {
+                                prov.style.fill = colorHover;
+                                // Opcional: un poquito de brillo
+                                prov.style.filter = "brightness(1.1)";
+                            }
                         });
-                    };
+                    });
 
-                    // Al salir: restauramos el color de TODA la comunidad
-                    el.onmouseout = () => {
+                    // Al salir: restauramos
+                    el.addEventListener('mouseout', () => {
                         provincias.forEach(p => {
                             const prov = document.getElementById(p);
-                            if(prov) prov.style.fill = colorBase;
+                            if(prov) {
+                                prov.style.fill = colorBase;
+                                prov.style.filter = "none";
+                            }
                         });
-                    };
+                    });
                 }
             });
         });
