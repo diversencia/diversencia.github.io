@@ -563,13 +563,11 @@ font-family: 'Quicksand', sans-serif;
   }
 }
 
-Aquí tienes todo el CSS completo de las tarjetas con el espaciado solucionado para que las filas no se peguen:
 
-css
 /* ===== TARJETAS JUEGOS DE MESA ===== */
 .cards-wrapper {
-  max-width: 1100px;
-  margin: 0 auto 5rem; /* MUCHO espacio bajo toda la sección */
+  max-width: 1200px;
+  margin: 0 auto 4rem;
   text-align: left;
 }
 
@@ -587,21 +585,19 @@ css
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  row-gap: 4rem;        /* ESPACIO GRANDE entre filas */
-  column-gap: 2.5rem;   /* espacio entre columnas */
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  gap: 1.5rem 2.5rem; /* vertical 1.5rem, horizontal 2.5rem */
   align-items: flex-start;
 }
 
 .juego-card {
   background: #ffffff;
   border-radius: 16px;
-  padding: 1.5rem 1.5rem 2.5rem; /* más padding abajo */
+  padding: 1.5rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-bottom: 1.5rem; /* margen fijo de seguridad */
 }
 
 .juego-img {
@@ -681,7 +677,6 @@ css
   color: #4db7c3;
 }
 
-/* Etiquetas de accesibilidad */
 .juego-tags {
   margin-top: 0.6rem;
   display: flex;
@@ -698,18 +693,22 @@ css
   font-weight: 500;
 }
 
-/* variantes por tipo */
 .juego-tag--visual    { background: #ffe9e0; color: #e37c3a; }
 .juego-tag--auditiva  { background: #e8f4ff; color: #4db7c3; }
 .juego-tag--motora    { background: #e6f2ea; color: #86AE87; }
 .juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; }
 .juego-tag--tea       { background: #fff6d9; color: #d4a017; }
 
-/* MÓVIL */
-@media (max-width: 900px) {
+/* RESPONSIVE: 2 columnas tablet, 1 móvil */
+@media (max-width: 1200px) {
   .cards-container {
-    row-gap: 3rem;
-    column-gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr;
   }
 }
 
