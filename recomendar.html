@@ -7,25 +7,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    :root { --azul: #4db7c3; --naranja: #e37c3a; --gris: #f4f4f4; }
+    :root { --azul: #4db7c3; --naranja: #e37c3a; --gris: #f9f9f9; }
     
     body { background-color: #fff; margin: 0; font-family: 'Fredoka', sans-serif; }
 
-    .filtros-fijos {
+    /* CABECERA DE FILTROS Y BUSCADOR */
+    .controles-superiores {
       position: sticky; top: 0; background: white; z-index: 100;
-      padding: 15px; border-bottom: 1px solid #eee; text-align: center;
+      padding: 20px; border-bottom: 1px solid #eee; 
+      display: flex; flex-direction: column; align-items: center; gap: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
 
+    .search-wrapper { width: 100%; max-width: 500px; }
+    
+    .search-input {
+      width: 100%; padding: 12px 25px; border: 2px solid var(--azul);
+      border-radius: 50px; font-family: 'Fredoka'; font-size: 1rem;
+      outline: none; box-sizing: border-box;
+    }
+
+    .filter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
     .filter-btn {
-      padding: 8px 18px; margin: 5px; border: 2px solid var(--azul);
+      padding: 8px 18px; border: 2px solid var(--azul);
       background: white; color: var(--azul); border-radius: 25px;
       cursor: pointer; font-weight: 600; transition: 0.3s;
     }
 
     .filter-btn.active { background: var(--azul); color: white; }
 
-    .seccion-horizontal { padding: 30px 0; }
-    .titulo-cat { margin-left: 5%; color: #333; font-size: 1.8rem; }
+    /* SECCIONES Y TARJETAS */
+    .seccion-horizontal { padding: 20px 0; transition: opacity 0.3s; }
+    .titulo-cat { margin-left: 5%; color: #333; font-size: 1.8rem; margin-bottom: 10px; }
 
     .scroll-container {
       display: flex; overflow-x: auto; gap: 20px; padding: 10px 5%;
@@ -36,38 +50,39 @@
     .card {
       min-width: 220px; max-width: 220px; background: white;
       border-radius: 18px; overflow: hidden; border: 1px solid #eee;
-      cursor: pointer; transition: transform 0.3s ease;
+      cursor: pointer; transition: 0.3s ease; flex-shrink: 0;
     }
     .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     
-    .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+    .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #eee; }
     .card-body { padding: 12px; }
-    .card-body h3 { margin: 0; font-size: 1rem; color: #222; }
+    .card-body h3 { margin: 0; font-size: 1rem; color: #222; min-height: 2.4em; }
     .card-tag { font-size: 0.75rem; color: var(--azul); font-weight: 600; text-transform: uppercase; }
 
-    /* MODAL (VENTANA EMERGENTE) */
+    /* MODAL */
     .modal {
       display: none; position: fixed; z-index: 1000; left: 0; top: 0;
       width: 100%; height: 100%; background: rgba(0,0,0,0.7);
       align-items: center; justify-content: center; backdrop-filter: blur(5px);
     }
     .modal-content {
-      background: white; width: 90%; max-width: 600px; border-radius: 30px;
-      padding: 30px; position: relative; display: flex; gap: 20px;
+      background: white; width: 90%; max-width: 700px; border-radius: 30px;
+      padding: 30px; position: relative; display: flex; gap: 25px;
     }
     .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #999; }
-    .modal-img { width: 40%; border-radius: 15px; }
+    .modal-img { width: 40%; border-radius: 15px; object-fit: cover; }
     .modal-info { width: 60%; }
     .btn-plataforma {
       display: inline-block; margin-top: 15px; padding: 10px 20px;
       background: var(--naranja); color: white; text-decoration: none;
-      border-radius: 50px; font-weight: 600;
+      border-radius: 50px; font-weight: 600; font-size: 0.9rem;
     }
 
-    @media (max-width: 600px) {
-      .modal-content { flex-direction: column; align-items: center; text-align: center; }
-      .modal-img { width: 60%; }
+    @media (max-width: 650px) {
+      .modal-content { flex-direction: column; align-items: center; text-align: center; padding: 20px; max-height: 90vh; overflow-y: auto; }
+      .modal-img { width: 50%; }
       .modal-info { width: 100%; }
+      .titulo-cat { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -80,26 +95,31 @@
   </div>
 </header>
 
-<div class="filtros-fijos">
-  <button class="filter-btn active" onclick="filtrar('todos')">Todos</button>
-  <button class="filter-btn" onclick="filtrar('Neurodiversidad')">Neurodiversidad</button>
-  <button class="filter-btn" onclick="filtrar('Física')">Física</button>
-  <button class="filter-btn" onclick="filtrar('Sensorial')">Sensorial</button>
-  <button class="filter-btn" onclick="filtrar('Intelectual')">Intelectual</button>
+<div class="controles-superiores">
+  <div class="search-wrapper">
+    <input type="text" id="buscador-txt" class="search-input" placeholder="Buscar por título, autor o palabra clave...">
+  </div>
+  <div class="filter-group">
+    <button class="filter-btn active" data-tipo="todos">Todos</button>
+    <button class="filter-btn" data-tipo="Neurodiversidad">Neurodiversidad</button>
+    <button class="filter-btn" data-tipo="Física">Física</button>
+    <button class="filter-btn" data-tipo="Sensorial">Sensorial</button>
+    <button class="filter-btn" data-tipo="Intelectual">Intelectual</button>
+  </div>
 </div>
 
 <main id="app">
-  <section class="seccion-horizontal" id="sec-pelis">
+  <section class="seccion-horizontal" data-format="Pelicula">
     <h2 class="titulo-cat">Películas</h2>
     <div class="scroll-container" id="container-Pelicula"></div>
   </section>
 
-  <section class="seccion-horizontal" id="sec-series">
+  <section class="seccion-horizontal" data-format="Serie">
     <h2 class="titulo-cat">Series</h2>
     <div class="scroll-container" id="container-Serie"></div>
   </section>
 
-  <section class="seccion-horizontal" id="sec-libros">
+  <section class="seccion-horizontal" data-format="Libro">
     <h2 class="titulo-cat">Libros</h2>
     <div class="scroll-container" id="container-Libro"></div>
   </section>
@@ -112,8 +132,8 @@
     <div class="modal-info">
       <span id="m-div" class="card-tag"></span>
       <h2 id="m-tit" style="margin: 10px 0;"></h2>
-      <p id="m-aut" style="color: #888; font-style: italic;"></p>
-      <p id="m-sin"></p>
+      <p id="m-aut" style="color: #888; font-style: italic; margin-bottom: 10px;"></p>
+      <p id="m-sin" style="line-height: 1.5; color: #444;"></p>
       <div id="m-plat" class="btn-plataforma"></div>
     </div>
   </div>
@@ -121,6 +141,8 @@
 
 <script>
   const URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRI0jqC8RUmQwifG87iizwfsvq7UMMCw_Qbnv6oNmVuBoVOOxkr1C_S_P2rlPagnS-78ghJc5d-bk-L/pub?output=csv';
+  let todasLasCards = [];
+  let filtroActual = 'todos';
 
   async function cargarCSV() {
     const res = await fetch(URL);
@@ -131,9 +153,14 @@
       const c = f.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
       if(c.length < 5) return null;
       return {
-        titulo: c[0].replace(/"/g, ''), formato: c[1].trim(), diversidad: c[2].trim(),
-        edad: c[3].trim(), autor: c[4].trim(), sinopsis: c[5].replace(/"/g, ''),
-        imagen: c[6].trim(), plataforma: c[7].trim()
+        titulo: c[0].replace(/"/g, '').trim(), 
+        formato: c[1].trim(), 
+        diversidad: c[2].trim(),
+        edad: c[3].trim(), 
+        autor: c[4].replace(/"/g, '').trim(), 
+        sinopsis: c[5].replace(/"/g, '').trim(),
+        imagen: c[6].trim(), 
+        plataforma: c[7].trim()
       };
     }).filter(i => i);
 
@@ -151,17 +178,54 @@
       const div = document.createElement('div');
       div.className = 'card';
       div.setAttribute('data-div', item.diversidad);
+      div.setAttribute('data-titulo', item.titulo.toLowerCase());
+      div.setAttribute('data-autor', item.autor.toLowerCase());
+      
       div.onclick = () => abrirModal(item);
       div.innerHTML = `
-        <img src="${item.imagen}">
+        <img src="${item.imagen}" loading="lazy">
         <div class="card-body">
           <span class="card-tag">${item.diversidad}</span>
           <h3>${item.titulo}</h3>
         </div>
       `;
-      if(containers[item.formato]) containers[item.formato].appendChild(div);
+      if(containers[item.formato]) {
+        containers[item.formato].appendChild(div);
+        todasLasCards.push(div);
+      }
     });
   }
+
+  // LÓGICA DE FILTRADO COMBINADO
+  function aplicarFiltros() {
+    const textoBusqueda = document.getElementById('buscador-txt').value.toLowerCase();
+    
+    todasLasCards.forEach(card => {
+      const cumpleFiltro = filtroActual === 'todos' || card.getAttribute('data-div') === filtroActual;
+      const cumpleBusqueda = card.getAttribute('data-titulo').includes(textoBusqueda) || 
+                             card.getAttribute('data-autor').includes(textoBusqueda);
+      
+      card.style.display = (cumpleFiltro && cumpleBusqueda) ? 'block' : 'none';
+    });
+
+    // Ocultar sección completa si no hay resultados en ella
+    document.querySelectorAll('.seccion-horizontal').forEach(seccion => {
+      const tieneCardsVisibles = Array.from(seccion.querySelectorAll('.card')).some(c => c.style.display !== 'none');
+      seccion.style.display = tieneCardsVisibles ? 'block' : 'none';
+    });
+  }
+
+  // Eventos de control
+  document.getElementById('buscador-txt').addEventListener('input', aplicarFiltros);
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      filtroActual = e.target.getAttribute('data-tipo');
+      aplicarFiltros();
+    });
+  });
 
   function abrirModal(i) {
     document.getElementById('m-img').src = i.imagen;
@@ -174,16 +238,6 @@
   }
 
   function cerrarModal() { document.getElementById('miModal').style.display = 'none'; }
-
-  function filtrar(tipo) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    document.querySelectorAll('.card').forEach(card => {
-      card.style.display = (tipo === 'todos' || card.dataset.div === tipo) ? 'block' : 'none';
-    });
-  }
-
   window.onclick = (e) => { if(e.target == document.getElementById('miModal')) cerrarModal(); }
   
   cargarCSV();
