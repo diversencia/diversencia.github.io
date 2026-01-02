@@ -2495,72 +2495,69 @@ document.addEventListener("DOMContentLoaded", function() {
     if (contenedor) {
         contenedor.innerHTML = mapaEspana;
 
-        // Configuración: URL -> Lista de IDs de provincias que contiene el SVG
-        const comunidades = {
-            "andalucia.html": ["Almeria", "Cadiz", "Cordoba", "Granada", "Huelva", "Jaen", "Malaga", "Sevilla"],
-            "aragon.html": ["Huesca", "Teruel", "Zaragoza"],
-            "asturias.html": ["Asturias"],
-            "baleares.html": ["Baleares"],
-            "canarias.html": ["Las_Palmas", "Santa_Cruz_de_Tenerife"],
-            "cantabria.html": ["Cantabria"],
-            "cym.html": ["Albacete", "Ciudad_Real", "Cuenca", "Guadalajara", "Toledo"],
-            "cyl.html": ["Avila", "Burgos", "Leon", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
-            "cataluna.html": ["Barcelona", "Gerona", "Lerida", "Tarragona"],
-            "ceuta.html": ["Ceuta"],
-            "valencia.html": ["Alicante", "Castellon", "Valencia"],
-            "extremadura.html": ["Badajoz", "Caceres"],
-            "galicia.html": ["Coruna", "Lugo", "Orense", "Pontevedra"],
-            "rioja.html": ["La_Rioja"],
-            "madrid.html": ["Madrid"],
-            "melilla.html": ["Melilla"],
-            "murcia.html": ["Murcia"],
-            "navarra.html": ["Navarra"],
-            "paisvasco.html": ["Alava", "Guipuzcoa", "Vizcaya"]
-        };
+        // Esperamos un momento a que el SVG se renderice
+        setTimeout(() => {
+            const comunidades = {
+                "andalucia.html": ["Almeria", "Cadiz", "Cordoba", "Granada", "Huelva", "Jaen", "Malaga", "Sevilla"],
+                "aragon.html": ["Huesca", "Teruel", "Zaragoza"],
+                "asturias.html": ["Asturias"],
+                "baleares.html": ["Baleares"],
+                "canarias.html": ["Las_Palmas", "Santa_Cruz_de_Tenerife"],
+                "cantabria.html": ["Cantabria"],
+                "cym.html": ["Albacete", "Ciudad_Real", "Cuenca", "Guadalajara", "Toledo"],
+                "cyl.html": ["Avila", "Burgos", "Leon", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
+                "cataluna.html": ["Barcelona", "Gerona", "Lerida", "Tarragona"],
+                "ceuta.html": ["Ceuta"],
+                "valencia.html": ["Alicante", "Castellon", "Valencia"],
+                "extremadura.html": ["Badajoz", "Caceres"],
+                "galicia.html": ["Coruna", "Lugo", "Orense", "Pontevedra"],
+                "rioja.html": ["La_Rioja"],
+                "madrid.html": ["Madrid"],
+                "melilla.html": ["Melilla"],
+                "murcia.html": ["Murcia"],
+                "navarra.html": ["Navarra"],
+                "paisvasco.html": ["Alava", "Guipuzcoa", "Vizcaya"]
+            };
 
-        // Colores
-        const colorBase = "#4db7c3";
-        const colorHover = "#e37c3a";
+            const colorBase = "#4db7c3";
+            const colorHover = "#e37c3a";
 
-        // Aplicar interactividad
-        Object.entries(comunidades).forEach(([url, provincias]) => {
-            provincias.forEach(idProv => {
-                const el = document.getElementById(idProv);
-                if (el) {
-                    el.style.cursor = "pointer";
-                    el.style.fill = colorBase;
-                    el.style.transition = "fill 0.3s, transform 0.2s";
-                    el.style.pointerEvents = "all";
+            // Recorremos el diccionario de comunidades
+            Object.entries(comunidades).forEach(([url, provincias]) => {
+                provincias.forEach(idProv => {
+                    // Buscamos el elemento por ID
+                    const el = document.getElementById(idProv);
+                    
+                    if (el) {
+                        // Forzamos que el elemento sea interactivo
+                        el.style.pointerEvents = "auto"; 
+                        el.style.cursor = "pointer";
+                        el.style.fill = colorBase;
 
-                    // Al hacer clic
-                   el.addEventListener('click', () => {
-                        window.location.href = url;
-                    });
+                        // CLIC: Redirección
+                        el.onclick = function(e) {
+                            e.stopPropagation(); // Evita que otros elementos interfieran
+                            window.location.href = url;
+                        };
 
-                   // Efecto Hover: Iluminamos todas las provincias de la misma comunidad
-                    el.addEventListener('mouseover', () => {
-                        provincias.forEach(p => {
-                            const prov = document.getElementById(p);
-                            if(prov) {
-                                prov.style.fill = colorHover;
-                                // Opcional: un poquito de brillo
-                                prov.style.filter = "brightness(1.1)";
-                            }
-                        });
-                    });
+                        // HOVER: Iluminar comunidad
+                        el.onmouseenter = () => {
+                            provincias.forEach(p => {
+                                const prov = document.getElementById(p);
+                                if(prov) prov.style.fill = colorHover;
+                            });
+                        };
 
-                    // Al salir: restauramos
-                    el.addEventListener('mouseout', () => {
-                        provincias.forEach(p => {
-                            const prov = document.getElementById(p);
-                            if(prov) {
-                                prov.style.fill = colorBase;
-                                prov.style.filter = "none";
-                            }
-                        });
-                    });
-                }
+                        // OUT: Restaurar color
+                        el.onmouseleave = () => {
+                            provincias.forEach(p => {
+                                const prov = document.getElementById(p);
+                                if(prov) prov.style.fill = colorBase;
+                            });
+                        };
+                    }
+                });
             });
-        });
+        }, 200); // Aumentamos a 200ms para mayor seguridad
     }
 });
