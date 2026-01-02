@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biblioteca y Cine Inclusivo - Diversencia*</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    /* FILTROS DOBLES */
+    .filters-wrapper {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #4db7c3;
+      background: white;
+      color: #4db7c3;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: #4db7c3;
+      color: white;
+    }
+
+    /* FORMATO DE TARJETAS MULTIMEDIA */
+    .biblioteca-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card-recurso {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #eee;
+    }
+
+    .card-recurso:hover { transform: translateY(-10px); }
+
+    .portada-wrapper {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      overflow: hidden;
+      position: relative;
+      background: #f0f0f0;
+    }
+
+    .portada-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Badge para diferenciar Libro de Película */
+    .badge-formato {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: #333;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .badge-edad {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #e37c3a; /* Naranja Diversencia */
+      color: white;
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .info-recurso {
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .tipo-etiqueta {
+      color: #4db7c3;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .titulo-recurso {
+      font-size: 1.3rem;
+      margin: 0 0 10px 0;
+      color: #333;
+      line-height: 1.2;
+    }
+
+    .autor-director {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero1">
+    <div class="contenedor-logo">
+      <h1><span class="nombre">Cultura Inclusiva</span><span class="asterisco">*</span></h1>
+      <p class="subtitulo">Libros, cine y series para aprender y disfrutar</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="filters-wrapper">
+      <input type="text" id="main-search" class="search-input" style="max-width: 500px;" placeholder="Título, autor o temática...">
+      
+      <div class="filter-group" id="filter-format">
+        <button class="filter-btn active" data-f="todos">Todos</button>
+        <button class="filter-btn" data-f="libro">Libros</button>
+        <button class="filter-btn" data-f="cine">Cine y TV</button>
+      </div>
+
+      <div class="filter-group" id="filter-div">
+        <button class="filter-btn active" data-d="todos">Cualquier diversidad</button>
+        <button class="filter-btn" data-d="visual">Sensorial</button>
+        <button class="filter-btn" data-d="neuro">Neurodiversidad</button>
+        <button class="filter-btn" data-d="movilidad">Física</button>
+      </div>
+    </section>
+
+    <div class="biblioteca-grid" id="recursos-grid">
+      
+      <article class="card-recurso" data-formato="libro" data-div="visual">
+        <div class="portada-wrapper">
+          <span class="badge-edad">Infantil</span>
+          <span class="badge-formato">Libro</span>
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800" alt="Libro">
+        </div>
+        <div class="info-recurso">
+          <span class="tipo-etiqueta">Diversidad Visual</span>
+          <h3 class="titulo-recurso">El libro negro de los colores</h3>
+          <p class="autor-director">Menena Cottin</p>
+          <p>Una experiencia sensorial que explica cómo los ciegos pueden "ver" los colores a través de los otros sentidos.</p>
+        </div>
+      </article>
+
+      <article class="card-recurso" data-formato="cine" data-div="neuro">
+        <div class="portada-wrapper">
+          <span class="badge-edad">+12 años</span>
+          <span class="badge-formato">Serie</span>
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800" alt="Cine">
+        </div>
+        <div class="info-recurso">
+          <span class="tipo-etiqueta">Neurodiversidad</span>
+          <h3 class="titulo-recurso">Atypical</h3>
+          <p class="autor-director">Robia Rashid</p>
+          <p>Retrato cercano de un adolescente con TEA en su camino hacia la independencia y la madurez.</p>
+        </div>
+      </article>
+
+      <article class="card-recurso" data-formato="libro" data-div="movilidad">
+        <div class="portada-wrapper">
+          <span class="badge-edad">Juvenil</span>
+          <span class="badge-formato">Libro</span>
+          <img src="https://images.unsplash.com/photo-1589998059171-988d887df643?q=80&w=800" alt="Libro">
+        </div>
+        <div class="info-recurso">
+          <span class="tipo-etiqueta">Diversidad Física</span>
+          <h3 class="titulo-recurso">Fuera de mi mente</h3>
+          <p class="autor-director">Sharon M. Draper</p>
+          <p>La historia de Melody, una niña con parálisis cerebral que lucha por demostrar que su mente es brillante aunque su cuerpo no responda.</p>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('main-search');
+    const formatBtns = document.querySelectorAll('#filter-format .filter-btn');
+    const divBtns = document.querySelectorAll('#filter-div .filter-btn');
+    const cards = document.querySelectorAll('.card-recurso');
+
+    let currentFormat = 'todos';
+    let currentDiv = 'todos';
+
+    function filter() {
+      const term = searchInput.value.toLowerCase();
+      
+      cards.forEach(card => {
+        const matchesFormat = currentFormat === 'todos' || card.dataset.formato === currentFormat;
+        const matchesDiv = currentDiv === 'todos' || card.dataset.div === currentDiv;
+        const matchesText = card.innerText.toLowerCase().includes(term);
+
+        card.style.display = (matchesFormat && matchesDiv && matchesText) ? 'flex' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filter);
+
+    formatBtns.forEach(btn => btn.addEventListener('click', (e) => {
+      formatBtns.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      currentFormat = e.target.dataset.f;
+      filter();
+    }));
+
+    divBtns.forEach(btn => btn.addEventListener('click', (e) => {
+      divBtns.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      currentDiv = e.target.dataset.d;
+      filter();
+    }));
+  </script>
+
+</body>
+</html>
