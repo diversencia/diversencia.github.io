@@ -1,138 +1,121 @@
 const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRI0jqC8RUmQwifG87iizwfsvq7UMMCw_Qbnv6oNmVuBoVOOxkr1C_S_P2rlPagnS-78ghJc5d-bk-L/pub?output=csv";
+let filtroDiversidad = 'todos';
 
-let currentFilter = 'todos';
-
-// Desplazamiento horizontal para las flechas
-window.sideScroll = function(elementId, step) {
-    const container = document.getElementById(elementId);
-    container.scrollBy({ left: step, behavior: 'smooth' });
-}
+window.sideScroll = (id, step) => {
+    document.getElementById(id).scrollBy({ left: step, behavior: 'smooth' });
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetchData();
-    document.getElementById('buscador').addEventListener('input', runFilters);
+    cargarDatos();
+    document.getElementById('buscador').addEventListener('input', aplicarFiltros);
 });
 
-async function fetchData() {
+async function cargarDatos() {
     try {
-        const response = await fetch(URL_SHEETS);
-        const data = await response.text();
-        const rows = parseCSV(data).slice(1);
-        renderContent(rows);
-    } catch (error) {
-        console.error("Error cargando Google Sheets:", error);
-    }
+        const res = await fetch(URL_SHEETS);
+        const csv = await res.text();
+        const filas = procesarCSV(csv).slice(1);
+        renderizar(filas);
+    } catch (e) { console.error("Error cargando datos", e); }
 }
 
-function parseCSV(text) {
-    const lines = text.split(/\r?\n/);
-    return lines.map(line => {
-        const cells = [];
-        let current = '';
-        let inQuotes = false;
-        for (let char of line) {
-            if (char === '"') inQuotes = !inQuotes;
-            else if (char === ',' && !inQuotes) {
-                cells.push(current.trim());
-                current = '';
-            } else current += char;
+function procesarCSV(texto) {
+    return texto.split(/\r?\n/).map(linea => {
+        let celdas = [], actual = '', quotes = false;
+        for (let char of linea) {
+            if (char === '"') quotes = !quotes;
+            else if (char === ',' && !quotes) { celdas.push(actual.trim()); actual = ''; }
+            else actual += char;
         }
-        cells.push(current.trim());
-        return cells.map(c => c.replace(/^"|"$/g, '').trim());
+        celdas.push(actual.trim());
+        return celdas.map(c => c.replace(/^"|"$/g, '').trim());
     });
 }
 
-function renderContent(items) {
-    const sections = {
-        'Película': document.getElementById('container-Pelicula'),
-        'Serie': document.getElementById('container-Serie'),
-        'Libro': document.getElementById('container-Libro')
-    };
+function renderizar(lista) {
+    const conts = { 'Película': 'container-Pelicula', 'Serie': 'container-Serie', 'Libro': 'container-Libro' };
+    Object.values(conts).forEach(id => document.getElementById(id).innerHTML = "");
 
-    // Limpiar carruseles
-    Object.values(sections).forEach(s => s.innerHTML = "");
-
-    items.forEach(item => {
+    lista.forEach(item => {
         const [titulo, formato, diversidad, edad, autor, sinopsis, imagen, plataforma] = item;
-        const container = sections[formato];
+        const contenedor = document.getElementById(conts[formato]);
+        if (!contenedor || !titulo) return;
 
-        if (container && titulo) {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.setAttribute('data-titulo', titulo.toLowerCase());
-            card.setAttribute('data-autor', (autor || "").toLowerCase());
-            card.setAttribute('data-diversidad', diversidad);
+        const imgLimpia = imagen.split(' ')[0].replace('​', ''); // Limpia caracteres invisibles
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.setAttribute('data-titulo', titulo.toLowerCase());
+        card.setAttribute('data-autor', (autor || "").toLowerCase());
+        card.setAttribute('data-div', diversidad);
 
-            // Limpieza de URL de imagen para evitar bloqueos
-            const cleanImg = imagen.split(' ')[0]; 
-
-            card.innerHTML = `
-                <img src="${cleanImg}" alt="${titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x300?text=Diversencia'">
-                <div class="card-body">
-                    <span class="card-tag">${diversidad}</span>
-                    <h3>${titulo}</h3>
-                </div>
-            `;
-
-            card.onclick = () => showDetails(titulo, diversidad, autor, sinopsis, cleanImg, plataforma);
-            container.appendChild(card);
-        }
+        card.innerHTML = `
+            <img src="${imgLimpia}" onerror="this.src='https://via.placeholder.com/200x300?text=Diversencia'">
+            <div class="card-body">
+                <span class="card-tag">${diversidad}</span>
+                <h3>${titulo}</h3>
+            </div>
+        `;
+        card.onclick = () => abrirModal(titulo, diversidad, autor, sinopsis, imgLimpia, plataforma);
+        contenedor.appendChild(card);
     });
-    runFilters();
+    aplicarFiltros();
 }
 
-window.filtrarDiversidad = function(tipo, btn) {
+window.cambiarVista = (modo) => {
+    const body = document.body;
+    const btnC = document.getElementById('btn-vista-carrusel');
+    const btnL = document.getElementById('btn-vista-lista');
+    const tituloLista = document.getElementById('lista-todas-titulo');
+
+    if (modo === 'lista') {
+        body.classList.replace('vista-carrusel', 'vista-lista');
+        btnL.classList.add('active'); btnC.classList.remove('active');
+        tituloLista.style.display = 'block';
+    } else {
+        body.classList.replace('vista-lista', 'vista-carrusel');
+        btnC.classList.add('active'); btnL.classList.remove('active');
+        tituloLista.style.display = 'none';
+    }
+    aplicarFiltros();
+};
+
+window.filtrarDiversidad = (tipo, btn) => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    currentFilter = tipo;
-    runFilters();
-}
+    filtroDiversidad = tipo;
+    aplicarFiltros();
+};
 
-function runFilters() {
+function aplicarFiltros() {
     const query = document.getElementById('buscador').value.toLowerCase();
     const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
-        const t = card.getAttribute('data-titulo');
-        const a = card.getAttribute('data-autor');
-        const d = card.getAttribute('data-diversidad');
-
-        const matchText = t.includes(query) || a.includes(query);
-        const matchDiv = currentFilter === 'todos' || d.includes(currentFilter);
-
-        card.style.display = (matchText && matchDiv) ? "flex" : "none";
+        const matchT = card.getAttribute('data-titulo').includes(query) || card.getAttribute('data-autor').includes(query);
+        const matchD = filtroDiversidad === 'todos' || card.getAttribute('data-div').includes(filtroDiversidad);
+        card.style.display = (matchT && matchD) ? "flex" : "none";
     });
 
-    // Ocultar sección si no hay nada visible
     document.querySelectorAll('.seccion-horizontal').forEach(sec => {
-        const hasVisible = Array.from(sec.querySelectorAll('.card')).some(c => c.style.display !== "none");
-        sec.style.display = hasVisible ? "block" : "none";
+        const tiene = Array.from(sec.querySelectorAll('.card')).some(c => c.style.display !== "none");
+        sec.style.display = tiene ? "block" : "none";
     });
 }
 
-window.showDetails = function(tit, div, aut, sin, img, plat) {
+window.abrirModal = (tit, div, aut, sin, img, plat) => {
     document.getElementById('m-tit').innerText = tit;
     document.getElementById('m-div').innerText = div;
     document.getElementById('m-aut').innerText = aut;
     document.getElementById('m-sin').innerText = sin;
     document.getElementById('m-img').src = img;
-    
-    const platContainer = document.getElementById('m-plat');
-    if (plat && plat !== "Librerías") {
-        platContainer.innerHTML = `<span class="btn-plat-link">Disponible en: ${plat}</span>`;
-    } else {
-        platContainer.innerHTML = `<span style="color:#666">Disponible en: Librerías</span>`;
-    }
-
+    document.getElementById('m-plat').innerText = plat ? "Disponible en: " + plat : "";
     document.getElementById('miModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
-}
+};
 
-window.cerrarModal = function() {
+window.cerrarModal = () => {
     document.getElementById('miModal').style.display = 'none';
     document.body.style.overflow = 'auto';
-}
+};
 
-window.onclick = (e) => {
-    if (e.target.id === 'miModal') cerrarModal();
-}
+window.onclick = (e) => { if (e.target.id === 'miModal') cerrarModal(); };
