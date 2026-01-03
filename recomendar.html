@@ -7,15 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos específicos para las secciones de recomendaciones */
+        html { overflow-y: scroll; scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Fredoka', sans-serif; background-color: #fff; }
+
+        /* Controles fijos y estables */
         .controles-superiores {
             position: sticky; top: 0; background: white; z-index: 100;
-            padding: 20px; border-bottom: 1px solid #eee; 
+            padding: 20px; border-bottom: 1px solid #eee;
             display: flex; flex-direction: column; align-items: center; gap: 15px;
         }
         .search-input {
-            width: 100%; max-width: 500px; padding: 12px 25px; 
-            border: 2px solid #4db7c3; border-radius: 50px; 
+            width: 90%; max-width: 500px; padding: 12px 25px;
+            border: 2px solid #4db7c3; border-radius: 50px;
             font-family: 'Fredoka'; font-size: 1rem; outline: none;
         }
         .filter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
@@ -26,25 +29,27 @@
         }
         .filter-btn.active { background: #4db7c3; color: white; }
 
-        /* Estética Netflix */
-        .seccion-horizontal { padding: 30px 0; }
-        .titulo-cat { margin-left: 5%; color: #333; font-size: 2rem; font-family: 'Fredoka'; }
+        /* Secciones tipo Netflix */
+        .seccion-horizontal { padding: 20px 0; min-height: 200px; }
+        .titulo-cat { margin-left: 5%; color: #333; font-size: 1.8rem; margin-bottom: 10px; }
         .scroll-container {
-            display: flex; overflow-x: auto; gap: 20px; padding: 10px 5% 30px 5%;
-            scroll-behavior: smooth; scrollbar-width: none;
+            display: flex; overflow-x: auto; gap: 20px; padding: 10px 5% 20px 5%;
+            scrollbar-width: none;
         }
         .scroll-container::-webkit-scrollbar { display: none; }
 
+        /* Tarjetas */
         .card {
-            min-width: 220px; max-width: 220px; background: white;
-            border-radius: 18px; overflow: hidden; border: 1px solid #eee;
-            cursor: pointer; transition: 0.3s ease; flex-shrink: 0;
+            min-width: 200px; max-width: 200px; background: white;
+            border-radius: 15px; overflow: hidden; border: 1px solid #eee;
+            cursor: pointer; transition: transform 0.3s ease; flex-shrink: 0;
+            display: flex; flex-direction: column;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-        .card-body { padding: 15px; }
-        .card-body h3 { margin: 5px 0 0 0; font-size: 1.1rem; font-family: 'Fredoka'; color: #222; }
-        .card-tag { font-size: 0.75rem; color: #4db7c3; font-weight: 600; text-transform: uppercase; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #f0f0f0; }
+        .card-body { padding: 12px; }
+        .card-body h3 { margin: 5px 0; font-size: 1rem; color: #222; }
+        .card-tag { font-size: 0.7rem; color: #4db7c3; font-weight: 600; text-transform: uppercase; }
 
         /* Modal */
         .modal {
@@ -53,19 +58,15 @@
             align-items: center; justify-content: center; backdrop-filter: blur(5px);
         }
         .modal-content {
-            background: white; width: 90%; max-width: 750px; border-radius: 30px;
-            padding: 40px; position: relative; display: flex; gap: 30px;
+            background: white; width: 90%; max-width: 700px; border-radius: 20px;
+            padding: 30px; position: relative; display: flex; gap: 20px;
         }
-        .modal-close { position: absolute; top: 20px; right: 25px; font-size: 2.5rem; cursor: pointer; color: #999; }
-        .modal-img { width: 40%; border-radius: 15px; }
-        .modal-info { width: 60%; }
-        .btn-plataforma {
-            display: inline-block; margin-top: 20px; padding: 12px 25px;
-            background: #e37c3a; color: white; text-decoration: none;
-            border-radius: 50px; font-weight: 600;
-        }
-        @media (max-width: 700px) {
-            .modal-content { flex-direction: column; text-align: center; padding: 20px; max-height: 90vh; overflow-y: auto; }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #999; }
+        .modal-img { width: 35%; border-radius: 10px; object-fit: cover; }
+        .modal-info { width: 65%; }
+
+        @media (max-width: 600px) {
+            .modal-content { flex-direction: column; align-items: center; text-align: center; max-height: 80vh; overflow-y: auto; }
             .modal-img { width: 60%; }
             .modal-info { width: 100%; }
         }
@@ -80,20 +81,29 @@
         </div>
     </header>
 
-    <div id="zona-controles"></div>
+    <div class="controles-superiores">
+        <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar título, autor o tema...">
+        <div class="filter-group">
+            <button class="filter-btn active" onclick="filtrarPorDiversidad('todos', this)">Todos</button>
+            <button class="filter-btn" onclick="filtrarPorDiversidad('Neurodiversidad', this)">Neurodiversidad</button>
+            <button class="filter-btn" onclick="filtrarPorDiversidad('Física', this)">Física</button>
+            <button class="filter-btn" onclick="filtrarPorDiversidad('Sensorial', this)">Sensorial</button>
+            <button class="filter-btn" onclick="filtrarPorDiversidad('Intelectual', this)">Intelectual</button>
+        </div>
+    </div>
 
     <main id="biblioteca">
-        <section class="seccion-horizontal" id="sec-Pelicula" style="display:none;">
+        <section class="seccion-horizontal" id="sec-Pelicula">
             <h2 class="titulo-cat">Películas</h2>
             <div class="scroll-container" id="container-Pelicula"></div>
         </section>
 
-        <section class="seccion-horizontal" id="sec-Serie" style="display:none;">
+        <section class="seccion-horizontal" id="sec-Serie">
             <h2 class="titulo-cat">Series</h2>
             <div class="scroll-container" id="container-Serie"></div>
         </section>
 
-        <section class="seccion-horizontal" id="sec-Libro" style="display:none;">
+        <section class="seccion-horizontal" id="sec-Libro">
             <h2 class="titulo-cat">Libros</h2>
             <div class="scroll-container" id="container-Libro"></div>
         </section>
@@ -101,20 +111,18 @@
 
     <div id="miModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" id="close-modal">&times;</span>
+            <span class="modal-close" onclick="cerrarModal()">&times;</span>
             <img id="m-img" class="modal-img" src="" alt="">
             <div class="modal-info">
                 <span id="m-div" class="card-tag"></span>
-                <h2 id="m-tit" style="margin: 10px 0; font-family:'Fredoka'; font-size: 1.8rem;"></h2>
-                <p id="m-aut" style="color: #888; font-style: italic; margin-bottom: 10px;"></p>
-                <p id="m-sin" style="line-height: 1.6; color: #444;"></p>
-                <div id="m-plat" class="btn-plataforma"></div>
+                <h2 id="m-tit" style="margin: 10px 0;"></h2>
+                <p id="m-aut" style="color: #666; font-style: italic;"></p>
+                <p id="m-sin" style="line-height: 1.5; color: #333;"></p>
+                <p id="m-plat" style="font-weight: bold; color: #e37c3a;"></p>
             </div>
         </div>
     </div>
 
     <script src="motorrecomendar.js"></script>
-    <script src="menulateral.js"></script>
-    <script src="accesibilidad.js"></script>
 </body>
 </html>
