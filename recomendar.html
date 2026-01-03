@@ -5,67 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cultura Inclusiva - Diversencia*</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
+    
     <style>
         html { overflow-y: scroll; scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Fredoka', sans-serif; background-color: #f9f9f9; }
 
-        /* HEADER ORIGINAL */
+        /* HEADER */
         .hero1 { background: #4db7c3; padding: 40px 20px; text-align: center; color: white; }
         .nombre { font-weight: 600; font-size: 2.5rem; }
         .asterisco { color: #e37c3a; font-size: 3rem; }
 
-        /* CONTROLES */
+        /* CONTROLES ESTABLES */
         .controles-superiores {
-            position: sticky; top: 0; background: white; z-index: 100;
+            position: sticky; top: 0; background: white; z-index: 900;
             padding: 15px; border-bottom: 1px solid #eee;
             display: flex; flex-direction: column; align-items: center; gap: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .search-input { width: 90%; max-width: 500px; padding: 10px 20px; border: 2px solid #4db7c3; border-radius: 50px; font-family: 'Fredoka'; outline: none; }
+        .filter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
         
-        .filter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
-        .filter-btn { padding: 6px 15px; border: 2px solid #4db7c3; background: white; color: #4db7c3; border-radius: 20px; cursor: pointer; font-weight: 600; font-family: 'Fredoka'; transition: 0.3s; font-size: 0.85rem; }
+        .filter-btn { padding: 8px 16px; border: 2px solid #4db7c3; background: white; color: #4db7c3; border-radius: 20px; cursor: pointer; font-weight: 600; font-family: 'Fredoka'; font-size: 0.9rem; transition: 0.3s; }
         .filter-btn.active { background: #4db7c3; color: white; }
 
-        /* BOTONES DE VISTA */
         .view-controls { margin-top: 5px; display: flex; gap: 10px; }
-        .view-btn { background: #eee; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-family: 'Fredoka'; font-size: 0.8rem; }
+        .view-btn { background: #eee; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-family: 'Fredoka'; font-size: 0.85rem; }
         .view-btn.active { background: #e37c3a; color: white; }
 
-        /* MODO CARRUSEL (NETFLIX) */
-        .vista-carrusel .seccion-horizontal { position: relative; padding: 15px 0; }
-        .vista-carrusel .scroll-container { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5% 20px 5%; scrollbar-width: none; }
-        .vista-carrusel .btn-nav { position: absolute; top: 55%; transform: translateY(-50%); background: white; border: 1px solid #ccc; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
-        .vista-carrusel .btn-prev { left: 10px; }
-        .vista-carrusel .btn-next { right: 10px; }
+        /* CONFIGURACIÓN DE CARÁTULAS (TAMAÑO FIJO) */
+        .card { 
+            width: 200px; /* Tamaño fijo para que no sean enormes */
+            background: white; border-radius: 12px; overflow: hidden; 
+            border: 1px solid #eee; cursor: pointer; transition: 0.3s; 
+            flex-shrink: 0; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 280px; object-fit: cover; background: #eee; }
+        .card-body { padding: 12px; }
+        .card-body h3 { font-size: 0.95rem; margin: 5px 0; color: #333; height: 2.4em; overflow: hidden; }
+        .card-tag { font-size: 0.75rem; color: #4db7c3; font-weight: 600; text-transform: uppercase; }
 
-        /* MODO LISTA (TODAS JUNTAS) */
-        .vista-lista .seccion-horizontal { display: block !important; padding: 20px 5%; }
-        .vista-lista .scroll-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; overflow: visible; }
-        .vista-lista .btn-nav, .vista-lista .titulo-cat { display: none; }
-        .vista-lista #lista-todas-titulo { display: block; font-size: 2rem; margin-bottom: 20px; }
+        /* VISTA CARRUSEL */
+        .vista-carrusel .seccion-horizontal { position: relative; padding: 20px 0; }
+        .vista-carrusel .scroll-container { display: flex; overflow-x: auto; gap: 20px; padding: 10px 5% 20px 5%; scrollbar-width: none; }
+        .vista-carrusel .btn-nav { position: absolute; top: 55%; transform: translateY(-50%); background: white; border: 2px solid #4db7c3; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #4db7c3; }
+        .vista-carrusel .btn-prev { left: 20px; }
+        .vista-carrusel .btn-next { right: 20px; }
+        .titulo-cat { margin-left: 5%; font-size: 1.8rem; }
 
-        /* TARJETAS COMPARTIDAS */
-        .card { min-width: 180px; background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eee; cursor: pointer; transition: 0.3s; flex-shrink: 0; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-        .card-body { padding: 10px; }
-        .card-body h3 { font-size: 0.9rem; margin: 5px 0; }
-        .card-tag { font-size: 0.7rem; color: #4db7c3; font-weight: 600; }
+        /* VISTA LISTA (CUADRÍCULA) */
+        .vista-lista .seccion-horizontal { padding: 20px 5%; }
+        .vista-lista .scroll-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, 200px); /* Columnas fijas de 200px */
+            justify-content: center;
+            gap: 25px; 
+            overflow: visible; 
+        }
+        .vista-lista .btn-nav { display: none; }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 90%; max-width: 700px; border-radius: 20px; padding: 30px; position: relative; display: flex; gap: 20px; }
-        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 2rem; cursor: pointer; background: #eee; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-        .modal-img { width: 35%; border-radius: 10px; object-fit: cover; }
+        /* MODAL (Z-INDEX ALTO) */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 90%; max-width: 750px; border-radius: 20px; padding: 30px; position: relative; display: flex; gap: 25px; }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; cursor: pointer; color: #333; line-height: 1; }
+        .modal-img { width: 35%; border-radius: 12px; object-fit: cover; }
         .modal-info { width: 65%; }
 
-        @media (max-width: 700px) {
-            .modal-content { flex-direction: column; text-align: center; max-height: 85vh; overflow-y: auto; }
-            .modal-img { width: 50%; margin: 0 auto; }
+        @media (max-width: 600px) {
+            .card { width: 160px; } /* Un poco más pequeñas en móvil */
+            .card img { height: 230px; }
+            .modal-content { flex-direction: column; text-align: center; max-height: 90vh; overflow-y: auto; }
+            .modal-img { width: 60%; margin: 0 auto; }
             .modal-info { width: 100%; }
-            .btn-nav { display: none !important; } /* Ocultar flechas en móvil */
+            .btn-nav { display: none !important; }
+            .vista-lista .scroll-container { grid-template-columns: repeat(auto-fill, 160px); }
         }
     </style>
 </head>
@@ -79,7 +92,7 @@
     </header>
 
     <div class="controles-superiores">
-        <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar por título o autor...">
+        <input type="text" id="buscador" class="search-input" placeholder="🔍 Título, autor o temática...">
         
         <div class="filter-group">
             <button class="filter-btn active" onclick="filtrarDiversidad('todos', this)">Todos</button>
@@ -91,13 +104,11 @@
 
         <div class="view-controls">
             <button id="btn-vista-carrusel" class="view-btn active" onclick="cambiarVista('carrusel')">Vista Carrusel</button>
-            <button id="btn-vista-lista" class="view-btn" onclick="cambiarVista('lista')">Vista Lista (Ver todas)</button>
+            <button id="btn-vista-lista" class="view-btn" onclick="cambiarVista('lista')">Vista Lista</button>
         </div>
     </div>
 
     <main id="biblioteca">
-        <h2 id="lista-todas-titulo" style="display:none; text-align: center;">Todos los contenidos</h2>
-        
         <section class="seccion-horizontal" id="sec-Pelicula">
             <h2 class="titulo-cat">Películas</h2>
             <button class="btn-nav btn-prev" onclick="sideScroll('container-Pelicula', -400)">❮</button>
@@ -126,9 +137,9 @@
             <img id="m-img" class="modal-img" src="" alt="">
             <div class="modal-info">
                 <span id="m-div" class="card-tag"></span>
-                <h2 id="m-tit"></h2>
+                <h2 id="m-tit" style="margin: 10px 0;"></h2>
                 <p id="m-aut" style="font-style: italic; color: #666;"></p>
-                <p id="m-sin" style="line-height: 1.4;"></p>
+                <p id="m-sin" style="line-height: 1.5;"></p>
                 <p id="m-plat" style="font-weight: bold; color: #e37c3a; margin-top: 15px;"></p>
             </div>
         </div>
