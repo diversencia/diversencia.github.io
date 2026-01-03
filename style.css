@@ -815,50 +815,6 @@ font-family: 'Quicksand', sans-serif;
     background: #3a9aa5;
 }
 
-/* OPTIMIZACIÓN */
-
-/* Animación suave para detalles expandidos */
-.juego-detalles {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
-  opacity: 0;
-}
-
-.juego-detalles[not hidden] {
-  max-height: 2000px; /* Suficiente para contenido largo */
-  opacity: 1;
-}
-
-/* Toggle activo */
-.juego-toggle[aria-expanded="true"] {
-  background: #86AE87 !important;
-}
-
-.juego-toggle[aria-expanded="true"]:hover {
-  background: #6ea379 !important;
-}
-
-/* Nuevas columnas genéricas (heredan bien de .juego-detalles p) */
-.juego-detalles p strong {
-  color: #4db7c3;
-}
-
-/* Imagen responsive mejorada */
-.juego-img {
-  transition: transform 0.3s ease;
-}
-
-.juego-card:hover .juego-img {
-  transform: scale(1.02);
-}
-
-/* Evitar conflictos con row-gap excesivo */
-.cards-container {
-  row-gap: 2rem !important; /* Reducido de 4rem para mejor espaciado */
-}
-
-
 
 
 
