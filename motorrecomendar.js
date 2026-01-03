@@ -1,178 +1,133 @@
+const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRI0jqC8RUmQwifG87iizwfsvq7UMMCw_Qbnv6oNmVuBoVOOxkr1C_S_P2rlPagnS-78ghJc5d-bk-L/pub?output=csv";
+
+let filtroDiversidad = 'todos';
+
 document.addEventListener("DOMContentLoaded", () => {
-    const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRI0jqC8RUmQwifG87iizwfsvq7UMMCw_Qbnv6oNmVuBoVOOxkr1C_S_P2rlPagnS-78ghJc5d-bk-L/pub?output=csv";
-    
-    let todosLosContenidos = [];
-    let filtroActual = 'todos';
+    cargarDatos();
 
-    fetch(URL_SHEETS)
-        .then(res => res.text())
-        .then(csvText => {
-            // Procesar y quitar encabezados
-            todosLosContenidos = procesarCSV(csvText).slice(1);
-            crearInterfaz();
-            renderizar(todosLosContenidos);
-        });
-
-    function procesarCSV(texto) {
-        const lineas = texto.split(/\r?\n/);
-        return lineas.map(linea => {
-            const celdas = [];
-            let celdaActual = '';
-            let dentroComillas = false;
-            for (let char of linea) {
-                if (char === '"') dentroComillas = !dentroComillas;
-                else if (char === ',' && !dentroComillas) {
-                    celdas.push(celdaActual.trim());
-                    celdaActual = '';
-                } else celdaActual += char;
-            }
-            celdas.push(celdaActual.trim());
-            return celdas.map(c => c.replace(/^"|"$/g, '').trim());
-        });
-    }
-
-    function crearInterfaz() {
-        const zona = document.getElementById('zona-controles');
-        if(!zona) return;
-        zona.innerHTML = ""; 
-        
-        const buscador = document.createElement('input');
-        buscador.className = "search-input";
-        buscador.placeholder = "🔍 Escribe título, autor o temática...";
-        
-        buscador.addEventListener('input', (e) => {
-            filtrarTodo(e.target.value);
-        });
-
-        const botonesDiv = document.createElement('div');
-        botonesDiv.className = "filter-group";
-        
-        const filtros = [
-            {id:'todos', nom:'Todos'},
-            {id:'Neurodiversidad', nom:'Neurodiversidad'},
-            {id:'Física', nom:'Física'},
-            {id:'Sensorial', nom:'Sensorial'},
-            {id:'Intelectual', nom:'Intelectual'}
-        ];
-
-        filtros.forEach(f => {
-            const btn = document.createElement('button');
-            btn.className = `filter-btn ${f.id === 'todos' ? 'active' : ''}`;
-            btn.innerText = f.nom;
-            btn.onclick = () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                filtroActual = f.id;
-                filtrarTodo(buscador.value);
-            };
-            botonesDiv.appendChild(btn);
-        });
-
-        zona.appendChild(buscador);
-        zona.appendChild(botonesDiv);
-    }
-
-    function filtrarTodo(texto) {
-        const t = texto.toLowerCase().trim();
-        const cards = document.querySelectorAll('.card');
-        
-        // Aplicamos el filtro a las tarjetas de forma inmediata para evitar "tembleque"
-        cards.forEach(card => {
-            const titulo = card.getAttribute('data-titulo') || "";
-            const autor = card.getAttribute('data-autor') || "";
-            const diversidad = card.getAttribute('data-div') || "";
-
-            const cumpleFiltro = filtroActual === 'todos' || diversidad === filtroActual;
-            const cumpleTexto = t === "" || titulo.includes(t) || autor.includes(t);
-
-            if (cumpleFiltro && cumpleTexto) {
-                card.style.display = "block";
-                card.style.opacity = "1";
-            } else {
-                card.style.display = "none";
-                card.style.opacity = "0";
-            }
-        });
-
-        // Actualizar visibilidad de secciones (Películas, Series, Libros)
-        document.querySelectorAll('.seccion-horizontal').forEach(seccion => {
-            const contenedor = seccion.querySelector('.scroll-container');
-            const tieneVisibles = Array.from(contenedor.querySelectorAll('.card')).some(c => c.style.display !== "none");
-            seccion.style.display = tieneVisibles ? "block" : "none";
-        });
-    }
-
-    function renderizar(lista) {
-        const conts = {
-            'Pelicula': document.getElementById('container-Pelicula'),
-            'Serie': document.getElementById('container-Serie'),
-            'Libro': document.getElementById('container-Libro')
-        };
-
-        // Limpiar contenedores y ocultar secciones inicialmente
-        Object.keys(conts).forEach(k => {
-            if(conts[k]) {
-                conts[k].innerHTML = "";
-                const sec = document.getElementById(`sec-${k}`);
-                if(sec) sec.style.display = "none";
-            }
-        });
-
-        lista.forEach(item => {
-            // Asignación según el orden de tus columnas en Sheets
-            const [titulo, formato, diversidad, edad, autor, sinopsis, imagenRaw, plataforma] = item;
-            
-            if (!titulo || !formato) return;
-
-            const imagen = imagenRaw ? imagenRaw.trim() : 'https://via.placeholder.com/220x330?text=Sin+Imagen';
-            const contenedor = conts[formato];
-
-            if (contenedor) {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.setAttribute('data-titulo', titulo.toLowerCase());
-                card.setAttribute('data-autor', (autor || "").toLowerCase());
-                card.setAttribute('data-div', diversidad);
-                
-                card.innerHTML = `
-                    <img src="${imagen}" alt="${titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/220x330?text=Error+Imagen'">
-                    <div class="card-body">
-                        <span class="card-tag">${diversidad}</span>
-                        <h3>${titulo}</h3>
-                    </div>
-                `;
-
-                card.onclick = () => {
-                    document.getElementById('m-img').src = imagen;
-                    document.getElementById('m-tit').innerText = titulo;
-                    document.getElementById('m-div').innerText = diversidad;
-                    document.getElementById('m-aut').innerText = autor || "Autor desconocido";
-                    document.getElementById('m-sin').innerText = sinopsis || "Sin sinopsis disponible.";
-                    document.getElementById('m-plat').innerText = plataforma ? "Disponible en: " + plataforma : "";
-                    document.getElementById('miModal').style.display = 'flex';
-                };
-
-                contenedor.appendChild(card);
-                // Mostrar la sección si tiene al menos una tarjeta
-                const sec = document.getElementById(`sec-${formato}`);
-                if(sec) sec.style.display = "block";
-            }
-        });
-    }
-
-    // Lógica del Modal
-    const modal = document.getElementById('miModal');
-    const closeBtn = document.getElementById('close-modal');
-    
-    if(closeBtn) {
-        closeBtn.onclick = () => {
-            modal.style.display = 'none';
-        };
-    }
-    
-    window.onclick = (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    };
+    // Listener para el buscador
+    document.getElementById('buscador').addEventListener('input', () => {
+        aplicarFiltros();
+    });
 });
+
+async function cargarDatos() {
+    try {
+        const res = await fetch(URL_SHEETS);
+        const csvText = await res.text();
+        const filas = procesarCSV(csvText).slice(1); // Quitar cabecera
+        renderizar(filas);
+    } catch (err) {
+        console.error("Error cargando datos:", err);
+    }
+}
+
+function procesarCSV(texto) {
+    const lineas = texto.split(/\r?\n/);
+    return lineas.map(linea => {
+        const celdas = [];
+        let celdaActual = '';
+        let dentroComillas = false;
+        for (let char of linea) {
+            if (char === '"') dentroComillas = !dentroComillas;
+            else if (char === ',' && !dentroComillas) {
+                celdas.push(celdaActual.trim());
+                celdaActual = '';
+            } else celdaActual += char;
+        }
+        celdas.push(celdaActual.trim());
+        return celdas.map(c => c.replace(/^"|"$/g, '').trim());
+    });
+}
+
+function renderizar(lista) {
+    const conts = {
+        'Pelicula': document.getElementById('container-Pelicula'),
+        'Serie': document.getElementById('container-Serie'),
+        'Libro': document.getElementById('container-Libro')
+    };
+
+    // Limpiar contenedores
+    Object.values(conts).forEach(c => { if(c) c.innerHTML = ""; });
+
+    lista.forEach(item => {
+        const [titulo, formato, diversidad, edad, autor, sinopsis, imagen, plataforma] = item;
+        const contenedor = conts[formato];
+
+        if (contenedor && titulo) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            // Guardamos datos para filtrar
+            card.setAttribute('data-titulo', titulo.toLowerCase());
+            card.setAttribute('data-autor', (autor || "").toLowerCase());
+            card.setAttribute('data-diversidad', diversidad);
+
+            card.innerHTML = `
+                <img src="${imagen}" alt="${titulo}" onerror="this.src='https://via.placeholder.com/200x300?text=Diversencia'">
+                <div class="card-body">
+                    <span class="card-tag">${diversidad}</span>
+                    <h3>${titulo}</h3>
+                </div>
+            `;
+
+            card.onclick = () => abrirModal(titulo, diversidad, autor, sinopsis, imagen, plataforma);
+            contenedor.appendChild(card);
+        }
+    });
+    aplicarFiltros(); // Ejecutar filtros iniciales
+}
+
+function filtrarPorDiversidad(tipo, btn) {
+    // Actualizar botones
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    filtroDiversidad = tipo;
+    aplicarFiltros();
+}
+
+function aplicarFiltros() {
+    const textoBuscado = document.getElementById('buscador').value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const t = card.getAttribute('data-titulo');
+        const a = card.getAttribute('data-autor');
+        const d = card.getAttribute('data-diversidad');
+
+        const cumpleTexto = t.includes(textoBuscado) || a.includes(textoBuscado);
+        const cumpleDiv = filtroDiversidad === 'todos' || d === filtroDiversidad;
+
+        if (cumpleTexto && cumpleDiv) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    // Ocultar secciones vacías
+    document.querySelectorAll('.seccion-horizontal').forEach(sec => {
+        const tieneVisibles = Array.from(sec.querySelectorAll('.card')).some(c => c.style.display !== "none");
+        sec.style.display = tieneVisibles ? "block" : "none";
+    });
+}
+
+function abrirModal(tit, div, aut, sin, img, plat) {
+    document.getElementById('m-tit').innerText = tit;
+    document.getElementById('m-div').innerText = div;
+    document.getElementById('m-aut').innerText = aut;
+    document.getElementById('m-sin').innerText = sin;
+    document.getElementById('m-img').src = img;
+    document.getElementById('m-plat').innerText = plat ? "Disponible en: " + plat : "";
+    document.getElementById('miModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal() {
+    document.getElementById('miModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+window.onclick = (e) => {
+    if (e.target.className === 'modal') cerrarModal();
+};
