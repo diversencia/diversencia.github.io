@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(URL_SHEETS)
         .then(res => res.text())
         .then(csvText => {
+            // Procesar y quitar encabezados
             todosLosContenidos = procesarCSV(csvText).slice(1);
             crearInterfaz();
             renderizar(todosLosContenidos);
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else celdaActual += char;
             }
             celdas.push(celdaActual.trim());
-            return celdas.map(c => c.replace(/^"|"$/g, ''));
+            return celdas.map(c => c.replace(/^"|"$/g, '').trim());
         });
     }
 
@@ -34,8 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const zona = document.getElementById('zona-controles');
         if(!zona) return;
         zona.innerHTML = ""; 
-        zona.className = "controles-superiores";
-
+        
         const buscador = document.createElement('input');
         buscador.className = "search-input";
         buscador.placeholder = "🔍 Escribe título, autor o temática...";
@@ -73,28 +73,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function filtrarTodo(texto) {
-        const t = texto.toLowerCase();
+        const t = texto.toLowerCase().trim();
         const cards = document.querySelectorAll('.card');
         
+        // Aplicamos el filtro a las tarjetas de forma inmediata para evitar "tembleque"
         cards.forEach(card => {
             const titulo = card.getAttribute('data-titulo') || "";
             const autor = card.getAttribute('data-autor') || "";
             const diversidad = card.getAttribute('data-div') || "";
 
             const cumpleFiltro = filtroActual === 'todos' || diversidad === filtroActual;
-            const cumpleTexto = titulo.includes(t) || autor.includes(t);
+            const cumpleTexto = t === "" || titulo.includes(t) || autor.includes(t);
 
             if (cumpleFiltro && cumpleTexto) {
                 card.style.display = "block";
-                setTimeout(() => card.style.opacity = "1", 10);
+                card.style.opacity = "1";
             } else {
+                card.style.display = "none";
                 card.style.opacity = "0";
-                setTimeout(() => card.style.display = "none", 300);
             }
         });
 
+        // Actualizar visibilidad de secciones (Películas, Series, Libros)
         document.querySelectorAll('.seccion-horizontal').forEach(seccion => {
-            const tieneVisibles = Array.from(seccion.querySelectorAll('.card')).some(c => c.style.display !== "none");
+            const contenedor = seccion.querySelector('.scroll-container');
+            const tieneVisibles = Array.from(contenedor.querySelectorAll('.card')).some(c => c.style.display !== "none");
             seccion.style.display = tieneVisibles ? "block" : "none";
         });
     }
@@ -106,31 +109,33 @@ document.addEventListener("DOMContentLoaded", () => {
             'Libro': document.getElementById('container-Libro')
         };
 
+        // Limpiar contenedores y ocultar secciones inicialmente
         Object.keys(conts).forEach(k => {
             if(conts[k]) {
                 conts[k].innerHTML = "";
-                document.getElementById(`sec-${k}`).style.display = "block";
+                const sec = document.getElementById(`sec-${k}`);
+                if(sec) sec.style.display = "none";
             }
         });
 
         lista.forEach(item => {
+            // Asignación según el orden de tus columnas en Sheets
             const [titulo, formato, diversidad, edad, autor, sinopsis, imagenRaw, plataforma] = item;
             
-            // --- LIMPIEZA DE URL DE IMAGEN ---
-            const imagen = imagenRaw ? imagenRaw.trim().replace(/^"|"$/g, '') : '';
-            
+            if (!titulo || !formato) return;
+
+            const imagen = imagenRaw ? imagenRaw.trim() : 'https://via.placeholder.com/220x330?text=Sin+Imagen';
             const contenedor = conts[formato];
 
-            if (contenedor && imagen) {
+            if (contenedor) {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.setAttribute('data-titulo', titulo.toLowerCase());
-                card.setAttribute('data-autor', autor.toLowerCase());
+                card.setAttribute('data-autor', (autor || "").toLowerCase());
                 card.setAttribute('data-div', diversidad);
-                card.style.transition = "opacity 0.3s ease";
                 
                 card.innerHTML = `
-                    <img src="${imagen}" alt="${titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/220x330?text=Cargando...'">
+                    <img src="${imagen}" alt="${titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/220x330?text=Error+Imagen'">
                     <div class="card-body">
                         <span class="card-tag">${diversidad}</span>
                         <h3>${titulo}</h3>
@@ -141,20 +146,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById('m-img').src = imagen;
                     document.getElementById('m-tit').innerText = titulo;
                     document.getElementById('m-div').innerText = diversidad;
-                    document.getElementById('m-aut').innerText = autor;
-                    document.getElementById('m-sin').innerText = sinopsis;
-                    document.getElementById('m-plat').innerText = "Ver en: " + plataforma;
+                    document.getElementById('m-aut').innerText = autor || "Autor desconocido";
+                    document.getElementById('m-sin').innerText = sinopsis || "Sin sinopsis disponible.";
+                    document.getElementById('m-plat').innerText = plataforma ? "Disponible en: " + plataforma : "";
                     document.getElementById('miModal').style.display = 'flex';
                 };
+
                 contenedor.appendChild(card);
+                // Mostrar la sección si tiene al menos una tarjeta
+                const sec = document.getElementById(`sec-${formato}`);
+                if(sec) sec.style.display = "block";
             }
         });
     }
 
+    // Lógica del Modal
+    const modal = document.getElementById('miModal');
     const closeBtn = document.getElementById('close-modal');
-    if(closeBtn) closeBtn.onclick = () => document.getElementById('miModal').style.display = 'none';
+    
+    if(closeBtn) {
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+        };
+    }
     
     window.onclick = (e) => {
-        if (e.target == document.getElementById('miModal')) document.getElementById('miModal').style.display = 'none';
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
     };
 });
