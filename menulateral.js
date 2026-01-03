@@ -148,7 +148,7 @@ const crearMenu = () => {
           <li><a href="online.html">Recursos online</a><span class="asterisco-activo">*</span></li>
           <li><a href="kitdiversencia.html">Kit Diversencia</a><span class="asterisco-activo">*</span></li>
           <li><a href="recomendar.html">Cultura inclusiva</a><span class="asterisco-activo">*</span></li>
-          <li><a href="causas.html">Causas</a><span class="asterisco-activo">*</span></li>
+          <li><a href="causas.html">Proyectos afines</a><span class="asterisco-activo">*</span></li>
           <li><a href="contacto.html">Contacto</a><span class="asterisco-activo">*</span></li>
         </ul>
       </nav>
