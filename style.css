@@ -815,6 +815,26 @@ font-family: 'Quicksand', sans-serif;
     background: #3a9aa5;
 }
 
+.juego-iconos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.8rem 0;
+}
+
+.juego-ico {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 0.4rem 0.8rem;
+  border-radius: 25px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border: 1px solid #4db7c3;
+  color: #2c5f6b;
+}
 
 
 
