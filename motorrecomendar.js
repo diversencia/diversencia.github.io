@@ -1,5 +1,5 @@
 const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRI0jqC8RUmQwifG87iizwfsvq7UMMCw_Qbnv6oNmVuBoVOOxkr1C_S_P2rlPagnS-78ghJc5d-bk-L/pub?output=csv";
-let filtroDiversidad = 'todos';
+let filtroActual = 'todos';
 
 window.sideScroll = (id, step) => {
     document.getElementById(id).scrollBy({ left: step, behavior: 'smooth' });
@@ -7,19 +7,19 @@ window.sideScroll = (id, step) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarDatos();
-    document.getElementById('buscador').addEventListener('input', aplicarFiltros);
+    document.getElementById('buscador').addEventListener('input', filtrarTodo);
 });
 
 async function cargarDatos() {
     try {
         const res = await fetch(URL_SHEETS);
-        const csv = await res.text();
-        const filas = procesarCSV(csv).slice(1);
-        renderizar(filas);
-    } catch (e) { console.error("Error cargando datos", e); }
+        const data = await res.text();
+        const filas = parsearCSV(data).slice(1);
+        renderizarTarjetas(filas);
+    } catch (e) { console.error("Error Sheets:", e); }
 }
 
-function procesarCSV(texto) {
+function parsearCSV(texto) {
     return texto.split(/\r?\n/).map(linea => {
         let celdas = [], actual = '', quotes = false;
         for (let char of linea) {
@@ -32,7 +32,7 @@ function procesarCSV(texto) {
     });
 }
 
-function renderizar(lista) {
+function renderizarTarjetas(lista) {
     const conts = { 'Película': 'container-Pelicula', 'Serie': 'container-Serie', 'Libro': 'container-Libro' };
     Object.values(conts).forEach(id => document.getElementById(id).innerHTML = "");
 
@@ -41,7 +41,9 @@ function renderizar(lista) {
         const contenedor = document.getElementById(conts[formato]);
         if (!contenedor || !titulo) return;
 
-        const imgLimpia = imagen.split(' ')[0].replace('​', ''); // Limpia caracteres invisibles
+        // Limpieza de URL (Elimina espacios y caracteres invisibles que rompen la imagen)
+        const urlImg = imagen.split(' ')[0].replace(/[^\x20-\x7E]/g, '');
+
         const card = document.createElement('div');
         card.className = 'card';
         card.setAttribute('data-titulo', titulo.toLowerCase());
@@ -49,51 +51,47 @@ function renderizar(lista) {
         card.setAttribute('data-div', diversidad);
 
         card.innerHTML = `
-            <img src="${imgLimpia}" onerror="this.src='https://via.placeholder.com/200x300?text=Diversencia'">
+            <img src="${urlImg}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x300?text=Cargando...'">
             <div class="card-body">
                 <span class="card-tag">${diversidad}</span>
                 <h3>${titulo}</h3>
             </div>
         `;
-        card.onclick = () => abrirModal(titulo, diversidad, autor, sinopsis, imgLimpia, plataforma);
+        card.onclick = () => abrirDetalles(titulo, diversidad, autor, sinopsis, urlImg, plataforma);
         contenedor.appendChild(card);
     });
-    aplicarFiltros();
+    filtrarTodo();
 }
 
 window.cambiarVista = (modo) => {
-    const body = document.body;
+    const b = document.body;
     const btnC = document.getElementById('btn-vista-carrusel');
     const btnL = document.getElementById('btn-vista-lista');
-    const tituloLista = document.getElementById('lista-todas-titulo');
 
     if (modo === 'lista') {
-        body.classList.replace('vista-carrusel', 'vista-lista');
+        b.classList.replace('vista-carrusel', 'vista-lista');
         btnL.classList.add('active'); btnC.classList.remove('active');
-        tituloLista.style.display = 'block';
     } else {
-        body.classList.replace('vista-lista', 'vista-carrusel');
+        b.classList.replace('vista-lista', 'vista-carrusel');
         btnC.classList.add('active'); btnL.classList.remove('active');
-        tituloLista.style.display = 'none';
     }
-    aplicarFiltros();
 };
 
 window.filtrarDiversidad = (tipo, btn) => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    filtroDiversidad = tipo;
-    aplicarFiltros();
+    filtroActual = tipo;
+    filtrarTodo();
 };
 
-function aplicarFiltros() {
-    const query = document.getElementById('buscador').value.toLowerCase();
+function filtrarTodo() {
+    const buscar = document.getElementById('buscador').value.toLowerCase();
     const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
-        const matchT = card.getAttribute('data-titulo').includes(query) || card.getAttribute('data-autor').includes(query);
-        const matchD = filtroDiversidad === 'todos' || card.getAttribute('data-div').includes(filtroDiversidad);
-        card.style.display = (matchT && matchD) ? "flex" : "none";
+        const t = card.getAttribute('data-titulo').includes(buscar) || card.getAttribute('data-autor').includes(buscar);
+        const d = filtroActual === 'todos' || card.getAttribute('data-div').includes(filtroActual);
+        card.style.display = (t && d) ? "flex" : "none";
     });
 
     document.querySelectorAll('.seccion-horizontal').forEach(sec => {
@@ -102,13 +100,13 @@ function aplicarFiltros() {
     });
 }
 
-window.abrirModal = (tit, div, aut, sin, img, plat) => {
+window.abrirDetalles = (tit, div, aut, sin, img, plat) => {
     document.getElementById('m-tit').innerText = tit;
     document.getElementById('m-div').innerText = div;
     document.getElementById('m-aut').innerText = aut;
     document.getElementById('m-sin').innerText = sin;
     document.getElementById('m-img').src = img;
-    document.getElementById('m-plat').innerText = plat ? "Disponible en: " + plat : "";
+    document.getElementById('m-plat').innerText = plat ? "Ver en: " + plat : "";
     document.getElementById('miModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 };
