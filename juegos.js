@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   contenedor.innerHTML = '<p style="text-align:center;padding:2rem">🔄 Cargando juegos...</p>';
 
-  const URL_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQahgpF9ULG3v0mZzS2ZmbARwhCE_bTE0FiEF7yM3w_u06JYrT598NFhK4xD0LF5fUAN6qNDyh6vznU/pub?gid=0&single=true&output=csv';
+  const URL_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQahgpF9ULG3v0mZzS2ZmbARwhCE_bTE0FiEF7yM3w_u06JYrT598NFhK4xD0LF5fUAN6qNDyh6vznU/pub?gid=0&output=csv';
 
   fetch(URL_CSV)
     .then(res => {
