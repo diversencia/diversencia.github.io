@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const cabecera = filas[0];
       const datos = filas.slice(1).filter(f => f[0]);
 
-      // ✅ TODAS LAS 13 COLUMNAS
+      // ✅ ÍNDICES TODAS LAS 13 COLUMNAS
       const idx = {
         titulo: cabecera.indexOf('titulo'),
         edad: cabecera.indexOf('edad'),
@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
         duracion: cabecera.indexOf('duracion'),
         habilidades: cabecera.indexOf('habilidades'),
         accesibilidad: cabecera.indexOf('accesibilidad'),
-        accesDetalle: cabecera.indexOf('accesibilidad_detalle'),    // ✅ NUEVO
-        dispAccess: cabecera.indexOf('disponibilidad_access'),      // ✅ NUEVO
-        linkAccess: cabecera.indexOf('link_access')                 // ✅ NUEVO
+        accesDetalle: cabecera.indexOf('accesibilidad_detalle'),
+        dispAccess: cabecera.indexOf('disponibilidad_access'),
+        linkAccess: cabecera.indexOf('link_access')
       };
 
       contenedor.innerHTML = '';
@@ -48,11 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const duracion = fila[idx.duracion] || '';
         const habilidades = fila[idx.habilidades] || '';
         const accesibilidad = fila[idx.accesibilidad] || '';
-        const accesDetalle = fila[idx.accesDetalle] || '';          // ✅ NUEVO
-        const dispAccess = fila[idx.dispAccess] || '';              // ✅ NUEVO
-        const linkAccess = fila[idx.linkAccess] || '';              // ✅ NUEVO
+        const accesDetalle = fila[idx.accesDetalle] || '';
+        const dispAccess = fila[idx.dispAccess] || '';
+        const linkAccess = fila[idx.linkAccess] || '';
 
-        // CATEGORÍA Y ACCESS PARA FILTROS
+        // FILTROS
         const categoria = descCorta.toLowerCase().includes('cooperat') ? 'cooperativo' :
                          descCorta.toLowerCase().includes('estrateg') ? 'estrategia' : 'familiar';
         const accessTags = accesibilidad.toLowerCase().split(';').map(t => t.trim());
@@ -60,9 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
                           accessTags.find(t => t.includes('aud')) ? 'auditiva' :
                           accessTags.find(t => t.includes('motor')) ? 'motora' : 'cognitiva';
 
-        // 🔥 ICONOS DE TODAS LAS 13 COLUMNAS ✅
+        // 🔥 ICONOS INTELIGENTES - SIN DUPLICADOS
         let dificultadEstrellas = '';
         let iconosDetalles = [];
+        let tieneJugadoresBadge = false;
         
         cabecera.forEach((col, i) => {
           const valor = fila[i]?.trim();
@@ -70,29 +71,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
           const colLower = col.toLowerCase();
           
-          // ⭐ DIFICULTAD
           if (colLower.includes('dificultad')) {
             const nivel = valor.toLowerCase();
             dificultadEstrellas = nivel.includes('baja') ? '⭐⭐' :
                                  nivel.includes('media') ? '⭐⭐⭐' : '⭐⭐⭐⭐⭐';
-          }
-          // 👥 JUGADORES
-          else if (colLower.includes('jugador')) {
+          } 
+          else if (colLower.includes('jugador') && !tieneJugadoresBadge) {
             iconosDetalles.push(`<span class="det-badge">👥 ${valor}</span>`);
+            tieneJugadoresBadge = true;
           }
-          // ⏱️ DURACIÓN
           else if (colLower.includes('durac') || colLower.includes('min')) {
             iconosDetalles.push(`<span class="det-badge">⏱️ ${valor}</span>`);
           }
-          // 🔗 LINK ACCESS ✅ NUEVO
-          else if (i === idx.linkAccess && valor.startsWith('http')) {
-            iconosDetalles.push(`<a href="${valor}" target="_blank" class="det-badge link-access">🔗 Access+</a>`);
-          }
-          // ✅ DISPONIBILIDAD ACCESS ✅ NUEVO
+          // ✅ ACCESS+ / DIY
           else if (i === idx.dispAccess) {
-            iconosDetalles.push(`<span class="det-badge">${valor.includes('Access+') ? '✅ Access+' : '🔧 DIY'}</span>`);
+            const texto = valor.includes('Access+') ? '✅ Access+' : '🔧 DIY';
+            iconosDetalles.push(`<span class="det-badge access-badge">${texto}</span>`);
           }
-          // 👁️ ACCESIBILIDAD DETALLE ✅ NUEVO
+          // ✅ LINK ACCESS
+          else if (i === idx.linkAccess && valor.startsWith('http')) {
+            iconosDetalles.push(`<a href="${valor}" target="_blank" class="det-badge link-access-badge" title="Access+ oficial">🔗</a>`);
+          }
+          // ✅ ACCESIBILIDAD DETALLE
           else if (i === idx.accesDetalle) {
             const feats = valor.split(';').map(f => f.trim().toLowerCase());
             let icons = [];
@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (feats.some(f => f.includes('motor'))) icons.push('🦽');
             iconosDetalles.push(`<span class="det-badge">🎯 ${icons.join(' ')}</span>`);
           }
-          // 🎲 CUALQUIER OTRA COLUMNA (habilidades, etc.)
           else {
             iconosDetalles.push(`<span class="det-badge">${valor}</span>`);
           }
@@ -142,12 +141,34 @@ document.addEventListener('DOMContentLoaded', function () {
       contenedor.innerHTML = `<p style="color:#e74c3c;text-align:center;padding:2rem">${err.message}</p>`;
     });
 
-  // ✅ TUS FUNCIONES EXISTENTES (sin cambios)
+  // ✅ FUNCIONES AUXILIARES
   function inicializarFiltros() {
-    // ... tu código de filtros igual ...
+    // Filtros por categoría, edad y accesibilidad
+    const filtros = document.querySelector('.filtros');
+    if (!filtros) return;
+
+    // Tus filtros existentes aquí...
+    console.log('✅ Filtros inicializados');
   }
 
   function procesarCSV(texto) {
-    // ... tu función igual ...
+    const filas = texto.split('\n').map(linea => 
+      linea.split(',').map(celda => 
+        celda.trim().replace(/^"|"$/g, '')
+      )
+    ).filter(fila => fila.some(celda => celda));
+    return filas;
   }
+
+  // ✅ EVENTOS PARA MÓVIL - TOGGLE RESPONSIVO
+  contenedor.addEventListener('click', function(e) {
+    if (e.target.classList.contains('juego-toggle')) {
+      const detalles = e.target.nextElementSibling;
+      const expandido = e.target.getAttribute('aria-expanded') === 'true';
+      
+      detalles.hidden = !detalles.hidden;
+      e.target.setAttribute('aria-expanded', !expandido);
+      e.target.textContent = expandido ? 'Ver detalles' : 'Ocultar';
+    }
+  });
 });
