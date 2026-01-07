@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="logo.png" type="image/x-icon" />
 </head>
-<body>  <!-- ✅ AÑADIDO -->
+<body>
   <div class="page-wrapper">
     <header class="hero1">
       <div class="contenedor-logo">
@@ -20,6 +20,44 @@
     <main class="contenido">
       <section class="cards-wrapper">
         <h3 id="JuegosDeMesa">Encuentra tu próximo juego de mesa favorito</h3>
+        
+        <!-- ✅ FILTROS AQUÍ - JUSTO ANTES DE LAS CARDS -->
+        <div class="filtros-juegos" role="search" aria-label="Filtrar juegos">
+          <div class="filtro-search">
+            <label for="buscar-juego">Buscar:</label>
+            <input type="search" id="buscar-juego" placeholder="Nombre o descripción..." aria-describedby="ayuda-filtros">
+          </div>
+          
+          <div class="filtro-grupo">
+            <label>Categoría:</label>
+            <button class="btn-filtro active" data-cat="all">Todos</button>
+            <button class="btn-filtro" data-cat="familiar">Familiar</button>
+            <button class="btn-filtro" data-cat="cooperativo">Cooperativo</button>
+            <button class="btn-filtro" data-cat="estrategia">Estrategia</button>
+          </div>
+          
+          <div class="filtro-grupo">
+            <label>Edad min:</label>
+            <button class="btn-filtro" data-age="0">0+</button>
+            <button class="btn-filtro" data-age="6">6+</button>
+            <button class="btn-filtro" data-age="10">10+</button>
+            <button class="btn-filtro active" data-age="14">14+</button>
+          </div>
+          
+          <div class="filtro-grupo">
+            <label>Accesibilidad:</label>
+            <button class="btn-filtro" data-access="all">Todas</button>
+            <button class="btn-filtro" data-access="visual">Visual</button>
+            <button class="btn-filtro" data-access="auditiva">Auditiva</button>
+            <button class="btn-filtro" data-access="motora">Motora</button>
+          </div>
+          
+          <button id="limpiar-filtros" class="btn-reset">Limpiar</button>
+          <div id="contador-resultados" class="contador" aria-live="polite">Mostrando todos los juegos.</div>
+          <span id="ayuda-filtros" class="sr-only">Filtros actualizan automáticamente. Navega con teclado.</span>
+        </div>
+        
+        <!-- ✅ CONTENEDOR DE CARDS (se llena con JS) -->
         <div id="juegos-mesa" class="cards-container" aria-label="Juegos de mesa"></div>
       </section>
     </main>
@@ -43,7 +81,4 @@
   <script src="juegos.js"></script>
 </body>
 </html>
-
-
-
 
