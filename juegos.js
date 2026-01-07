@@ -182,4 +182,83 @@ document.addEventListener('DOMContentLoaded', function () {
       return celdas.map(c => c.trim().replace(/^"|"$/g, ''));
     });
   }
+  function inicializarFiltros() {
+  // Filtros categoría
+  document.querySelectorAll('.btn-filtro[data-cat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.btn-filtro[data-cat].active')?.classList.remove('active');
+      btn.classList.add('active');
+      filtrarJuegos();
+    });
+  });
+
+  // Filtros edad
+  document.querySelectorAll('.btn-filtro[data-age]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.btn-filtro[data-age].active')?.classList.remove('active');
+      btn.classList.add('active');
+      filtrarJuegos();
+    });
+  });
+
+  // Filtros accesibilidad
+  document.querySelectorAll('.btn-filtro[data-access]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.btn-filtro[data-access].active')?.classList.remove('active');
+      btn.classList.add('active');
+      filtrarJuegos();
+    });
+  });
+
+  // Búsqueda
+  document.getElementById('buscar-juego').addEventListener('input', filtrarJuegos);
+
+  // Limpiar
+  document.getElementById('limpiar-filtros').addEventListener('click', () => {
+    document.querySelectorAll('.btn-filtro.active').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.btn-filtro[data-cat="all"], .btn-filtro[data-age="14"], .btn-filtro[data-access="all"]')?.forEach(btn => btn.classList.add('active'));
+    document.getElementById('buscar-juego').value = '';
+    filtrarJuegos();
+  });
+}
+
+function filtrarJuegos() {
+  const cards = document.querySelectorAll('.juego-card, .card-juego');
+  const busqueda = document.getElementById('buscar-juego').value.toLowerCase();
+  const catActiva = document.querySelector('.btn-filtro[data-cat].active')?.dataset.cat || 'all';
+  const edadActiva = parseInt(document.querySelector('.btn-filtro[data-age].active')?.dataset.age || '14');
+  const accesoActivo = document.querySelector('.btn-filtro[data-access].active')?.dataset.access || 'all';
+
+  let visibles = 0;
+
+  cards.forEach(card => {
+    // Búsqueda texto
+    const texto = card.textContent.toLowerCase();
+    const coincideBusqueda = !busqueda || texto.includes(busqueda);
+
+    // Categoría (ajustar data-cat en tus cards si tienes)
+    const coincideCat = catActiva === 'all' || card.dataset.cat === catActiva;
+
+    // Edad
+    const edadCard = parseInt(card.querySelector('.juego-edad')?.textContent.match(/\d+/)?.[0] || 99);
+    const coincideEdad = edadCard >= edadActiva;
+
+    // Accesibilidad 🔥 NUEVO
+    const coincideAcceso = accesoActivo === 'all' || 
+      [...card.classList].some(clase => clase === `accesibilidad-${accesoActivo}`);
+
+    const mostrar = coincideBusqueda && coincideCat && coincideEdad && coincideAcceso;
+    
+    card.style.display = mostrar ? 'block' : 'none';
+    if (mostrar) visibles++;
+  });
+
+  // Contador
+  document.getElementById('contador-resultados').textContent = 
+    visibles === 0 ? 'No se encontraron resultados' : 
+    `Mostrando ${visibles} ${visibles === 1 ? 'juego' : 'juegos'}`;
+}
+
+// 🔥 LLAMAR después de cargar cards
+inicializarFiltros();
 });
