@@ -563,13 +563,11 @@ font-family: 'Quicksand', sans-serif;
   }
 }
 
-
-/* ===== TARJETAS JUEGOS MEJORADAS - VERSIÓN ORIGINAL + MÓVIL PERFECTO ===== */
+/* ===== TARJETAS JUEGOS MEJORADAS - ORIGINAL PURO + ACCESS+ ===== */
 .cards-wrapper {
   max-width: 1200px;
   margin: 0 auto 4rem;
   text-align: left;
-  padding: 0 1rem; /* ✅ MÓVIL */
 }
 
 .cards-wrapper h3 {
@@ -704,9 +702,6 @@ font-family: 'Quicksand', sans-serif;
   box-shadow: 0 4px 15px rgba(77, 183, 195, 0.2);
   border: 1px solid rgba(77, 183, 195, 0.3);
   transition: all 0.3s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .det-badge:hover {
@@ -752,20 +747,15 @@ font-family: 'Quicksand', sans-serif;
   box-shadow: 0 10px 30px rgba(227, 124, 58, 0.4);
 }
 
-/* 🔥 NUEVOS ESTILOS ACCESS+ */
+/* 🔥 SOLO ESTOS 2 NUEVOS para Access+ */
 .link-access-badge {
   background: linear-gradient(135deg, #28a745, #218838) !important;
   color: white !important;
-  min-width: 48px;
-  height: 48px;
+  min-width: 44px;
+  height: 44px;
   justify-content: center;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-}
-
-.link-access-badge:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34) !important;
-  transform: scale(1.1);
+  font-size: 1.1rem;
+  padding: 0.4rem;
 }
 
 .access-badge {
@@ -774,81 +764,24 @@ font-family: 'Quicksand', sans-serif;
   font-weight: 700 !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-                    RESPONSIVE - SOLO MÓVIL
-════════════════════════════════════════════════════════════════ */
+/* RESPONSIVE ORIGINAL (sin cambios móviles agresivos) */
 @media (max-width: 1200px) {
   .cards-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 }
 
 @media (max-width: 768px) {
-  .cards-wrapper { padding: 0 0.5rem; }
-  
-  .cards-container { 
-    grid-template-columns: 1fr !important; 
-    gap: 1.5rem; 
-  }
-  
+  .cards-container { grid-template-columns: 1fr; gap: 1.5rem; }
   .filtros-juegos { 
     grid-template-columns: 1fr; 
     gap: 1rem; 
     padding: 1.2rem; 
   }
-  
   #limpiar-filtros { grid-column: span 1; }
-  
-  .juego-card { 
-    padding: 1.5rem 1.2rem; 
-    margin: 0.5rem !important;
-    border-radius: 20px;
-  }
-  
-  /* ✅ BOTÓN FULL WIDTH MÓVIL */
-  .juego-toggle {
-    width: 100% !important;
-    padding: 0.75rem;
-    font-size: 1rem;
-    min-height: 48px;
-  }
-  
-  /* 🔥 GRID BADGES 2 COLUMNAS MÓVIL */
-  .juego-iconos {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.75rem !important;
-    padding: 1rem 0;
-  }
-  
-  .det-badge {
-    margin: 0 !important;
-    justify-content: center;
-    min-height: 44px;
-    font-size: 0.9rem;
-    flex: 1;
-  }
-  
-  .link-access-badge {
-    min-width: 52px !important;
-    height: 52px !important;
-    font-size: 1.3rem;
-  }
-  
-  .juego-img { max-height: 180px; }
-  .juego-titulo { font-size: 1.25rem; }
+  .juego-card { padding: 1.5rem 1.2rem; }
 }
 
 @media (max-width: 480px) {
-  .cards-wrapper h3 { 
-    font-size: 1.8rem; 
-    text-align: center; 
-    padding: 0 1rem;
-  }
-  
-  .juego-card { padding: 1.25rem 1rem; }
-  .juego-img { max-height: 160px; }
-  .juego-iconos { grid-template-columns: 1fr 1fr !important; }
-  .det-badge { font-size: 0.85rem; padding: 0.6rem 0.7rem; }
+  .cards-wrapper h3 { font-size: 1.8rem; text-align: center; }
+  .juego-img { max-height: 140px; }
 }
-
-
 
