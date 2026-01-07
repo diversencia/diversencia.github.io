@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       inicializarFiltros();
+      inicializarToggle();
     })
     .catch(err => {
       console.error(err);
@@ -143,32 +144,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ✅ FUNCIONES AUXILIARES
   function inicializarFiltros() {
-    // Filtros por categoría, edad y accesibilidad
-    const filtros = document.querySelector('.filtros');
-    if (!filtros) return;
+    // Inicializa tus filtros existentes
+    const botonesFiltro = document.querySelectorAll('[data-filter]');
+    botonesFiltro.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filtro = this.dataset.filter;
+        document.querySelectorAll('.juego-card').forEach(card => {
+          card.style.display = (filtro === 'todas' || card.dataset.category === filtro || card.dataset.access === filtro) ? '' : 'none';
+        });
+      });
+    });
 
-    // Tus filtros existentes aquí...
-    console.log('✅ Filtros inicializados');
+    // Limpiar filtros
+    const limpiarBtn = document.getElementById('limpiar-filtros');
+    if (limpiarBtn) {
+      limpiarBtn.addEventListener('click', () => {
+        document.querySelectorAll('.juego-card').forEach(card => {
+          card.style.display = '';
+        });
+      });
+    }
+  }
+
+  function inicializarToggle() {
+    // Toggle detalles responsivo
+    contenedor.addEventListener('click', function(e) {
+      if (e.target.classList.contains('juego-toggle')) {
+        const detalles = e.target.nextElementSibling;
+        const expandido = e.target.getAttribute('aria-expanded') === 'true';
+        
+        detalles.hidden = !detalles.hidden;
+        e.target.setAttribute('aria-expanded', !expandido);
+        e.target.textContent = expandido ? 'Ver detalles' : 'Ocultar';
+      }
+    });
   }
 
   function procesarCSV(texto) {
-    const filas = texto.split('\n').map(linea => 
-      linea.split(',').map(celda => 
-        celda.trim().replace(/^"|"$/g, '')
-      )
-    ).filter(fila => fila.some(celda => celda));
-    return filas;
+    return texto.split('\n')
+      .map(linea => linea.split(',').map(celda => celda.trim().replace(/^"|"$/g, '')))
+      .filter(fila => fila.some(celda => celda));
   }
-
-  // ✅ EVENTOS PARA MÓVIL - TOGGLE RESPONSIVO
-  contenedor.addEventListener('click', function(e) {
-    if (e.target.classList.contains('juego-toggle')) {
-      const detalles = e.target.nextElementSibling;
-      const expandido = e.target.getAttribute('aria-expanded') === 'true';
-      
-      detalles.hidden = !detalles.hidden;
-      e.target.setAttribute('aria-expanded', !expandido);
-      e.target.textContent = expandido ? 'Ver detalles' : 'Ocultar';
-    }
-  });
 });
+
