@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!--AJusta la pagina para que sea responsiva en moviles-->
   <title>Juegos de mesa – Diversencia*</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" /> <!--Carga la fuente-->
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="logo.png" type="image/x-icon" />
+  <link rel="icon" href="logo.png" type="image/x-icon" /> <!--icono del navegador-->
 </head>
 <body>
   <div class="page-wrapper">
@@ -18,25 +18,17 @@
     </header>
      
     <main class="contenido">
-      <section class="cards-wrapper">
+      <section class="cards-wrapper"> <!--Se centra en mostrar las tarjetas de juegos de mesa.-->
         <h3 id="JuegosDeMesa">Encuentra tu próximo juego de mesa favorito</h3>
         
         <!-- ✅ FILTROS -->
         <div class="filtros-juegos" role="search" aria-label="Filtrar juegos">
-          <div class="filtro-search">
+          <div class="filtro-search"> <!--Búsqueda por texto-->
             <label for="buscar-juego">Buscar:</label>
             <input type="search" id="buscar-juego" placeholder="Nombre o descripción..." aria-describedby="ayuda-filtros">
           </div>
           
-          <div class="filtro-grupo">
-            <label>Categoría:</label>
-            <button class="btn-filtro active" data-cat="all">Todos</button>
-            <button class="btn-filtro" data-cat="familiar">Familiar</button>
-            <button class="btn-filtro" data-cat="cooperativo">Cooperativo</button>
-            <button class="btn-filtro" data-cat="estrategia">Estrategia</button>
-          </div>
-          
-          <div class="filtro-grupo">
+          <div class="filtro-grupo"> <!--Edad-->
             <label>Edad min:</label>
             <button class="btn-filtro" data-age="0">0+</button>
             <button class="btn-filtro" data-age="6">6+</button>
@@ -44,16 +36,17 @@
             <button class="btn-filtro active" data-age="14">14+</button>
           </div>
           
+        <!-- ✅ ACCESIBILIDAD - PREPARADO para badges -->
           <div class="filtro-grupo">
             <label>Accesibilidad:</label>
-            <button class="btn-filtro" data-access="all">Todas</button>
+            <button class="btn-filtro active" data-access="all">Todas</button>
             <button class="btn-filtro" data-access="visual">Visual</button>
             <button class="btn-filtro" data-access="auditiva">Auditiva</button>
             <button class="btn-filtro" data-access="motora">Motora</button>
           </div>
           
-          <button id="limpiar-filtros" class="btn-reset">Limpiar</button>
-          <div id="contador-resultados" class="contador" aria-live="polite">Mostrando todos los juegos.</div>
+          <button id="limpiar-filtros" class="btn-reset">Limpiar</button> <!--Boton limpiar filtros-->
+          <div id="contador-resultados" class="contador" aria-live="polite">Mostrando todos los juegos.</div> <!--Muestra cuántos juegos están visibles tras aplicar filtros.-->
           <span id="ayuda-filtros" class="sr-only">Filtros actualizan automáticamente. Navega con teclado.</span>
         </div>
         
@@ -82,4 +75,5 @@
   <script src="juegos.js"></script>
 </body>
 </html>
+
 
