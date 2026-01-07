@@ -1,189 +1,222 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const contenedor = document.getElementById('juegos-mesa');
-  if (!contenedor) return;
+css
+/* ===== TARJETAS JUEGOS MEJORADAS ===== */
+.cards-wrapper {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  text-align: left;
+}
 
-  contenedor.innerHTML = '<p style="text-align:center;padding:2rem;color:#4db7c3">🔄 Cargando juegos...</p>';
+.cards-wrapper h3 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #4db7c3, #86AE87);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
 
-  const URL_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQahgpF9ULG3v0mZzS2ZmbARwhCE_bTE0FiEF7yM3w_u06JYrT598NFhK4xD0LF5fUAN6qNDyh6vznU/pub?gid=0&single=true&output=csv';
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+}
 
-  fetch(URL_CSV)
-    .then(res => res.text())
-    .then(texto => {
-      const filas = procesarCSV(texto);
-      
-      if (filas[0]?.[0]?.includes('<!DOCTYPE html>')) {
-        throw new Error('Sheet HTML → Archivo > Publicar > CSV público');
-      }
-      
-      const cabecera = filas[0];
-      const datos = filas.slice(1).filter(f => f[0]);
+.juego-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 24px;
+  padding: 2rem 1.5rem 1.5rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(77, 183, 195, 0.1);
+  position: relative;
+  overflow: hidden;
+}
 
-      // ✅ ÍNDICES TODAS LAS 13 COLUMNAS
-      const idx = {
-        titulo: cabecera.indexOf('titulo'),
-        edad: cabecera.indexOf('edad'),
-        descCorta: cabecera.indexOf('descripcion_corta'),
-        descLarga: cabecera.indexOf('descripcion_larga'),
-        imagen: cabecera.indexOf('imagen_url'),
-        enlace: cabecera.indexOf('enlace_tienda'),
-        jugadores: cabecera.indexOf('jugadores'),
-        duracion: cabecera.indexOf('duracion'),
-        habilidades: cabecera.indexOf('habilidades'),
-        accesibilidad: cabecera.indexOf('accesibilidad'),
-        accesDetalle: cabecera.indexOf('accesibilidad_detalle'),
-        dispAccess: cabecera.indexOf('disponibilidad_access'),
-        linkAccess: cabecera.indexOf('link_access')
-      };
+.juego-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(77, 183, 195, 0.2);
+}
 
-      contenedor.innerHTML = '';
+.juego-img {
+  width: 100%;
+  max-height: 160px;
+  margin: 0 auto 1.5rem;
+  display: block;
+  border-radius: 16px;
+  object-fit: contain;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
 
-      datos.forEach(fila => {
-        const titulo = fila[idx.titulo] || '';
-        const edadNum = parseInt(fila[idx.edad] || 0);
-        const descCorta = fila[idx.descCorta] || '';
-        const descLarga = fila[idx.descLarga] || '';
-        const imagen = fila[idx.imagen] || '';
-        const enlace = fila[idx.enlace] || '#';
-        const jugadores = fila[idx.jugadores] || '';
-        const duracion = fila[idx.duracion] || '';
-        const habilidades = fila[idx.habilidades] || '';
-        const accesibilidad = fila[idx.accesibilidad] || '';
-        const accesDetalle = fila[idx.accesDetalle] || '';
-        const dispAccess = fila[idx.dispAccess] || '';
-        const linkAccess = fila[idx.linkAccess] || '';
+.juego-titulo {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+  color: #2c5f6b;
+  font-weight: 600;
+  line-height: 1.3;
+}
 
-        // FILTROS
-        const categoria = descCorta.toLowerCase().includes('cooperat') ? 'cooperativo' :
-                         descCorta.toLowerCase().includes('estrateg') ? 'estrategia' : 'familiar';
-        const accessTags = accesibilidad.toLowerCase().split(';').map(t => t.trim());
-        const accessMain = accessTags.find(t => t.includes('visual')) ? 'visual' :
-                          accessTags.find(t => t.includes('aud')) ? 'auditiva' :
-                          accessTags.find(t => t.includes('motor')) ? 'motora' : 'cognitiva';
+.juego-edad {
+  font-weight: 600;
+  margin: 0 0 0.8rem;
+  color: #86AE87;
+  font-size: 1rem;
+  background: rgba(134, 174, 135, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  display: inline-block;
+}
 
-        // 🔥 ICONOS INTELIGENTES - SIN DUPLICADOS
-        let dificultadEstrellas = '';
-        let iconosDetalles = [];
-        let tieneJugadoresBadge = false;
-        
-        cabecera.forEach((col, i) => {
-          const valor = fila[i]?.trim();
-          if (!valor) return;
+/* ⭐ ESTRELLAS DIFICULTAD VISIBLES */
+.juego-dificultad {
+  font-size: 1.2rem;
+  color: #e37c3a;
+  margin: 0.8rem 0 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(227, 124, 58, 0.1), rgba(227, 124, 58, 0.05));
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(227, 124, 58, 0.2);
+}
 
-          const colLower = col.toLowerCase();
-          
-          if (colLower.includes('dificultad')) {
-            const nivel = valor.toLowerCase();
-            dificultadEstrellas = nivel.includes('baja') ? '⭐⭐' :
-                                 nivel.includes('media') ? '⭐⭐⭐' : '⭐⭐⭐⭐⭐';
-          } 
-          else if (colLower.includes('jugador') && !tieneJugadoresBadge) {
-            iconosDetalles.push(`<span class="det-badge">👥 ${valor}</span>`);
-            tieneJugadoresBadge = true;
-          }
-          else if (colLower.includes('durac') || colLower.includes('min')) {
-            iconosDetalles.push(`<span class="det-badge">⏱️ ${valor}</span>`);
-          }
-          // ✅ ACCESS+ / DIY
-          else if (i === idx.dispAccess) {
-            const texto = valor.includes('Access+') ? '✅ Access+' : '🔧 DIY';
-            iconosDetalles.push(`<span class="det-badge access-badge">${texto}</span>`);
-          }
-          // ✅ LINK ACCESS
-          else if (i === idx.linkAccess && valor.startsWith('http')) {
-            iconosDetalles.push(`<a href="${valor}" target="_blank" class="det-badge link-access-badge" title="Access+ oficial">🔗</a>`);
-          }
-          // ✅ ACCESIBILIDAD DETALLE
-          else if (i === idx.accesDetalle) {
-            const feats = valor.split(';').map(f => f.trim().toLowerCase());
-            let icons = [];
-            if (feats.some(f => f.includes('contraste'))) icons.push('🎨');
-            if (feats.some(f => f.includes('visual'))) icons.push('👁️');
-            if (feats.some(f => f.includes('audit'))) icons.push('👂');
-            if (feats.some(f => f.includes('motor'))) icons.push('🦽');
-            iconosDetalles.push(`<span class="det-badge">🎯 ${icons.join(' ')}</span>`);
-          }
-          else {
-            iconosDetalles.push(`<span class="det-badge">${valor}</span>`);
-          }
-        });
+.juego-desc-corta {
+  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  font-size: 0.98rem;
+  color: #555;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
 
-        const card = document.createElement('article');
-        card.className = 'juego-card';
-        card.dataset.category = categoria;
-        card.dataset.age = edadNum;
-        card.dataset.access = accessMain;
+.juego-toggle {
+  margin-top: auto;
+  background: linear-gradient(135deg, #4db7c3, #3a9aa5);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(77, 183, 195, 0.3);
+  transition: all 0.3s;
+}
 
-        card.innerHTML = `
-          ${imagen ? `<img src="${imagen}" alt="${titulo}" class="juego-img" loading="lazy">` : ''}
-          <h3 class="juego-titulo">${titulo}</h3>
-          <p class="juego-edad">Edad: ${edadNum}+</p>
-          <p class="juego-desc-corta">${descCorta}</p>
-          ${dificultadEstrellas ? `<p class="juego-dificultad">📊 ${dificultadEstrellas}</p>` : ''}
-          <button class="juego-toggle" aria-expanded="false">Ver detalles</button>
-          <div class="juego-detalles" hidden>
-            ${jugadores ? `<p><strong>Jugadores:</strong> ${jugadores}</p>` : ''}
-            ${habilidades ? `<p><strong>Habilidades:</strong> ${habilidades}</p>` : ''}
-            <div class="juego-iconos">${iconosDetalles.join('')}</div>
-            <div class="juego-tags">
-              ${accesibilidad.split(';').map(t => `<span class="juego-tag">${t.trim()}</span>`).filter(Boolean).join('')}
-            </div>
-            ${descLarga ? `<p>${descLarga}</p>` : ''}
-            ${enlace !== '#' ? `<a href="${enlace}" class="juego-link" target="_blank" rel="noopener">🛒 Tienda</a>` : ''}
-          </div>
-        `;
-        contenedor.appendChild(card);
-      });
+.juego-toggle:hover {
+  background: linear-gradient(135deg, #e37c3a, #d96b2e);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(227, 124, 58, 0.4);
+}
 
-      inicializarFiltros();
-      inicializarToggle();
-    })
-    .catch(err => {
-      console.error(err);
-      contenedor.innerHTML = `<p style="color:#e74c3c;text-align:center;padding:2rem">${err.message}</p>`;
-    });
+.juego-detalles {
+  margin-top: 1.5rem;
+  font-size: 0.92rem;
+  color: #444;
+  animation: slideDown 0.3s ease-out;
+}
 
-  // ✅ FUNCIONES AUXILIARES
-  function inicializarFiltros() {
-    // Inicializa tus filtros existentes
-    const botonesFiltro = document.querySelectorAll('[data-filter]');
-    botonesFiltro.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const filtro = this.dataset.filter;
-        document.querySelectorAll('.juego-card').forEach(card => {
-          card.style.display = (filtro === 'todas' || card.dataset.category === filtro || card.dataset.access === filtro) ? '' : 'none';
-        });
-      });
-    });
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
 
-    // Limpiar filtros
-    const limpiarBtn = document.getElementById('limpiar-filtros');
-    if (limpiarBtn) {
-      limpiarBtn.addEventListener('click', () => {
-        document.querySelectorAll('.juego-card').forEach(card => {
-          card.style.display = '';
-        });
-      });
-    }
+.det-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #e7f6f8, #d1ecf1);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  margin: 0.3rem 0.5rem 0.3rem 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2c5f6b;
+  box-shadow: 0 4px 15px rgba(77, 183, 195, 0.2);
+  border: 1px solid rgba(77, 183, 195, 0.3);
+  transition: all 0.3s;
+}
+
+.det-badge:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(77, 183, 195, 0.4);
+}
+
+/* 🔥 NUEVO: ACCESS+ VERDE */
+.link-access-badge {
+  background: linear-gradient(135deg, #28a745, #218838) !important;
+  color: white !important;
+  min-width: 44px;
+  height: 44px;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.access-badge {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.juego-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+
+.juego-tag {
+  font-size: 0.82rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-weight: 500;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.juego-tag--visual { background: #ffe9e0; color: #e37c3a; border: 1px solid rgba(227, 124, 58, 0.3); }
+.juego-tag--auditiva { background: #e8f4ff; color: #4db7c3; border: 1px solid rgba(77, 183, 195, 0.3); }
+.juego-tag--motora { background: #e6f2ea; color: #86AE87; border: 1px solid rgba(134, 174, 135, 0.3); }
+.juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; border: 1px solid rgba(123, 97, 255, 0.3); }
+.juego-tag--tea { background: #fff6d9; color: #d4a017; border: 1px solid rgba(212, 160, 23, 0.3); }
+
+.juego-link {
+  display: inline-block;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #e37c3a, #d96b2e);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.juego-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(227, 124, 58, 0.4);
+}
+
+/* RESPONSIVE ORIGINAL */
+@media (max-width: 1200px) {
+  .cards-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  .cards-container { grid-template-columns: 1fr; gap: 1.5rem; }
+  .filtros-juegos { 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+    padding: 1.2rem; 
   }
+  #limpiar-filtros { grid-column: span 1; }
+  .juego-card { padding: 1.5rem 1.2rem; }
+}
 
-  function inicializarToggle() {
-    // Toggle detalles responsivo
-    contenedor.addEventListener('click', function(e) {
-      if (e.target.classList.contains('juego-toggle')) {
-        const detalles = e.target.nextElementSibling;
-        const expandido = e.target.getAttribute('aria-expanded') === 'true';
-        
-        detalles.hidden = !detalles.hidden;
-        e.target.setAttribute('aria-expanded', !expandido);
-        e.target.textContent = expandido ? 'Ver detalles' : 'Ocultar';
-      }
-    });
-  }
-
-  function procesarCSV(texto) {
-    return texto.split('\n')
-      .map(linea => linea.split(',').map(celda => celda.trim().replace(/^"|"$/g, '')))
-      .filter(fila => fila.some(celda => celda));
-  }
-});
+@media (max-width: 480px) {
+  .cards-wrapper h3 { font-size: 1.8rem; text-align: center; }
+  .juego-img { max-height: 140px; }
+}
 
