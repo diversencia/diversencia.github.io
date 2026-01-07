@@ -564,7 +564,130 @@ font-family: 'Quicksand', sans-serif;
 }
 
 
-/* ===== TARJETAS JUEGOS DE MESA ===== */
+/* ===== FILTROS JUEGOS (NUEVO) ===== */
+.filtros-juegos {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+  padding: 1.5rem;
+  border-radius: 20px;
+  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  box-shadow: 0 8px 25px rgba(77, 183, 195, 0.15);
+  border: 1px solid rgba(77, 183, 195, 0.2);
+}
+
+.filtro-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filtro-search label {
+  font-weight: 600;
+  color: #4db7c3;
+  font-size: 0.95rem;
+}
+
+#buscar-juego {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e3f2fd;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Fredoka', sans-serif;
+  transition: all 0.3s ease;
+}
+
+#buscar-juego:focus {
+  outline: none;
+  border-color: #4db7c3;
+  box-shadow: 0 0 0 3px rgba(77, 183, 195, 0.2);
+}
+
+.filtro-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filtro-grupo label {
+  font-weight: 600;
+  color: #4db7c3;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-filtro {
+  padding: 0.7rem 1.2rem;
+  border: 2px solid #4db7c3;
+  background: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4db7c3;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+.btn-filtro:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(77, 183, 195, 0.3);
+}
+
+.btn-filtro.active,
+.btn-filtro:focus {
+  background: #4db7c3;
+  color: white;
+  border-color: #4db7c3;
+  box-shadow: 0 0 0 3px rgba(77, 183, 195, 0.3);
+}
+
+#limpiar-filtros {
+  background: linear-gradient(135deg, #e37c3a, #d96b2e);
+  border: none;
+  color: white;
+  border-radius: 25px;
+  padding: 0.8rem 1.8rem;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  grid-column: span 2;
+  justify-self: center;
+}
+
+#limpiar-filtros:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(227, 124, 58, 0.4);
+}
+
+.contador {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-weight: 600;
+  color: #86AE87;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  background: rgba(134, 174, 135, 0.1);
+  border-radius: 12px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== TARJETAS JUEGOS MEJORADAS ===== */
 .cards-wrapper {
   max-width: 1200px;
   margin: 0 auto 4rem;
@@ -572,291 +695,201 @@ font-family: 'Quicksand', sans-serif;
 }
 
 .cards-wrapper h3 {
-  font-size: 2rem;
-  color: #4db7c3;
-  margin-bottom: 0.5rem;
-}
-
-.cards-intro {
-  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
-  color: #555;
-  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #4db7c3, #86AE87);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-  gap: 1.5rem 2.5rem; /* vertical 1.5rem, horizontal 2.5rem */
-  align-items: flex-start;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
 }
 
 .juego-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 24px;
+  padding: 2rem 1.5rem 1.5rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(77, 183, 195, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.juego-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(77, 183, 195, 0.2);
 }
 
 .juego-img {
   width: 100%;
-  max-width: 230px;
-  max-height: 150px;
-  margin: 0 auto 1rem;
+  max-height: 160px;
+  margin: 0 auto 1.5rem;
   display: block;
-  border-radius: 12px;
+  border-radius: 16px;
   object-fit: contain;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .juego-titulo {
-  font-size: 1.15rem;
-  margin: 0 0 0.25rem;
-  color: #4db7c3;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+  color: #2c5f6b;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .juego-edad {
-  font-weight: 500;
-  margin: 0 0 0.4rem;
+  font-weight: 600;
+  margin: 0 0 0.8rem;
   color: #86AE87;
+  font-size: 1rem;
+  background: rgba(134, 174, 135, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* ⭐ ESTRELLAS DIFICULTAD VISIBLES */
+.juego-dificultad {
+  font-size: 1.2rem;
+  color: #e37c3a;
+  margin: 0.8rem 0 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(227, 124, 58, 0.1), rgba(227, 124, 58, 0.05));
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(227, 124, 58, 0.2);
 }
 
 .juego-desc-corta {
   font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: #555;
-  margin: 0 0 0.8rem;
+  margin: 0 0 1rem;
+  line-height: 1.5;
 }
 
 .juego-toggle {
-  margin-top: 0.4rem;
-  align-self: flex-start;
-  background: #4db7c3;
+  margin-top: auto;
+  background: linear-gradient(135deg, #4db7c3, #3a9aa5);
   color: #fff;
   border: none;
   border-radius: 999px;
-  padding: 0.35rem 0.9rem;
+  padding: 0.6rem 1.5rem;
   cursor: pointer;
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.9rem;
-  box-shadow: 0 3px 8px rgba(77,183,195,0.3);
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(77, 183, 195, 0.3);
+  transition: all 0.3s;
 }
 
 .juego-toggle:hover {
-  background: #e37c3a;
-}
-
-.juego-toggle:focus-visible,
-.juego-card:focus-within {
-  outline: 2px solid #4db7c3;
-  outline-offset: 3px;
+  background: linear-gradient(135deg, #e37c3a, #d96b2e);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(227, 124, 58, 0.4);
 }
 
 .juego-detalles {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  font-family: 'Glacial Indifference', 'Quicksand', sans-serif;
+  margin-top: 1.5rem;
+  font-size: 0.92rem;
   color: #444;
+  animation: slideDown 0.3s ease-out;
 }
 
-.juego-detalles p {
-  margin: 0 0 0.4rem;
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
 }
 
-.juego-link {
-  display: inline-block;
-  margin-top: 0.6rem;
-  color: #e37c3a;
+.det-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #e7f6f8, #d1ecf1);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  margin: 0.3rem 0.5rem 0.3rem 0;
+  font-size: 0.88rem;
   font-weight: 600;
-  text-decoration: none;
+  color: #2c5f6b;
+  box-shadow: 0 4px 15px rgba(77, 183, 195, 0.2);
+  border: 1px solid rgba(77, 183, 195, 0.3);
+  transition: all 0.3s;
 }
 
-.juego-link:hover {
-  text-decoration: underline;
-  color: #4db7c3;
+.det-badge:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(77, 183, 195, 0.4);
 }
 
 .juego-tags {
-  margin-top: 0.6rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: 0.6rem;
+  margin: 1.2rem 0;
 }
 
 .juego-tag {
-  font-size: 0.75rem;
-  border-radius: 999px;
-  padding: 0.15rem 0.6rem;
-  background: #e7f6f8;
-  color: #4db7c3;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
   font-weight: 500;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
 }
 
-.juego-tag--visual    { background: #ffe9e0; color: #e37c3a; }
-.juego-tag--auditiva  { background: #e8f4ff; color: #4db7c3; }
-.juego-tag--motora    { background: #e6f2ea; color: #86AE87; }
-.juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; }
-.juego-tag--tea       { background: #fff6d9; color: #d4a017; }
+.juego-tag--visual { background: #ffe9e0; color: #e37c3a; border: 1px solid rgba(227, 124, 58, 0.3); }
+.juego-tag--auditiva { background: #e8f4ff; color: #4db7c3; border: 1px solid rgba(77, 183, 195, 0.3); }
+.juego-tag--motora { background: #e6f2ea; color: #86AE87; border: 1px solid rgba(134, 174, 135, 0.3); }
+.juego-tag--cognitiva { background: #f3ecff; color: #7b61ff; border: 1px solid rgba(123, 97, 255, 0.3); }
+.juego-tag--tea { background: #fff6d9; color: #d4a017; border: 1px solid rgba(212, 160, 23, 0.3); }
 
-/* RESPONSIVE: 2 columnas tablet, 1 móvil */
+.juego-link {
+  display: inline-block;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #e37c3a, #d96b2e);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.juego-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(227, 124, 58, 0.4);
+}
+
+/* RESPONSIVE */
 @media (max-width: 1200px) {
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .cards-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 }
 
 @media (max-width: 768px) {
-  .cards-container {
-    grid-template-columns: 1fr;
+  .cards-container { grid-template-columns: 1fr; gap: 1.5rem; }
+  .filtros-juegos { 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+    padding: 1.2rem; 
   }
+  #limpiar-filtros { grid-column: span 1; }
+  .juego-card { padding: 1.5rem 1.2rem; }
 }
 
-
-/* ESPACIO VERTICAL - AÑADIR AL FINAL */
-.cards-container {
-  row-gap: 4rem !important;
-}
-
-.juego-card {
-  margin-bottom: 2rem !important;
-}
-
-/* Contenedor principal: Distribución en cuadrícula */
-#lista-sitios {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* La Tarjeta Individual */
-.tarjeta-online {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.tarjeta-online:hover {
-    transform: translateY(-5px);
-}
-
-/* Contenedor de la imagen */
-.card-img-container {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-}
-
-.card-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Etiquetas (Badges) flotantes */
-.badge-tipo {
-    position: absolute;
-    right: 10px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* Información de la tarjeta */
-.card-info {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.card-info h3 {
-    margin: 0 0 10px 0;
-    color: #333;
-    font-family: 'Fredoka', sans-serif;
-}
-
-.card-info p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.4;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-/* Botón de acción */
-.btn-visitar {
-    display: block;
-    text-align: center;
-    background: #4db7c3; /* Color azulado Diversencia */
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.btn-visitar:hover {
-    background: #3a9aa5;
-}
-
-.juego-iconos {
-  display: flex !important;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-  padding: 0.8rem;
-  background: linear-gradient(135deg, #f8f9ff, #f0f8ff);
-  border-radius: 16px;
-  border: 2px solid #e3f2fd;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.juego-ico {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 0.3rem;
-  background: linear-gradient(135deg, #fff, #f8f9ff);
-  padding: 0.5rem 0.9rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-  border: 1px solid #4db7c3;
-  color: #2c5f6b;
-  transition: all 0.25s ease;
-  white-space: nowrap;
-}
-
-.juego-ico:hover {
-  transform: translateY(-3px) scale(1.06);
-  box-shadow: 0 6px 16px rgba(77,183,195,0.4);
-}
-
-.juego-link-access {
-  background: linear-gradient(135deg, #d4edda, #c3e6cb) !important;
-  color: #155724 !important;
-  border: 1px solid #28a745 !important;
-}
-.juego-link-access:hover {
-  background: #28a745 !important;
-  color: white !important;
-  transform: scale(1.05);
+@media (max-width: 480px) {
+  .cards-wrapper h3 { font-size: 1.8rem; text-align: center; }
+  .juego-img { max-height: 140px; }
 }
 
 
