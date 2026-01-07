@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const contenedor = document.getElementById('juegos-mesa');
   if (!contenedor) return;
 
-  contenedor.innerHTML = '<p id="loading-msg" style="text-align:center;padding:2rem;color:#4db7c3">🔄 Cargando juegos...</p>';
+  contenedor.innerHTML = '<p style="text-align:center;padding:2rem;color:#4db7c3">🔄 Cargando juegos...</p>';
 
   const URL_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQahgpF9ULG3v0mZzS2ZmbARwhCE_bTE0FiEF7yM3w_u06JYrT598NFhK4xD0LF5fUAN6qNDyh6vznU/pub?gid=0&single=true&output=csv';
 
@@ -27,15 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
       };
       Object.keys(columnasConocidas).forEach(key => idx[key] = cabecera.indexOf(columnasConocidas[key]));
 
-      // **RENDER LIMPIO - SIN DUPLICADOS**
-      contenedor.innerHTML = ''; // ✅ LIMPIA loading + todo
+      contenedor.innerHTML = ''; // Limpia loading
 
       datos.forEach(fila => {
-        const card = document.createElement('article');
-        card.className = 'juego-card';
-
         const titulo = fila[idx.titulo] || '';
-        const edad = fila[idx.edad] || '';
+        const edadNum = parseInt(fila[idx.edad] || 0);
         const descCorta = fila[idx.descCorta] || '';
         const descLarga = fila[idx.descLarga] || '';
         const imagen = fila[idx.imagen] || '';
@@ -45,58 +41,58 @@ document.addEventListener('DOMContentLoaded', function () {
         const habilidades = fila[idx.habilidades] || '';
         const accesibilidad = fila[idx.accesibilidad] || '';
 
-        // 🔥 ICONOS ULTRA VISUALES
-        const detallesGenericos = [];
+        // 🔥 DETECTAR CATEGORÍA Y ACCESIBILIDAD PARA FILTROS
+        const categoria = descCorta.toLowerCase().includes('cooperat') ? 'cooperativo' :
+                         descCorta.toLowerCase().includes('estrateg') ? 'estrategia' : 'familiar';
+        const accessTags = accesibilidad.toLowerCase().split(';').map(t => t.trim());
+        const accessMain = accessTags.find(t => t.includes('visual')) ? 'visual' :
+                          accessTags.find(t => t.includes('aud')) ? 'auditiva' :
+                          accessTags.find(t => t.includes('motor')) ? 'motora' : 'cognitiva';
+
+        // **ESTRELLAS DIFICULTAD + ICONOS VISUALES (ÚNICOS)**
+        let dificultadEstrellas = '';
+        let iconosDetalles = [];
         cabecera.forEach((col, i) => {
-          if (i === idx.titulo || i === idx.imagen || i === idx.descLarga || i === idx.enlace || i === idx.edad) return;
+          if ([idx.titulo, idx.imagen, idx.descLarga, idx.enlace, idx.edad].includes(i)) return;
           
           const valor = fila[i]?.trim();
           if (!valor) return;
 
-          let icono = valor;
           const colLower = col.toLowerCase();
           
           if (colLower.includes('dificultad')) {
             const nivel = valor.toLowerCase();
-            let estrellas = nivel.includes('baja') ? '⭐⭐' : 
-                           nivel.includes('media') ? '⭐⭐⭐' : '⭐⭐⭐⭐⭐';
-            icono = `📊 ${estrellas}`;
-          } else if (colLower.includes('doble') || colLower.includes('dobble')) {
-            icono = '🎲 Dobble';
-          } else if (colLower.includes('narrat') || colLower.includes('ed')) {
-            icono = '📖 Narrativo';
+            dificultadEstrellas = nivel.includes('baja') ? '⭐⭐' :
+                                 nivel.includes('media') ? '⭐⭐⭐' : '⭐⭐⭐⭐⭐';
           } else if (colLower.includes('jugador')) {
-            icono = `👥 ${valor}`;
+            iconosDetalles.push(`<span class="det-badge">👥 ${valor}</span>`);
           } else if (colLower.includes('durac') || colLower.includes('min')) {
-            icono = `⏱️ ${valor}`;
+            iconosDetalles.push(`<span class="det-badge">⏱️ ${valor}</span>`);
           } else if (colLower.includes('precio')) {
-            icono = `💰 ${valor}`;
-          } else if (colLower.includes('accesibilidad_detalle')) {
-            const feats = valor.split(';').map(f=>f.trim().toLowerCase());
-            let icons = [];
-            if (feats.some(f=>f.includes('contraste'))) icons.push('🎨');
-            if (feats.some(f=>f.includes('visual'))) icons.push('👁️');
-            if (feats.some(f=>f.includes('predecible'))) icons.push('🔄');
-            icono = icons.join(' ');
-          } else if (colLower.includes('disponibilidad_access')) {
-            icono = valor.includes('Access+') ? '✅ Access+' : '🔧 DIY';
-          } else if (colLower.includes('link_access')) {
-            icono = `<a href="${valor}" target="_blank" class="juego-link-access" title="Access+ oficial">🔗 Access+</a>`;
+            iconosDetalles.push(`<span class="det-badge">💰 ${valor}</span>`);
+          } else if (colLower.includes('dobble') || colLower.includes('doble')) {
+            iconosDetalles.push(`<span class="det-badge">🎲 Dobble</span>`);
           }
-          
-          detallesGenericos.push(`<span class="juego-ico">${icono}</span>`);
         });
+
+        const card = document.createElement('article');
+        card.className = 'juego-card';
+        // ✅ ATRIBUTOS PARA FILTROS
+        card.dataset.category = categoria;
+        card.dataset.age = edadNum;
+        card.dataset.access = accessMain;
 
         card.innerHTML = `
           ${imagen ? `<img src="${imagen}" alt="${titulo}" class="juego-img" loading="lazy">` : ''}
           <h3 class="juego-titulo">${titulo}</h3>
-          <p class="juego-edad">Edad: ${edad}</p>
+          <p class="juego-edad">Edad: ${edadNum}+</p>
           <p class="juego-desc-corta">${descCorta}</p>
+          ${dificultadEstrellas ? `<p class="juego-dificultad">📊 ${dificultadEstrellas}</p>` : ''}
           <button class="juego-toggle" aria-expanded="false">Ver detalles</button>
           <div class="juego-detalles" hidden>
             ${jugadores ? `<p><strong>Jugadores:</strong> ${jugadores}</p>` : ''}
             ${habilidades ? `<p><strong>Habilidades:</strong> ${habilidades}</p>` : ''}
-            <div class="juego-iconos">${detallesGenericos.join('')}</div>
+            <div class="juego-iconos">${iconosDetalles.join('')}</div>
             <div class="juego-tags">
               ${accesibilidad.split(';').map(t => `<span class="juego-tag">${t.trim()}</span>`).filter(Boolean).join('')}
             </div>
@@ -107,7 +103,10 @@ document.addEventListener('DOMContentLoaded', function () {
         contenedor.appendChild(card);
       });
 
-      // Toggle
+      // ✅ FILTROS FUNCIONALES
+      inicializarFiltros();
+
+      // Toggle detalles
       contenedor.addEventListener('click', e => {
         if (!e.target.classList.contains('juego-toggle')) return;
         const btn = e.target;
@@ -121,6 +120,66 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error(err);
       contenedor.innerHTML = `<p style="color:#e74c3c;text-align:center;padding:2rem">${err.message}</p>`;
     });
+
+  function inicializarFiltros() {
+    const searchInput = document.getElementById('buscar-juego');
+    const btnFiltros = document.querySelectorAll('.btn-filtro');
+    const btnReset = document.getElementById('limpiar-filtros');
+    const contador = document.getElementById('contador-resultados');
+    
+    let filtroCat = 'all', filtroAge = 0, filtroAccess = 'all';
+
+    function aplicarFiltros() {
+      const termino = searchInput.value.toLowerCase();
+      let count = 0;
+      
+      contenedor.querySelectorAll('.juego-card').forEach(card => {
+        const txt = card.textContent.toLowerCase();
+        const catOk = filtroCat === 'all' || card.dataset.category === filtroCat;
+        const ageOk = parseInt(card.dataset.age) >= filtroAge;
+        const accessOk = filtroAccess === 'all' || card.dataset.access === filtroAccess;
+        const searchOk = !termino || txt.includes(termino);
+        
+        if (catOk && ageOk && accessOk && searchOk) {
+          card.style.display = 'block';
+          count++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      contador.textContent = `Mostrando ${count} juegos.`;
+    }
+
+    btnFiltros.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.cat) filtroCat = btn.dataset.cat;
+        if (btn.dataset.age !== undefined) filtroAge = parseInt(btn.dataset.age);
+        if (btn.dataset.access) filtroAccess = btn.dataset.access;
+        
+        btnFiltros.forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-pressed', b.classList.contains('active'));
+        });
+        aplicarFiltros();
+      });
+    });
+
+    searchInput.addEventListener('input', aplicarFiltros);
+    
+    btnReset.addEventListener('click', () => {
+      searchInput.value = '';
+      filtroCat = filtroAge = filtroAccess = 'all';
+      btnFiltros.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      document.querySelector('[data-cat="all"]').classList.add('active');
+      document.querySelector('[data-cat="all"]').setAttribute('aria-pressed', 'true');
+      aplicarFiltros();
+    });
+
+    aplicarFiltros(); // Inicial
+  }
 
   function procesarCSV(texto) {
     const lineas = texto.split(/\r?\n/).filter(l => l.trim());
