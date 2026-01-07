@@ -1,3 +1,6 @@
+Aquí tienes el JS modificado para generar exactamente la estructura que quieres con badges y clases de filtro:
+
+javascript
 document.addEventListener('DOMContentLoaded', function () {
   const contenedor = document.getElementById('juegos-mesa');
   if (!contenedor) return;
@@ -27,95 +30,66 @@ document.addEventListener('DOMContentLoaded', function () {
       };
       Object.keys(columnasConocidas).forEach(key => idx[key] = cabecera.indexOf(columnasConocidas[key]));
 
-      // **RENDER LIMPIO - SIN DUPLICADOS**
+      // ✅ MAPEADOR ACCESIBILIDAD EXCEL → CLASES CSS
+      const mapaAccesibilidad = {
+        "Baja visión": "visual",
+        "Dificultades de percepción visual": "visual",
+        "Sordera": "auditiva",
+        "Discapacidad motora": "motora",
+        "Dificultades de comunicación": "motora",
+        "TEA": "motora",
+        "Discapacidad cognitiva": "motora",
+        "Dificultades cognitivas": "motora",
+        "Dificultades de aprendizaje": "motora",
+        "Neurodiversidad": "motora",
+        "TDAH": "motora",
+        "Dificultades de atención": "motora",
+        "accesibilidad": "motora"
+      };
+
+      // **RENDER con estructura EXACTA que quieres**
       contenedor.innerHTML = ''; // ✅ LIMPIA loading + todo
 
       datos.forEach(fila => {
-        const card = document.createElement('article');
-        card.className = 'juego-card';
-
         const titulo = fila[idx.titulo] || '';
         const edad = fila[idx.edad] || '';
         const descCorta = fila[idx.descCorta] || '';
-        const descLarga = fila[idx.descLarga] || '';
         const imagen = fila[idx.imagen] || '';
         const enlace = fila[idx.enlace] || '#';
-        const jugadores = fila[idx.jugadores] || '';
-        const duracion = fila[idx.duracion] || '';
-        const habilidades = fila[idx.habilidades] || '';
-        const accesibilidad = fila[idx.accesibilidad] || '';
+        const accesibilidadTexto = fila[idx.accesibilidad] || '';
 
-        // 🔥 ICONOS ULTRA VISUALES
-        const detallesGenericos = [];
-        cabecera.forEach((col, i) => {
-          if (i === idx.titulo || i === idx.imagen || i === idx.descLarga || i === idx.enlace || i === idx.edad) return;
-          
-          const valor = fila[i]?.trim();
-          if (!valor) return;
+        // 🔥 PROCESA ACCESIBILIDAD → CLASES + BADGES
+        const accesibilidades = accesibilidadTexto
+          .split(';')
+          .map(t => t.trim())
+          .map(t => mapaAccesibilidad[t] || 'motora')
+          .filter((v, i, a) => a.indexOf(v) === i); // únicos
 
-          let icono = valor;
-          const colLower = col.toLowerCase();
-          
-          if (colLower.includes('dificultad')) {
-            const nivel = valor.toLowerCase();
-            let estrellas = nivel.includes('baja') ? '⭐⭐' : 
-                           nivel.includes('media') ? '⭐⭐⭐' : '⭐⭐⭐⭐⭐';
-            icono = `📊 ${estrellas}`;
-          } else if (colLower.includes('doble') || colLower.includes('dobble')) {
-            icono = '🎲 Dobble';
-          } else if (colLower.includes('narrat') || colLower.includes('ed')) {
-            icono = '📖 Narrativo';
-          } else if (colLower.includes('jugador')) {
-            icono = `👥 ${valor}`;
-          } else if (colLower.includes('durac') || colLower.includes('min')) {
-            icono = `⏱️ ${valor}`;
-          } else if (colLower.includes('precio')) {
-            icono = `💰 ${valor}`;
-          } else if (colLower.includes('accesibilidad_detalle')) {
-            const feats = valor.split(';').map(f=>f.trim().toLowerCase());
-            let icons = [];
-            if (feats.some(f=>f.includes('contraste'))) icons.push('🎨');
-            if (feats.some(f=>f.includes('visual'))) icons.push('👁️');
-            if (feats.some(f=>f.includes('predecible'))) icons.push('🔄');
-            icono = icons.join(' ');
-          } else if (colLower.includes('disponibilidad_access')) {
-            icono = valor.includes('Access+') ? '✅ Access+' : '🔧 DIY';
-          } else if (colLower.includes('link_access')) {
-            icono = `<a href="${valor}" target="_blank" class="juego-link-access" title="Access+ oficial">🔗 Access+</a>`;
-          }
-          
-          detallesGenericos.push(`<span class="juego-ico">${icono}</span>`);
-        });
+        const clasesAcceso = accesibilidades.map(acc => `accesibilidad-${acc}`).join(' ');
+        const badgesHTML = accesibilidades.map(acc => {
+          const iconos = { visual: '👁️', auditiva: '👂', motora: '✋' };
+          return `<span class="badge ${acc}">${iconos[acc] || '✋'}</span>`;
+        }).join('');
 
+        // ✅ ESTRUCTURA EXACTA que pediste
+        const card = document.createElement('div');
+        card.className = `card-juego ${clasesAcceso}`;
         card.innerHTML = `
           ${imagen ? `<img src="${imagen}" alt="${titulo}" class="juego-img" loading="lazy">` : ''}
-          <h3 class="juego-titulo">${titulo}</h3>
+          <h4>${titulo}</h4>
           <p class="juego-edad">Edad: ${edad}</p>
-          <p class="juego-desc-corta">${descCorta}</p>
-          <button class="juego-toggle" aria-expanded="false">Ver detalles</button>
-          <div class="juego-detalles" hidden>
-            ${jugadores ? `<p><strong>Jugadores:</strong> ${jugadores}</p>` : ''}
-            ${habilidades ? `<p><strong>Habilidades:</strong> ${habilidades}</p>` : ''}
-            <div class="juego-iconos">${detallesGenericos.join('')}</div>
-            <div class="juego-tags">
-              ${accesibilidad.split(';').map(t => `<span class="juego-tag">${t.trim()}</span>`).filter(Boolean).join('')}
-            </div>
-            ${descLarga ? `<p>${descLarga}</p>` : ''}
-            ${enlace !== '#' ? `<a href="${enlace}" class="juego-link" target="_blank" rel="noopener">🛒 Tienda</a>` : ''}
-          </div>
+          <p>${descCorta}</p>
+          <div class="badges">${badgesHTML}</div>
+          ${enlace !== '#' ? `<a href="${enlace}" class="juego-link" target="_blank" rel="noopener">🛒 Tienda</a>` : ''}
         `;
+        
         contenedor.appendChild(card);
       });
 
-      // Toggle
-      contenedor.addEventListener('click', e => {
-        if (!e.target.classList.contains('juego-toggle')) return;
-        const btn = e.target;
-        const detalles = btn.nextElementSibling;
-        const abierto = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !abierto);
-        detalles.hidden = abierto;
-      });
+      // Filtros y toggle (tu código existente aquí)
+      inicializarFiltros();
+      inicializarToggle();
+      
     })
     .catch(err => {
       console.error(err);
@@ -123,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   function procesarCSV(texto) {
+    // Tu función CSV sin cambios
     const lineas = texto.split(/\r?\n/).filter(l => l.trim());
     return lineas.map(linea => {
       const celdas = [];
