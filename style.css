@@ -564,134 +564,12 @@ font-family: 'Quicksand', sans-serif;
 }
 
 
-/* ===== FILTROS JUEGOS (NUEVO) ===== */
-.filtros-juegos {
-  background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
-  padding: 1.5rem;
-  border-radius: 20px;
-  margin: 2rem 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  box-shadow: 0 8px 25px rgba(77, 183, 195, 0.15);
-  border: 1px solid rgba(77, 183, 195, 0.2);
-}
-
-.filtro-search {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.filtro-search label {
-  font-weight: 600;
-  color: #4db7c3;
-  font-size: 0.95rem;
-}
-
-#buscar-juego {
-  padding: 0.75rem 1rem;
-  border: 2px solid #e3f2fd;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-family: 'Fredoka', sans-serif;
-  transition: all 0.3s ease;
-}
-
-#buscar-juego:focus {
-  outline: none;
-  border-color: #4db7c3;
-  box-shadow: 0 0 0 3px rgba(77, 183, 195, 0.2);
-}
-
-.filtro-grupo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.filtro-grupo label {
-  font-weight: 600;
-  color: #4db7c3;
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
-}
-
-.btn-filtro {
-  padding: 0.7rem 1.2rem;
-  border: 2px solid #4db7c3;
-  background: white;
-  border-radius: 25px;
-  cursor: pointer;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #4db7c3;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: center;
-}
-
-.btn-filtro:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(77, 183, 195, 0.3);
-}
-
-.btn-filtro.active,
-.btn-filtro:focus {
-  background: #4db7c3;
-  color: white;
-  border-color: #4db7c3;
-  box-shadow: 0 0 0 3px rgba(77, 183, 195, 0.3);
-}
-
-#limpiar-filtros {
-  background: linear-gradient(135deg, #e37c3a, #d96b2e);
-  border: none;
-  color: white;
-  border-radius: 25px;
-  padding: 0.8rem 1.8rem;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  grid-column: span 2;
-  justify-self: center;
-}
-
-#limpiar-filtros:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(227, 124, 58, 0.4);
-}
-
-.contador {
-  grid-column: 1 / -1;
-  text-align: center;
-  font-weight: 600;
-  color: #86AE87;
-  font-size: 1.1rem;
-  padding: 0.5rem;
-  background: rgba(134, 174, 135, 0.1);
-  border-radius: 12px;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ===== TARJETAS JUEGOS MEJORADAS ===== */
+/* ===== TARJETAS JUEGOS MEJORADAS - MÓVIL OPTIMIZADO ===== */
 .cards-wrapper {
   max-width: 1200px;
   margin: 0 auto 4rem;
   text-align: left;
+  padding: 0 1rem;
 }
 
 .cards-wrapper h3 {
@@ -723,6 +601,7 @@ font-family: 'Quicksand', sans-serif;
   border: 1px solid rgba(77, 183, 195, 0.1);
   position: relative;
   overflow: hidden;
+  margin: 0.5rem; /* ✅ MÓVIL */
 }
 
 .juego-card:hover {
@@ -779,6 +658,7 @@ font-family: 'Quicksand', sans-serif;
   line-height: 1.5;
 }
 
+/* ✅ BOTÓN TOGGLE - MÓVIL FULL WIDTH */
 .juego-toggle {
   margin-top: auto;
   background: linear-gradient(135deg, #4db7c3, #3a9aa5);
@@ -792,6 +672,8 @@ font-family: 'Quicksand', sans-serif;
   font-weight: 600;
   box-shadow: 0 6px 20px rgba(77, 183, 195, 0.3);
   transition: all 0.3s;
+  width: 100%; /* ✅ MÓVIL */
+  justify-self: stretch;
 }
 
 .juego-toggle:hover {
@@ -812,6 +694,14 @@ font-family: 'Quicksand', sans-serif;
   to { opacity: 1; max-height: 500px; }
 }
 
+/* 🔥 BADGES - GRID MÓVIL 2 COLUMNAS */
+.juego-iconos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
 .det-badge {
   display: inline-flex;
   align-items: center;
@@ -826,11 +716,41 @@ font-family: 'Quicksand', sans-serif;
   box-shadow: 0 4px 15px rgba(77, 183, 195, 0.2);
   border: 1px solid rgba(77, 183, 195, 0.3);
   transition: all 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .det-badge:hover {
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 8px 25px rgba(77, 183, 195, 0.4);
+}
+
+/* ✅ LINK ACCESS+ - VERDE TÁCTIL */
+.link-access-badge {
+  background: linear-gradient(135deg, #28a745, #218838) !important;
+  color: white !important;
+  min-width: 44px; /* ✅ TÁCTIL MÓVIL */
+  height: 44px;
+  justify-content: center;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+}
+
+.link-access-badge:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34) !important;
+  transform: scale(1.1);
+}
+
+/* ✅ ACCESS+ / DIY BADGES */
+.access-badge {
+  font-weight: 700 !important;
+}
+
+.access-badge:contains("✅ Access+") {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  color: white !important;
 }
 
 .juego-tags {
@@ -871,25 +791,83 @@ font-family: 'Quicksand', sans-serif;
   box-shadow: 0 10px 30px rgba(227, 124, 58, 0.4);
 }
 
-/* RESPONSIVE */
+/* ═══════════════════════════════════════════════════════════════
+                    🔧 RESPONSIVE MÓVIL PERFECTO
+════════════════════════════════════════════════════════════════ */
 @media (max-width: 1200px) {
-  .cards-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .cards-container { 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 1.5rem; 
+  }
 }
 
 @media (max-width: 768px) {
-  .cards-container { grid-template-columns: 1fr; gap: 1.5rem; }
+  .cards-wrapper { padding: 0 0.5rem; }
+  
+  .cards-container { 
+    grid-template-columns: 1fr !important; 
+    gap: 1.5rem; 
+  }
+  
   .filtros-juegos { 
     grid-template-columns: 1fr; 
     gap: 1rem; 
     padding: 1.2rem; 
   }
+  
   #limpiar-filtros { grid-column: span 1; }
-  .juego-card { padding: 1.5rem 1.2rem; }
+  
+  .juego-card { 
+    padding: 1.5rem 1.2rem; 
+    margin: 0.5rem !important;
+    border-radius: 20px;
+  }
+  
+  /* ✅ BOTÓN FULL WIDTH MÓVIL */
+  .juego-toggle {
+    padding: 0.75rem;
+    font-size: 1rem;
+    min-height: 48px; /* ✅ TÁCTIL */
+  }
+  
+  /* 🔥 GRID BADGES 2 COLUMNAS MÓVIL */
+  .juego-iconos {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem !important;
+    padding: 1rem 0;
+  }
+  
+  .det-badge {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+    margin: 0 !important;
+    flex: 1;
+    justify-content: center;
+    min-height: 44px; /* ✅ TÁCTIL */
+  }
+  
+  .link-access-badge {
+    min-width: 48px !important;
+    height: 48px !important;
+    font-size: 1.2rem;
+  }
+  
+  .juego-img { max-height: 180px; }
+  .juego-titulo { font-size: 1.25rem; }
 }
 
 @media (max-width: 480px) {
-  .cards-wrapper h3 { font-size: 1.8rem; text-align: center; }
-  .juego-img { max-height: 140px; }
+  .cards-wrapper h3 { 
+    font-size: 1.8rem; 
+    text-align: center; 
+    padding: 0 1rem;
+  }
+  
+  .juego-card { padding: 1.25rem 1rem; }
+  .juego-img { max-height: 160px; }
+  .juego-iconos { grid-template-columns: 1fr 1fr !important; }
+  .det-badge { font-size: 0.8rem; padding: 0.5rem 0.6rem; }
 }
 
 
