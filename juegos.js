@@ -1,6 +1,3 @@
-Aquí tienes el JS modificado para generar exactamente la estructura que quieres con badges y clases de filtro:
-
-javascript
 document.addEventListener('DOMContentLoaded', function () {
   const contenedor = document.getElementById('juegos-mesa');
   if (!contenedor) return;
