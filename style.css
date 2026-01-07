@@ -564,12 +564,12 @@ font-family: 'Quicksand', sans-serif;
 }
 
 
-/* ===== TARJETAS JUEGOS MEJORADAS - MÓVIL OPTIMIZADO ===== */
+/* ===== TARJETAS JUEGOS MEJORADAS - VERSIÓN ORIGINAL + MÓVIL PERFECTO ===== */
 .cards-wrapper {
   max-width: 1200px;
   margin: 0 auto 4rem;
   text-align: left;
-  padding: 0 1rem;
+  padding: 0 1rem; /* ✅ MÓVIL */
 }
 
 .cards-wrapper h3 {
@@ -601,7 +601,6 @@ font-family: 'Quicksand', sans-serif;
   border: 1px solid rgba(77, 183, 195, 0.1);
   position: relative;
   overflow: hidden;
-  margin: 0.5rem; /* ✅ MÓVIL */
 }
 
 .juego-card:hover {
@@ -658,7 +657,6 @@ font-family: 'Quicksand', sans-serif;
   line-height: 1.5;
 }
 
-/* ✅ BOTÓN TOGGLE - MÓVIL FULL WIDTH */
 .juego-toggle {
   margin-top: auto;
   background: linear-gradient(135deg, #4db7c3, #3a9aa5);
@@ -672,8 +670,6 @@ font-family: 'Quicksand', sans-serif;
   font-weight: 600;
   box-shadow: 0 6px 20px rgba(77, 183, 195, 0.3);
   transition: all 0.3s;
-  width: 100%; /* ✅ MÓVIL */
-  justify-self: stretch;
 }
 
 .juego-toggle:hover {
@@ -694,14 +690,6 @@ font-family: 'Quicksand', sans-serif;
   to { opacity: 1; max-height: 500px; }
 }
 
-/* 🔥 BADGES - GRID MÓVIL 2 COLUMNAS */
-.juego-iconos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-}
-
 .det-badge {
   display: inline-flex;
   align-items: center;
@@ -719,38 +707,11 @@ font-family: 'Quicksand', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
 }
 
 .det-badge:hover {
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 8px 25px rgba(77, 183, 195, 0.4);
-}
-
-/* ✅ LINK ACCESS+ - VERDE TÁCTIL */
-.link-access-badge {
-  background: linear-gradient(135deg, #28a745, #218838) !important;
-  color: white !important;
-  min-width: 44px; /* ✅ TÁCTIL MÓVIL */
-  height: 44px;
-  justify-content: center;
-  font-size: 1.1rem;
-  padding: 0.5rem;
-}
-
-.link-access-badge:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34) !important;
-  transform: scale(1.1);
-}
-
-/* ✅ ACCESS+ / DIY BADGES */
-.access-badge {
-  font-weight: 700 !important;
-}
-
-.access-badge:contains("✅ Access+") {
-  background: linear-gradient(135deg, #28a745, #20c997) !important;
-  color: white !important;
 }
 
 .juego-tags {
@@ -791,14 +752,33 @@ font-family: 'Quicksand', sans-serif;
   box-shadow: 0 10px 30px rgba(227, 124, 58, 0.4);
 }
 
+/* 🔥 NUEVOS ESTILOS ACCESS+ */
+.link-access-badge {
+  background: linear-gradient(135deg, #28a745, #218838) !important;
+  color: white !important;
+  min-width: 48px;
+  height: 48px;
+  justify-content: center;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.link-access-badge:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34) !important;
+  transform: scale(1.1);
+}
+
+.access-badge {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  color: white !important;
+  font-weight: 700 !important;
+}
+
 /* ═══════════════════════════════════════════════════════════════
-                    🔧 RESPONSIVE MÓVIL PERFECTO
+                    RESPONSIVE - SOLO MÓVIL
 ════════════════════════════════════════════════════════════════ */
 @media (max-width: 1200px) {
-  .cards-container { 
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-    gap: 1.5rem; 
-  }
+  .cards-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 }
 
 @media (max-width: 768px) {
@@ -825,32 +805,32 @@ font-family: 'Quicksand', sans-serif;
   
   /* ✅ BOTÓN FULL WIDTH MÓVIL */
   .juego-toggle {
+    width: 100% !important;
     padding: 0.75rem;
     font-size: 1rem;
-    min-height: 48px; /* ✅ TÁCTIL */
+    min-height: 48px;
   }
   
   /* 🔥 GRID BADGES 2 COLUMNAS MÓVIL */
   .juego-iconos {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 0.75rem !important;
     padding: 1rem 0;
   }
   
   .det-badge {
-    font-size: 0.85rem;
-    padding: 0.6rem 0.8rem;
     margin: 0 !important;
-    flex: 1;
     justify-content: center;
-    min-height: 44px; /* ✅ TÁCTIL */
+    min-height: 44px;
+    font-size: 0.9rem;
+    flex: 1;
   }
   
   .link-access-badge {
-    min-width: 48px !important;
-    height: 48px !important;
-    font-size: 1.2rem;
+    min-width: 52px !important;
+    height: 52px !important;
+    font-size: 1.3rem;
   }
   
   .juego-img { max-height: 180px; }
@@ -867,7 +847,8 @@ font-family: 'Quicksand', sans-serif;
   .juego-card { padding: 1.25rem 1rem; }
   .juego-img { max-height: 160px; }
   .juego-iconos { grid-template-columns: 1fr 1fr !important; }
-  .det-badge { font-size: 0.8rem; padding: 0.5rem 0.6rem; }
+  .det-badge { font-size: 0.85rem; padding: 0.6rem 0.7rem; }
 }
+
 
 
