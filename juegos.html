@@ -2,76 +2,527 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!--AJusta la pagina para que sea responsiva en moviles-->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Juegos de mesa – Diversencia*</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" /> <!--Carga la fuente-->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="logo.png" type="image/x-icon" /> <!--icono del navegador-->
-</head>
-<body>
-  <div class="page-wrapper">
-    <header class="hero1">
-      <div class="contenedor-logo">
-        <h1><span class="nombre">Juegos de mesa</span><span class="asterisco">*</span></h1>
-        <p class="subtitulo">Diversión inclusiva para todas las edades.</p>
-      </div>
-    </header>
-     
-    <main class="contenido">
-      <section class="cards-wrapper"> <!--Se centra en mostrar las tarjetas de juegos de mesa.-->
-        <h3 id="JuegosDeMesa">Encuentra tu próximo juego de mesa favorito</h3>
-        
-        <!-- ✅ FILTROS -->
-        <div class="filtros-juegos" role="search" aria-label="Filtrar juegos">
-          <div class="filtro-search"> <!--Búsqueda por texto-->
-            <label for="buscar-juego">Buscar:</label>
-            <input type="search" id="buscar-juego" placeholder="Nombre o descripción..." aria-describedby="ayuda-filtros">
-          </div>
-          
-          <div class="filtro-grupo"> <!--Edad-->
-            <label>Edad min:</label>
-            <button class="btn-filtro" data-age="0">0+</button>
-            <button class="btn-filtro" data-age="6">6+</button>
-            <button class="btn-filtro" data-age="10">10+</button>
-            <button class="btn-filtro active" data-age="14">14+</button>
-          </div>
-          
-        <!-- ✅ ACCESIBILIDAD - PREPARADO para badges -->
-          <div class="filtro-grupo">
-            <label>Accesibilidad:</label>
-            <button class="btn-filtro active" data-access="all">Todas</button>
-            <button class="btn-filtro" data-access="visual">Visual</button>
-            <button class="btn-filtro" data-access="auditiva">Auditiva</button>
-            <button class="btn-filtro" data-access="motora">Motora</button>
-          </div>
-          
-          <button id="limpiar-filtros" class="btn-reset">Limpiar</button> <!--Boton limpiar filtros-->
-        
-        <!-- ✅ CONTENEDOR CARDS (JS lo llena) -->
-        <div id="juegos-mesa" class="cards-container" aria-label="Juegos de mesa"></div>
-      </section>
-    </main>
+  <link rel="icon" href="logo.png" type="image/x-icon" />
+  <style>
+    /* ESTILOS IGUAL A CULTURA INCLUSIVA - PARA JUEGOS DE MESA */
+    body {
+      font-family: 'Fredoka', sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #333;
+    }
 
-    <footer>
-      <div class="footer-container">
-        <div class="footer-top">
-          <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
-          <div class="footer-contact">
-            <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
-            <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
-          </div>
-        </div>
-        <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
-      </div>
-    </footer>
+    header {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .nombre {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 3.5rem;
+      color: #4db7c3;
+    }
+
+    .asterisco {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 3.5rem;
+      color: #e37c3a;
+    }
+
+    .subtitulo {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.2rem;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    /* CONTROLES SUPERIORES STICKY */
+    .controles-superiores {
+      position: sticky; 
+      top: 0; 
+      background: white; 
+      z-index: 900;
+      padding: 15px; 
+      border-bottom: 1px solid #eee;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 10px;
+    }
+
+    .search-input { 
+      width: 90%; 
+      max-width: 500px; 
+      padding: 12px 25px; 
+      border: 2px solid #4db7c3; 
+      border-radius: 50px; 
+      font-family: 'Fredoka'; 
+      outline: none; 
+      font-size: 1rem; 
+    }
+
+    .filter-group { 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 8px; 
+    }
+
+    .filter-btn { 
+      padding: 8px 18px; 
+      border: 2px solid #4db7c3; 
+      background: white; 
+      color: #4db7c3; 
+      border-radius: 25px; 
+      cursor: pointer; 
+      font-weight: 600; 
+      font-family: 'Fredoka'; 
+      transition: 0.3s; 
+    }
+
+    .filter-btn.active { 
+      background: #4db7c3; 
+      color: white; 
+    }
+
+    .view-controls { 
+      margin-top: 5px; 
+      display: flex; 
+      gap: 10px; 
+    }
+
+    .view-btn { 
+      background: #f0f0f0; 
+      border: none; 
+      padding: 8px 15px; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-family: 'Fredoka'; 
+      font-size: 0.85rem; 
+      transition: 0.3s; 
+    }
+
+    .view-btn.active { 
+      background: #e37c3a; 
+      color: white; 
+    }
+
+    /* CARDS TAMAÑO FIJO */
+    .card { 
+      width: 200px; 
+      background: white; 
+      border-radius: 15px; 
+      overflow: hidden; 
+      border: 1px solid #eee; 
+      cursor: pointer; 
+      transition: 0.3s; 
+      flex-shrink: 0; 
+      display: flex; 
+      flex-direction: column;
+    }
+
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    }
+
+    .card img { 
+      width: 100%; 
+      height: 300px; 
+      object-fit: cover; 
+      background: #f5f5f5; 
+    }
+
+    .card-body { 
+      padding: 15px; 
+    }
+
+    .card-body h3 { 
+      font-size: 1rem; 
+      margin: 5px 0; 
+      color: #333; 
+      height: 2.4em; 
+      overflow: hidden; 
+      line-height: 1.2;
+    }
+
+    .card-tag { 
+      font-size: 0.75rem; 
+      color: #4db7c3; 
+      font-weight: 600; 
+      text-transform: uppercase; 
+    }
+
+    /* VISTA CARRUSEL */
+    .vista-carrusel .seccion-horizontal { 
+      position: relative; 
+      padding: 20px 0; 
+    }
+
+    .vista-carrusel .scroll-container { 
+      display: flex; 
+      overflow-x: auto; 
+      gap: 20px; 
+      padding: 10px 5% 30px 5%; 
+      scroll-behavior: smooth; 
+      scrollbar-width: none; 
+    }
+
+    .vista-carrusel .scroll-container::-webkit-scrollbar { 
+      display: none; 
+    }
+
+    .vista-carrusel .btn-nav { 
+      position: absolute; 
+      top: 55%; 
+      transform: translateY(-50%); 
+      background: white; 
+      border: 2px solid #4db7c3; 
+      width: 45px; 
+      height: 45px; 
+      border-radius: 50%; 
+      cursor: pointer; 
+      z-index: 10; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: #4db7c3; 
+      font-size: 1.2rem; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    }
+
+    .vista-carrusel .btn-prev { 
+      left: 20px; 
+    }
+
+    .vista-carrusel .btn-next { 
+      right: 20px; 
+    }
+
+    .titulo-cat { 
+      margin-left: 5%; 
+      font-size: 1.8rem; 
+      color: #222; 
+      margin-bottom: 20px;
+    }
+
+    /* VISTA LISTA (GRILLA) */
+    .vista-lista .seccion-horizontal { 
+      padding: 30px 5%; 
+    }
+
+    .vista-lista .scroll-container { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, 200px); 
+      justify-content: center; 
+      gap: 30px; 
+      overflow: visible; 
+    }
+
+    .vista-lista .btn-nav { 
+      display: none; 
+    }
+
+    /* MODAL */
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 9999; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0,0,0,0.8); 
+      align-items: center; 
+      justify-content: center; 
+      backdrop-filter: blur(5px); 
+    }
+
+    .modal-content { 
+      background: white; 
+      width: 90%; 
+      max-width: 800px; 
+      border-radius: 20px; 
+      padding: 40px; 
+      position: relative; 
+      display: flex; 
+      gap: 30px; 
+    }
+
+    .modal-close { 
+      position: absolute; 
+      top: 15px; 
+      right: 20px; 
+      font-size: 2.5rem; 
+      cursor: pointer; 
+      color: #999; 
+      line-height: 1; 
+    }
+
+    .modal-img { 
+      width: 35%; 
+      border-radius: 15px; 
+      object-fit: cover; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    }
+
+    .modal-info { 
+      width: 65%; 
+    }
+
+    .modal-info h2 {
+      margin: 10px 0; 
+      font-size: 2rem;
+    }
+
+    .modal-info p {
+      line-height: 1.6; 
+      color: #444;
+    }
+
+    .modal-info .modal-plataforma {
+      font-weight: bold; 
+      color: #e37c3a; 
+      margin-top: 20px; 
+      border-top: 1px solid #eee; 
+      padding-top: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 40px;
+      background: #f9f9f9;
+      padding: 30px 20px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo {
+      width: 60px;
+      height: 60px;
+    }
+
+    .footer-contact {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-contact p {
+      margin: 0;
+    }
+
+    .footer-contact a {
+      color: #4db7c3;
+      text-decoration: none;
+    }
+
+    .footer-copy {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .nombre, .asterisco { 
+        font-size: 2.5rem; 
+      }
+
+      .card { 
+        width: 160px; 
+      }
+
+      .card img { 
+        height: 240px; 
+      }
+
+      .vista-lista .scroll-container { 
+        grid-template-columns: repeat(auto-fill, 160px); 
+      }
+
+      .btn-nav { 
+        display: none !important; 
+      }
+
+      .modal-content { 
+        flex-direction: column; 
+        text-align: center; 
+        max-height: 90vh; 
+        overflow-y: auto; 
+        padding: 25px; 
+      }
+
+      .modal-img { 
+        width: 60%; 
+        margin: 0 auto; 
+      }
+
+      .modal-info { 
+        width: 100%; 
+      }
+
+      .search-input {
+        width: 95%;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-contact {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body class="vista-carrusel">
+
+<header class="hero1">
+  <div class="contenedor-logo">
+    <h1><span class="nombre">Juegos de mesa</span><span class="asterisco">*</span></h1>
+    <p class="subtitulo">Diversión inclusiva para todas las edades.</p>
+  </div>
+</header>
+
+<div class="controles-superiores">
+  <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar nombre o descripción...">
+
+  <div class="filter-group">
+    <button class="filter-btn active" data-age="0" onclick="filtrarEdad(this)">0+</button>
+    <button class="filter-btn" data-age="6" onclick="filtrarEdad(this)">6+</button>
+    <button class="filter-btn" data-age="10" onclick="filtrarEdad(this)">10+</button>
+    <button class="filter-btn" data-age="14" onclick="filtrarEdad(this)">14+</button>
   </div>
 
-  <!-- ✅ SCRIPTS ORDEN CORRECTO -->
-  <script src="menulateral.js"></script>
-  <script src="accesibilidad.js"></script>
-  <script src="juegos.js"></script>
+  <div class="filter-group">
+    <button class="filter-btn active" data-access="all" onclick="filtrarAccesibilidad(this)">Todas</button>
+    <button class="filter-btn" data-access="visual" onclick="filtrarAccesibilidad(this)">Visual</button>
+    <button class="filter-btn" data-access="auditiva" onclick="filtrarAccesibilidad(this)">Auditiva</button>
+    <button class="filter-btn" data-access="motora" onclick="filtrarAccesibilidad(this)">Motora</button>
+  </div>
+
+  <div class="view-controls">
+    <button id="btn-vista-carrusel" class="view-btn active" onclick="cambiarVista('carrusel')">Vista Carrusel</button>
+    <button id="btn-vista-lista" class="view-btn" onclick="cambiarVista('lista')">Vista Lista</button>
+  </div>
+
+  <button id="limpiar-filtros" class="filter-btn" onclick="limpiarFiltros()">Limpiar</button>
+</div>
+
+<main id="juegos-mesa-container">
+  <section class="seccion-horizontal" id="sec-Todos">
+    <h2 class="titulo-cat">Todos los juegos</h2>
+    <button class="btn-nav btn-prev" onclick="sideScroll('container-Todos', -420)">❮</button>
+    <div class="scroll-container" id="container-Todos"></div>
+    <button class="btn-nav btn-next" onclick="sideScroll('container-Todos', 420)">❯</button>
+  </section>
+</main>
+
+<div id="miModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="cerrarModal()">&times;</span>
+    <img id="m-img" class="modal-img" src="" alt="">
+    <div class="modal-info">
+      <span id="m-div" class="card-tag"></span>
+      <h2 id="m-tit"></h2>
+      <p id="m-aut" style="font-style: italic; color: #666; margin-bottom: 15px;"></p>
+      <p id="m-sin"></p>
+      <p id="m-plat" class="modal-plataforma"></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <img src="logo.png" alt="Logo Diversencia" class="footer-logo" />
+      <div class="footer-contact">
+        <p>📧 <a href="mailto:proyectodiversencia@gmail.com">proyectodiversencia@gmail.com</a></p>
+        <p>📱 <a href="https://instagram.com/diversencia_" target="_blank">@diversencia_</a></p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 Diversencia* - Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<script src="menulateral.js"></script>
+<script src="accesibilidad.js"></script>
+<script src="juegos.js"></script>
+<script>
+// Funciones auxiliares para los filtros y vista (igual que en cultura inclusiva)
+function filtrarEdad(btn) {
+  document.querySelectorAll('[data-age]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if(typeof filtrarJuegos === 'function') filtrarJuegos();
+}
+
+function filtrarAccesibilidad(btn) {
+  document.querySelectorAll('[data-access]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if(typeof filtrarJuegos === 'function') filtrarJuegos();
+}
+
+function limpiarFiltros() {
+  document.querySelectorAll('[data-age]').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-age="0"]').classList.add('active');
+  document.querySelectorAll('[data-access]').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-access="all"]').classList.add('active');
+  if(typeof filtrarJuegos === 'function') filtrarJuegos();
+}
+
+function cambiarVista(vista) {
+  document.body.classList.remove('vista-carrusel', 'vista-lista');
+  document.body.classList.add('vista-' + vista);
+  document.getElementById('btn-vista-carrusel').classList.remove('active');
+  document.getElementById('btn-vista-lista').classList.remove('active');
+  document.getElementById('btn-vista-' + vista).classList.add('active');
+}
+
+function sideScroll(containerId, delta) {
+  const container = document.getElementById(containerId);
+  container.scrollBy({ left: delta, behavior: 'smooth' });
+}
+
+function cerrarModal() {
+  document.getElementById('miModal').style.display = 'none';
+}
+
+// Abrir modal cuando se hace click en una card
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('.card');
+  if (card) {
+    const juegos = typeof juegosMesaData !== 'undefined' ? juegosMesaData : [];
+    const index = card.getAttribute('data-index');
+    if (index && juegos[index]) {
+      const juego = juegos[index];
+      document.getElementById('m-img').src = juego.img || '';
+      document.getElementById('m-div').textContent = juego.tipo || '';
+      document.getElementById('m-tit').textContent = juego.nombre || '';
+      document.getElementById('m-aut').textContent = juego.autor || '';
+      document.getElementById('m-sin').textContent = juego.descripcion || '';
+      document.getElementById('m-plat').textContent = juego.edad ? 'Edad: ' + juego.edad + '+' : '';
+      document.getElementById('miModal').style.display = 'flex';
+    }
+  }
+});
+</script>
 </body>
 </html>
-
-
-
